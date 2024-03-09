@@ -1,0 +1,90 @@
+.profile_menu {
+    background: #707F99;
+    padding: 14px 15px;
+    margin-bottom: 20px;
+}
+.link_in_the_header {
+    color: #ffffff;
+    font-size: 16px;
+    text-decoration: none;
+}
+.link_in_the_header:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+.link_in_the_header:focus {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+
+.container-one_hypothesis {
+    background: #707F99;
+    color: #FFFFFF;
+    margin: 3px 0;
+    padding: 0 5px;
+    min-height: 60px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.container-one_hypothesis:hover {
+    background: #7F9FC5;
+    transition: .3s;
+}
+.container-one_hypothesis:focus {
+    background: #7F9FC5;
+}
+.container-one_hypothesis div {
+    overflow: hidden;
+    max-height: inherit;
+}
+.project_name_table {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0 5px;
+    color: #FFFFFF;
+    line-height: 18px;
+}
+.project_fullname_text {
+    font-size: 16px;
+    padding: 0 5px;
+    font-weight: 400;
+}
+.informationAboutAction {
+    margin: 10px 5px;
+}
+.hereAddDataOfProject {
+    display: none;
+}
+
+@media screen and (min-width: 992px) {
+
+    .container-one_hypothesis {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        max-height: 60px;
+    }
+    .informationAboutAction {
+        text-align: right;
+    }
+}
+
+@media screen and (min-width: 1140px) {
+
+    .profile_menu {
+        text-align: right;
+    }
+    .link_in_the_header {
+        padding-right: 35px;
+    }
+}
+
+@media screen and (max-width: 1140px) {
+
+    .link_in_the_header {
+        display: block;
+        text-align: left;
+        padding-left: 25px;
+    }
+}

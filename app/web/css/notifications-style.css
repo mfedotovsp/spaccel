@@ -1,0 +1,173 @@
+.page-notifications,
+.page-contractor-notifications {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.container-one_hypothesis {
+    background: #707F99;
+    color: #FFFFFF;
+    margin: 3px 0;
+    padding: 0 5px;
+    min-height: 60px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.container-one_hypothesis:hover {
+    background: #7F9FC5;
+    transition: .3s;
+}
+.container-one_hypothesis:focus {
+    background: #7F9FC5;
+}
+.container-one_hypothesis div {
+    overflow: hidden;
+    max-height: inherit;
+}
+.project_name_table {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0 5px;
+    color: #FFFFFF;
+    line-height: 18px;
+}
+.project_fullname_text {
+    font-size: 16px;
+    padding: 0 5px;
+    font-weight: 400;
+}
+.informationAboutAction {
+    margin: 10px 5px;
+}
+.hereAddProjectCommunications {
+    display: none;
+}
+
+@media screen and (max-width: 480px) {
+
+    .page-notifications,
+    .page-contractor-notifications {
+        background: #F2F2F2;
+        margin: 0 0 -20px 0;
+        padding: 0;
+        min-height: calc(100vh - 160px);
+    }
+    .headers_data_notifications {
+        display: none;
+    }
+
+    .col-md-12.notifications-content {
+        padding-left: 1px;
+        padding-right: 1px;
+    }
+
+    .line_data_notifications {
+        display: none;
+    }
+    .line_data_notifications_mobile {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        border-bottom: 1px solid #C7C7C7;
+    }
+    .line_data_notifications_mobile > .notification-description {
+        padding-top: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .line_data_notifications_mobile > .notification_no_read-description {
+        font-family: 'RobotoCondensed-Light', serif;
+        font-weight: 700;
+        padding-top: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .line_data_notifications_mobile > .read-notification {
+        font-family: 'RobotoCondensed-Light', serif;
+        font-weight: 700;
+        border-top: none;
+        margin: 0;
+        padding-top: 0;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .line_data_notifications_mobile > .notification-date {
+        font-size: 12px;
+        color: #7F9FC5;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .line_data_notifications_mobile > .notification_no_read-date {
+        font-size: 12px;
+        color: #7F9FC5;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .page-contractor-notifications .container-one_hypothesis,
+    .communication-projects .container-one_hypothesis,
+    .task-projects .container-one_hypothesis {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        min-height: 100px;
+    }
+}
+
+@media screen and (min-width: 481px) {
+
+    .headers_data_notifications {
+        display: flex;
+    }
+    .line_data_notifications_mobile {
+        display: none;
+    }
+    .line_data_notifications {
+        display: flex;
+    }
+}
+
+@media screen and (min-width: 992px) {
+
+    .container-one_hypothesis {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        max-height: 60px;
+    }
+}
+
+.row.headers_data_notifications {
+    align-items: center;
+    margin: 0;
+    padding: 10px;
+    min-height: 60px;
+    background: #E0E0E0;
+    font-weight: 700;
+}
+
+.task-projects .row.headers_data_notifications > div,
+.communication-projects .row.headers_data_notifications > div {
+    text-align: left;
+}
+.row.headers_data_notifications > div {
+    text-align: center;
+}
+.row.line_data_notifications {
+    align-items: center;
+    margin: 3px 0 0 0;
+    padding: 10px;
+    min-height: 60px;
+    background: #E0E0E0;
+}
+.read-notification, .notification-response, .conversation-exist {
+    border-top: 1px solid #FFFFFF;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+.read-notification, .notification_no_read-description {
+    font-family: 'RobotoCondensed-Light', serif;
+    font-weight: 700;
+}

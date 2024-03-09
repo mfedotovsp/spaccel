@@ -1,0 +1,170 @@
+/* Стили для таблицы сегментов
+---Начало---
+*/
+.segment-index-export table {
+    color: #4F4F4F;
+}
+table.all_headers_data_segments {
+    padding-left: 35px;
+}
+table.all_headers_data_segments tr td {
+    padding: 5px;
+    font-weight: bold;
+}
+.block_segment_name {
+    width: 270px;
+}
+.block_segment_type {
+    width: 50px;
+    text-align: center;
+}
+.block_segment_params {
+    width: 270px;
+    text-align: center;
+}
+.block_segment_market_volume {
+    width: 120px;
+    text-align: center;
+}
+
+table.block_all_segments {
+    margin: 10px 0;
+}
+table.block_all_segments tr td {
+    background: #E0E0E0;
+}
+table.block_all_segments tr td {
+    padding: 5px;
+}
+table.block_all_segments tr td.block_segment_status {
+    width: 40px;
+    text-align: center;
+}
+/* Стили для таблицы сегментов
+---Конец---
+*/
+
+
+/* Стили для таблицы ГПС
+---Начало---
+*/
+.problem-index-export table {
+    padding-top: 10px;
+    color: #4F4F4F;
+}
+table.all_headers_data_problems {
+    padding-left: 35px;
+}
+table.all_headers_data_problems tr td {
+    padding: 5px;
+    font-weight: bold;
+}
+.block_problem_title {
+    width: 85px;
+    text-align: center;
+}
+.block_problem_description {
+    width: 530px;
+}
+.block_problem_params {
+    width: 200px;
+}
+.block_problem_date {
+    width: 80px;
+    text-align: center;
+}
+
+table.block_all_problems tr td {
+    background: #E0E0E0;
+}
+table.block_all_problems tr td {
+    padding: 5px;
+}
+table.block_all_problems tr td.block_problem_status {
+    width: 40px;
+    text-align: center;
+}
+/* Стили для таблицы ГПС
+---Конец---
+*/
+
+
+/* Стили для таблицы ГЦП
+---Начало---
+*/
+.gcp-index-export table {
+    color: #4F4F4F;
+}
+table.all_headers_data_gcps {
+    padding-left: 35px;
+}
+table.all_headers_data_gcps tr td {
+    padding: 5px;
+    font-weight: bold;
+}
+.block_gcp_title {
+    width: 85px;
+    text-align: center;
+}
+.block_gcp_description {
+    width: 730px;
+}
+.block_gcp_date {
+    width: 80px;
+    text-align: center;
+}
+
+table.block_all_gcps tr td {
+    background: #E0E0E0;
+}
+table.block_all_gcps tr td {
+    padding: 5px;
+}
+table.block_all_gcps tr td.block_gcp_status {
+    width: 40px;
+    text-align: center;
+}
+/* Стили для таблицы ГЦП
+---Конец---
+*/
+
+
+/* Стили для таблицы MVP
+---Начало---
+*/
+.mvp-index-export table {
+    padding-top: 10px;
+    color: #4F4F4F;
+}
+table.all_headers_data_mvps {
+    padding-left: 35px;
+}
+table.all_headers_data_mvps tr td {
+    padding: 5px;
+    font-weight: bold;
+}
+.block_mvp_title {
+    width: 85px;
+    text-align: center;
+}
+.block_mvp_description {
+    width: 730px;
+}
+.block_mvp_date {
+    width: 80px;
+    text-align: center;
+}
+
+table.block_all_mvps tr td {
+    background: #E0E0E0;
+}
+table.block_all_mvps tr td {
+    padding: 5px;
+}
+table.block_all_mvps tr td.block_mvp_status {
+    width: 40px;
+    text-align: center;
+}
+/* Стили для таблицы MVP
+---Конец---
+*/

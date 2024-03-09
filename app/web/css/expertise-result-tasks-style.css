@@ -1,0 +1,48 @@
+.row.expertise-result-tasks {
+    padding: 20px 25px;
+}
+.row.headers_expertise_result_tasks {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 0 0;
+    padding: 10px 5px;
+    min-height: 60px;
+    font-weight: 700;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+}
+.row.headers_expertise_result_tasks > div {
+    text-align: center;
+}
+.row.table_row_expertise_result_tasks {
+    padding: 15px 0;
+    margin: 0;
+    border-bottom: 1px solid #cccccc;
+    cursor: pointer;
+}
+.row.table_row_expertise_result_tasks:hover,
+.row.table_row_expertise_result_tasks.active {
+    background: #E0E0E0;
+}
+.row.rowDataResultTaskExpertise {
+    display: none;
+    background: #E0E0E0;
+    padding: 0 0 15px 0;
+    margin: 0;
+    border-bottom: 1px solid #cccccc;
+}
+.bb-1 {
+    border-bottom: 1px solid;
+}
+.row.tableHeadersDataItemResultTask {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    padding: 10px 5px;
+    margin: 10px 0;
+}
+.row.tableDataItemResultTask {
+    padding: 5px 0;
+    margin: 0;
+}

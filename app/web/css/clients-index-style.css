@@ -1,0 +1,132 @@
+.new_client_link_plus {
+    color: #52BE7F;
+    font-size: 24px;
+}
+.new_client_link_plus:hover {
+    color: #52BE7F;
+    text-decoration: none;
+}
+.new_client_link_plus:focus {
+    color: #52BE7F;
+    text-decoration: none;
+}
+.new_client_link_block {
+    display:flex;
+    align-items: center;
+    padding: 5px 10px 5px 0;
+}
+.row .container-one_client {
+    margin: 3px 0;
+}
+.container-one_client {
+    background: #F2F2F2;
+    color: #4F4F4F;
+    font-size: 16px;
+    padding: 5px 5px 15px 5px;
+    min-height: 120px;
+    border-radius: 12px;
+}
+.container-one_client:hover {
+    background: #E0E0E0;
+    transition: .3s;
+}
+
+.container-one_client:focus {
+    background: #E0E0E0;
+}
+
+.container-one_client .column-client-name {
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 5px;
+    cursor: pointer;
+    transition: color .3s ease;
+    max-height: inherit;
+}
+.container-one_client .column-client-name:hover,
+.container-one_client .column-client-name:focus {
+    color: #1b1e21;
+}
+.container-one_client .column-client-name
+.block-name-and-fullname {
+    overflow: hidden;
+    max-height: inherit;
+    line-height: 19px;
+}
+.container-one_client .column-client-name
+.block-name-and-fullname .block-name {
+    font-size: 18px;
+    font-weight: 700;
+    padding-top: 8px;
+    padding-bottom: 3px;
+}
+.container-one_client .column-client-name
+.block-name-and-fullname .block-fullname {
+    font-size: 14px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+.container-one_client .column-client-name
+.block-name-and-fullname .block-admin-profile-link {
+    margin-top: 5px;
+}
+.container-one_client .column-client-name
+.block-name-and-fullname .block-admin-profile-link a {
+    font-size: 14px;
+}
+
+.container-one_client .column-client-info-entities {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.container-one_client .column-client-info-entities:nth-child(2),
+.container-one_client .column-client-info-entities:nth-child(3) {
+    display:flex;
+    justify-content: center;
+}
+.block_name_link {
+    color: #1b1e21;
+}
+
+.block_name_link:hover {
+    color: #1b1e21;
+    text-decoration: none;
+}
+
+.block_name_link:focus {
+    color: #1b1e21;
+    text-decoration: none;
+}
+
+@media screen and (min-width: 1140px) {
+
+    .container-one_client {
+        display: flex;
+        align-items: center;
+        max-height: 170px;
+    }
+}
+
+.headers-list-clients {
+    display:flex;
+    align-items: center;
+    padding: 30px 0 15px 0;
+    font-weight: 700;
+}
+.headers-list-clients > div:nth-child(1) {
+    padding-left: 30px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.container-one_client > div:last-child > .row {
+    display: flex;
+    align-items: center;
+}
+.container-one_client > div:last-child > .row > div {
+    display: flex;
+    justify-content: center;
+}

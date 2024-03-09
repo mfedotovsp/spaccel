@@ -1,0 +1,130 @@
+body {
+    margin-bottom: 60px;
+    font-family: 'RobotoCondensed-Light', serif;
+    font-size: 16px;
+    padding-right: 0 !important;
+}
+body .wrap {
+    min-height: calc(100vh - 40px);
+    margin-bottom: 0;
+}
+
+
+.profile_menu {
+    display: flex;
+    align-items: center;
+    background: #707F99;
+    height: 50px;
+}
+.profile_menu .link_open_and_close_menu_profile {
+    display: block;
+    color: #ffffff;
+    padding-left: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.profile_menu .link_in_the_header {
+    color: #ffffff;
+    font-size: 16px;
+    text-decoration: none;
+    padding-right: 35px;
+}
+.profile_menu .link_in_the_header:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+.profile_menu .link_in_the_header:focus {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+
+.col-sm-6.hide_block_menu_profile,
+.col-lg-4.hide_block_menu_profile {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    border-top: 1px solid #ffffff;
+    padding: 0;
+}
+.hide_block_menu_profile .link_in_the_header {
+    display: block;
+    background: #E0E0E0;
+    width: 100%;
+    border: 1px solid #ffffff;
+    color: #4F4F4F;
+    text-decoration: none;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    transition: .3s all ease;
+    border-radius: 0 8px 8px 0;
+}
+.hide_block_menu_profile .link_in_the_header:hover {
+    text-decoration: none;
+    color: #ffffff;
+    width: 95%;
+    background: #7F9FC5;
+}
+.hide_block_menu_profile .link_in_the_header:focus {
+    text-decoration: none;
+    color: #ffffff;
+    width: 95%;
+    background: #7F9FC5;
+}
+
+
+@media screen and (min-width: 1140px) {
+    .profile_menu {
+        justify-content: flex-end;
+    }
+    .profile_menu .link_open_and_close_menu_profile {
+        display: none;
+    }
+}
+@media screen and (max-width: 1140px) {
+    .profile_menu .link_in_the_header {
+        display: none;
+    }
+}
+
+
+.message_index_block_right_info {
+    display: flex;
+    min-height: calc(100vh - 171px);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: #ACACAC;
+}
+@media screen and (max-width: 768px) {
+    .message_index_block_right_info {
+        display: none;
+    }
+}
+
+
+/*
+Скрытие полосы прокрутки
+---Начало---
+*/
+@-moz-document url-prefix() { /* Disable scrollbar Firefox */
+    #conversation-list-menu, #conversations_query {
+        scrollbar-width: none;
+    }
+}
+#conversation-list-menu {
+    margin: 0; /* remove default margin */
+    scrollbar-width: none; /* Also needed to disable scrollbar Firefox */
+    -ms-overflow-style: none;  /* Disable scrollbar IE 10+ */
+    overflow-y: scroll;
+}
+#conversation-list-menu::-webkit-scrollbar, #conversations_query::-webkit-scrollbar {
+    width: 0;
+    background: transparent; /* Disable scrollbar Chrome/Safari/Webkit */
+}
+/*
+Скрытие полосы прокрутки
+---Конец---
+*/

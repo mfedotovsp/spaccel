@@ -1,0 +1,216 @@
+.methodological-guide {
+    color: #333333;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.main-header {
+    font-weight: 700;
+    text-align: center;
+}
+.header-content {
+    font-weight: 700;
+    color: #006699;
+    padding-bottom: 5px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.header-text {
+    font-weight: 700;
+}
+
+h3.header-text {
+    padding-bottom: 5px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid;
+}
+.header-text span {
+    padding-left: 15px;
+}
+.simple-block p span {
+    padding-right: 5px;
+    font-weight: 700;
+}
+.bold {
+    font-weight: 700;
+}
+.bold span {
+    padding-right: 10px;
+}
+.normal {
+    font-weight: 400;
+}
+.normal span {
+    padding-right: 10px;
+}
+.blue {
+    color: #006699;
+}
+.pl-15 {
+    padding-left: 15px;
+}
+.pl-25 {
+    padding-left: 25px;
+}
+.mt-10 {
+    margin-top: 10px;
+}
+.flex {
+    display: flex;
+}
+
+.container-text {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.container-list {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+.container-text ol,
+.container-list ol {
+    /* убираем стандартную нумерацию */
+    list-style: none;
+    /* Идентифицируем счетчик и даем ему имя li. Значение счетчика не указано - по умолчанию оно равно 0 */
+    counter-reset: li;
+    padding: 0;
+}
+.container-text ol li:before,
+.container-list ol li:before {
+    /* Определяем элемент, который будет нумероваться — li. Псевдоэлемент before указывает, что содержимое, вставляемое при помощи свойства content, будет располагаться перед пунктами списка. Здесь же устанавливается значение приращения счетчика (по умолчанию равно 1). */
+    counter-increment: li;
+    /* С помощью свойства content выводится номер пункта списка. counters() означает, что генерируемый текст представляет собой значения всех счетчиков с таким именем. Точка в кавычках добавляет разделяющую точку между цифрами, а точка с пробелом добавляется перед содержимым каждого пункта списка */
+    content: counters(li, ".") ". ";
+}
+.container-text ul,
+.container-list ul {
+    padding-left: 15px;
+}
+.container-text ul li div,
+.container-list ul li div {
+    padding-left: 15px;
+}
+.container-text ul li span,
+.container-list ul li span {
+    padding-right: 5px;
+    font-weight: 700;
+}
+
+
+.container-list-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    line-height: 30px;
+}
+.container-list-content ol {
+    /* убираем стандартную нумерацию */
+    list-style: none;
+    /* Идентифицируем счетчик и даем ему имя li. Значение счетчика не указано - по умолчанию оно равно 0 */
+    counter-reset: li;
+    padding: 0;
+}
+.container-list-content li:before {
+    /* Определяем элемент, который будет нумероваться — li. Псевдоэлемент before указывает, что содержимое, вставляемое при помощи свойства content, будет располагаться перед пунктами списка. Здесь же устанавливается значение приращения счетчика (по умолчанию равно 1). */
+    counter-increment: li;
+    /* С помощью свойства content выводится номер пункта списка. counters() означает, что генерируемый текст представляет собой значения всех счетчиков с таким именем. Точка в кавычках добавляет разделяющую точку между цифрами, а точка с пробелом добавляется перед содержимым каждого пункта списка */
+    content: counters(li, ".") ". ";
+}
+.container-list-content li span {
+    padding-left: 15px;
+}
+.menu a {
+    color: #4F4F4F;
+    transition: all .3s ease;
+}
+.menu a:hover {
+    color: #333333;
+}
+.menu a:focus {
+    color: #333333;
+}
+
+table {
+    margin-top: 5px;
+    border: 1px solid;
+}
+table tr th {
+    text-align: center;
+}
+table tr th,
+table tr td {
+    padding: 10px 15px;
+    border: 1px solid;
+}
+
+
+/*Стрелка возвращения вверх страницы*/
+#back-top {
+    position: fixed;
+    bottom: 60px;
+    right: 30px;
+}
+#back-top a {
+    width: 70px;
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #bbb;
+    /* переход */
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
+}
+#back-top a:hover {
+    color: #333333;
+}
+/* иконка стрелки (тег span) */
+#back-top span {
+    width: 70px;
+    height: 70px;
+    display: block;
+    margin-bottom: 7px;
+    background: #ddd url(/web/images/elements/up-arrow.png) no-repeat center center;
+    background-size: 35px 45px;
+    /* круглые углы */
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    /* переход */
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
+}
+#back-top a:hover span {
+    background-color: #333333;
+}
+
+.guide-picture {
+    width: 80%;
+}
+@media screen and (min-width: 1000px) {
+    .guide-picture {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h2.main-header {
+        display: none;
+    }
+    .container-text,
+    .container-list {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

@@ -1,0 +1,45 @@
+.new_rates_plan_link_plus {
+    color: #52BE7F;
+    font-size: 24px;
+}
+.new_rates_plan_link_plus:hover {
+    color: #52BE7F;
+    text-decoration: none;
+}
+.new_rates_plan_link_plus:focus {
+    color: #52BE7F;
+    text-decoration: none;
+}
+.new_rates_plan_link_block {
+    display:flex;
+    align-items: center;
+    padding: 5px 10px 5px 0;
+}
+.row .container-one_rates_plan {
+    margin: 3px 0;
+}
+.container-one_rates_plan {
+    background: #F2F2F2;
+    color: #4F4F4F;
+    font-size: 16px;
+    padding: 5px 5px 15px 5px;
+    min-height: 80px;
+    border-radius: 12px;
+}
+.container-one_rates_plan:hover {
+    background: #E0E0E0;
+    transition: .3s;
+}
+
+.container-one_rates_plan:focus {
+    background: #E0E0E0;
+}
+
+@media screen and (min-width: 1140px) {
+
+    .container-one_rates_plan {
+        display: flex;
+        align-items: center;
+        max-height: 170px;
+    }
+}

@@ -1,0 +1,27 @@
+.page-registration {
+    background: #707F99;
+    min-height: calc(100vh - 120px);
+    height: 100%;
+    margin-bottom: -20px;
+}
+.page-registration  h2 {
+    color: #ffffff;
+}
+.block-form-user-role {
+    color: #ffffff;
+}
+.block-form-registration {
+    color: #ffffff;
+    margin-bottom: 40px;
+}
+.block-exist-agree {
+    display: flex;
+}
+.block-submit-registration {
+    display:flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+.block-for-experience {
+    display: none;
+}

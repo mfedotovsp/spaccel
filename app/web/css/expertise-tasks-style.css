@@ -1,0 +1,219 @@
+.expertise-tasks {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.search-block {
+    display: none;
+}
+input {
+    outline: none; /* Убираем свечение в Chrome и Safari */
+    -webkit-appearance: none; /* Убираем рамку в Chrome и Safari */
+}
+.container-one_hypothesis {
+    background: #707F99;
+    color: #FFFFFF;
+    margin: 3px 0;
+    padding: 0 5px;
+    min-height: 60px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.container-one_hypothesis:hover {
+    background: #7F9FC5;
+    transition: .3s;
+}
+.container-one_hypothesis:focus {
+    background: #7F9FC5;
+}
+.container-one_hypothesis div {
+    overflow: hidden;
+    max-height: inherit;
+}
+.project_name_table {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0 5px;
+    color: #FFFFFF;
+    line-height: 18px;
+}
+.project_fullname_text {
+    font-size: 16px;
+    padding: 0 5px;
+    font-weight: 400;
+}
+.informationAboutAction {
+    margin: 10px 5px;
+}
+.hereAddDataOfProject {
+    display: none;
+}
+.search-experts {
+    padding-top: 10px;
+}
+.search-form-experts {
+    margin-top: 20px;
+}
+label {
+    padding: 0 10px;
+}
+.submit_search_experts {
+    display:flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+@media screen and (min-width: 992px) {
+
+    .container-one_hypothesis {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        max-height: 60px;
+    }
+}
+
+
+.headers_data_experts {
+    margin: 0;
+    padding: 10px;
+    font-weight: 700;
+}
+.row .container-one_user {
+    margin: 3px 0;
+}
+.container-one_user {
+    background: #F2F2F2;
+    color: #4F4F4F;
+    font-size: 16px;
+    padding: 0 5px;
+    min-height: 80px;
+    border-radius: 12px;
+}
+.container-one_user:hover {
+    background: #E0E0E0;
+    transition: .3s;
+}
+
+.container-one_user:focus {
+    background: #E0E0E0;
+}
+
+.container-one_user .column-user-fio {
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 5px;
+    cursor: pointer;
+    transition: color .3s ease;
+}
+.container-one_user .column-user-fio:hover,
+.container-one_user .column-user-fio:focus {
+    color: #1b1e21;
+}
+
+.container-one_user .column-user-fio
+.block-fio-and-date-last-visit .block-fio {
+    font-size: 18px;
+}
+.container-one_user .column-user-fio
+.block-fio-and-date-last-visit .block-date-last-visit {
+    font-size: 14px;
+}
+
+.container-one_user .column-tracker,
+.container-one_user .column-user-status {
+    display: flex;
+    justify-content: center;
+}
+
+.text_description {
+    overflow: hidden;
+    max-height: inherit;
+    line-height: 22px;
+    padding-top: 2px;
+}
+
+@media screen and (min-width: 1140px) {
+
+    .container-one_user {
+        display: flex;
+        align-items: center;
+        max-height: 90px;
+    }
+}
+
+.block-links-menu-tasks {
+    margin-bottom: 3px;
+}
+@media screen and (min-width: 678px) {
+
+    .block-links-menu-tasks > .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgb(127, 159, 197);
+        margin: 0;
+        min-height: 60px;
+        color: #FFFFFF;
+        font-size: 18px;
+    }
+}
+@media screen and (max-width: 678px) {
+
+    .block-links-menu-tasks > .row {
+        display: block;
+        background: rgb(127, 159, 197);
+        margin: 0;
+        padding: 20px;
+        min-height: 60px;
+        color: #FFFFFF;
+        font-size: 18px;
+
+    }
+    .block-links-menu-tasks > .row > div {
+        margin: 15px;
+    }
+}
+
+a.link-menu-tasks {
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all .7s ease;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+a.link-menu-tasks:hover,
+a.link-menu-tasks:focus {
+    color: #FFFFFF;
+    text-decoration: none;
+    border: 1px solid #FFFFFF;
+}
+a.link-menu-tasks.active {
+    border: 1px solid #FFFFFF;
+}
+
+.row.headers_data_communications {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 10px 25px;
+    min-height: 60px;
+    background: #E0E0E0;
+    font-weight: 700;
+}
+.row.headers_data_communications > div {
+    text-align: center;
+}
+.row.line_data_communication {
+    margin: 3px 0 0 0;
+    padding: 10px 25px;
+    min-height: 60px;
+    background: #E0E0E0;
+}
+.row.line_data_communication > div {
+    text-align: center;
+}
+.revoke-request-button {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+}

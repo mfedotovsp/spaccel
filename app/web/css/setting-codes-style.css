@@ -1,0 +1,25 @@
+.admin-setting-codes-index {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.row.row-header {
+    display:flex;
+    align-items: center;
+}
+
+.row-header .col-md-12 {
+    padding-left: 35px;
+}
+
+.col-md-12.headerContainerClientCodes {
+    border-bottom: 1px solid;
+    padding: 5px 20px;
+    font-size: 18px;
+    margin-top: 10px;"
+}
+.col-md-12.containerClientCodes {
+    padding: 30px 20px;
+}
+.rowClientCode {
+    margin-bottom: 5px;
+}

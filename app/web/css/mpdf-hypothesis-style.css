@@ -1,0 +1,32 @@
+.project-view-export, .segment-view-export {
+    color: #4F4F4F;
+}
+.project-view-export .header_section {
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 24px;
+}
+.project-view-export .section_content {
+    width: 100%;
+    padding: 15px 0;
+}
+.project-view-export .section_content h4 {
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.segment-view-export {
+    font-size: 12px;
+    padding: 5px 0;
+}
+.segment-view-export .info-requirement {
+    background: #F2F2F2;
+    padding: 5px 10px;
+    font-size: 11px;
+}
+.segment-view-export h4 {
+    margin: 5px 0;
+    font-weight: bold;
+}

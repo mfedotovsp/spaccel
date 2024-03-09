@@ -1,0 +1,4318 @@
+/*
+PRELOADER
+--- begin ---
+*/
+#preloader {
+    position: fixed;
+    z-index: 999989;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #707F99;
+    color: #ffffff;
+    transition: 1s;
+}
+#preloader #cont {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 90px;
+    height: 20px;
+    margin: auto;
+}
+#preloader #cont .round {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    margin: 0 0.5px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    position: relative;
+    top: -50px;
+    animation: fall 1s linear infinite;
+    animation-timing-function: ease-in-out;
+}
+
+#preloader #cont .round:nth-child(1) {
+    background-color: darkcyan;
+    animation-delay: 0.45s;
+}
+#preloader #cont .round:nth-child(2) {
+    background-color: #3eaaaa;
+    animation-delay: 0.3s;
+}
+#preloader #cont .round:nth-child(3) {
+    background-color: #aae0e0;
+    animation-delay: 0.15s;
+}
+#preloader #cont .round:nth-child(4) {
+    background-color: #ffffff;
+    animation-delay: 0s;
+}
+
+@keyframes fall {
+    0% {
+        top: -50px;
+    }
+    50% {
+        top: 0;
+    }
+    100% {
+        top: -50px;
+    }
+}
+
+#preloader #loading {
+    position: absolute;
+    text-align: center;
+    top: 70%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    font-size: 2em;
+    font-weight: 700;
+}
+/*
+PRELOADER
+--- end ---
+*/
+
+/*Стили для иконки с аватаркой пользователя
+---Начало---
+*/
+.icon_user_avatar {
+    width: 44px;
+    padding: 1px;
+    margin: -10px 0;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+}
+.icon_user_avatar_default {
+    width: 44px;
+    padding: 0;
+    margin: -10px 0;
+}
+/*Стили для иконки с аватаркой пользователя
+---Конец---
+*/
+
+.feed-exp
+{
+    display: none;
+}
+.feed-exp.active
+{
+    display: block;
+    margin-top: -20px;
+}
+
+.border-gray{
+    border-bottom: #e7e8e6 solid 1px;
+}
+
+/*Стили для pdf-бизнес-модели
+---Начало---
+*/
+.block-200-export{
+    width: 220px;
+    margin: 0 5px 5px 0;
+    vertical-align: top;
+    border: solid 1px #9d9d9d;
+    padding: 5px;
+    color: #4c4c4c;
+    font-size: 12px;
+    border-radius: 5px;
+}
+.block-100-export{
+    width: 550px;
+    vertical-align: top;
+    margin: 0 5px 5px 0;
+    border: solid 1px #9d9d9d;
+    padding: 0 5px;
+    color: #4c4c4c;
+    font-size: 12px;
+    border-radius: 5px;
+}
+.export_business_model_mini_header {
+    font-weight: 700;
+    color: #828282;
+    margin-top: 7px;
+}
+/*Стили для pdf-бизнес-модели
+---Конец---
+*/
+
+.bolder{
+    font-weight: 700;
+}
+
+/*
+Стилизация вкладок на странице "Подтверждение"
+---Начало--
+*/
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    padding: 0;
+    margin-top: 10px;
+    font-family: 'RobotoCondensed-Light', serif;
+    font-size: 16px;
+}
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    text-align: center;
+    border-radius: 12px 12px 0 0;
+    height: 50px;
+    overflow: hidden;
+    background: #828282;
+    color: #ffffff;
+    float: left;
+    border: 1px solid #F2F2F2;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background: #707f99;
+    color: #ffffff;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background: #707f99;
+    color: #ffffff;
+    overflow: hidden;
+    float: left;
+    border: 1px solid #F2F2F2;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+}
+
+@media screen and (max-width: 1140px) {
+
+    .tab button {
+        border-radius: 0;
+    }
+}
+/*
+Стилизация вкладок на странице "Подтверждение"
+---Конец--
+*/
+
+/*
+Стилизация подобия вкладок на странице "Создание подтверждения"
+---Начало--
+*/
+
+.block-link-create-interview {
+    padding: 0;
+    margin-top: 10px;
+}
+
+.link_create_interview {
+    text-align: center;
+    border-radius: 12px 12px 0 0;
+    height: 50px;
+}
+
+@media screen and (max-width: 1140px) {
+
+    .link_create_interview {
+        width: 50%;
+        border-radius: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .link_create_interview {
+        width: 100%;
+    }
+}
+
+.link_active_create_interview {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#707f99+0,707f99+100 */
+    background: #707f99; /* Old browsers */
+    background: -moz-linear-gradient(top,  #707f99 0%, #707f99 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #707f99 0%,#707f99 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #707f99 0%,#707f99 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#707f99', endColorstr='#707f99',GradientType=0 ); /* IE6-9 */
+    color: #ffffff;
+    overflow: hidden;
+    float: left;
+    border: 1px solid #F2F2F2;
+    outline: none;
+    cursor: pointer;
+}
+
+.link_passive_create_interview {
+    background: #828282;
+    color: #ffffff;
+    float: left;
+    border: 1px solid #F2F2F2;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.link_passive_create_interview:hover {
+    background: #707f99;
+}
+
+.link_create_interview-block_text {
+    display:flex;
+    align-items: center;
+}
+
+.link_create_interview-text_left {
+    width: 100px;
+    font-size: 20px;
+    text-align: left;
+    font-weight: 700;
+}
+
+.link_create_interview-text_right {
+    line-height: 16px;
+    font-size: 16px;
+}
+
+/*
+Стилизация подобия вкладок на странице "Создание подтверждения"
+---Конец--
+*/
+
+/*
+Стили для иконки сообщений в шапке сайта
+---Начало---
+*/
+.icon_messager {
+    width: 44px;
+    padding: 0;
+    margin: -10px 0;
+}
+.countUnreadMessages,
+.countUnreadCommunications,
+.countUnreadCommunicationsFromContractors {
+    display: flex;
+    min-width: 24px;
+    min-height: 24px;
+    opacity: 0;
+    position: absolute;
+    bottom: -2px;
+    left: 47px;
+    background: #FF5C5C;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: #ffffff;
+    border-radius: 50%;
+    border: 1px solid #FFFFFF;
+}
+.countUnreadMessages.active,
+.countUnreadCommunications.active,
+.countUnreadCommunicationsFromContractors.active {
+    opacity: 1;
+}
+/*
+Стили для иконки сообщений в шапке сайта
+---Конец---
+*/
+
+/*
+Стили для иконки сообщений в блоках бесед
+---Начало---
+*/
+.countUnreadMessagesSender {
+    display: flex;
+    min-width: 16px;
+    min-height: 16px;
+    opacity: 0;
+    position: absolute;
+    bottom: 22px;
+    left: 56px;
+    background: #FF5C5C;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: #ffffff;
+    border-radius: 50%;
+    border: 1px solid #FFFFFF;
+}
+.countUnreadMessagesSender.active {
+    opacity: 1;
+}
+/*
+Стили для иконки сообщений в блоках бесед
+---Конец---
+*/
+
+/*
+Стили для количества непрочитанных
+коммуникаций по проекту
+---Начало---
+*/
+.countUnreadCommunicationsByProject,
+.countUnreadCommunicationsByContractor {
+    display: flex;
+    min-width: 20px;
+    min-height: 20px;
+    opacity: 0;
+    background: #FF5C5C;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: #ffffff;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 1px solid #FFFFFF;
+}
+.countUnreadCommunicationsByProject.active,
+.countUnreadCommunicationsByContractor.active {
+    opacity: 1;
+}
+/*
+Стили для количества непрочитанных
+коммуникаций по проекту
+---Конец---
+*/
+
+/*
+Стили для значка онлайн в иконке беседы
+---Начало---
+*/
+.checkStatusOnlineUser {
+    display: flex;
+    min-width: 14px;
+    min-height: 14px;
+    opacity: 0;
+    position: absolute;
+    top: 23px;
+    left: 18px;
+    background: #00FF66;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: #ffffff;
+    box-shadow: inset rgba(0,0,0,.6) 0 0 4px;
+    border-radius: 50%;
+}
+.checkStatusOnlineUser.active {
+    opacity: 1;
+}
+/*
+Стили для значка онлайн в иконке беседы
+---Конец---
+*/
+
+/*
+Стили для блока поиска беседы
+---Начало---
+*/
+.conversation-link {
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 10px;
+    font-weight: 700;
+    transition: .3s;
+    outline: none;
+    cursor: pointer;
+ }
+.conversation-link:hover {
+    text-decoration: none;
+    background: #7F9FC5;
+    color: #fff;
+
+}
+.conversation-link:focus {
+    text-decoration: none;
+    background: #7F9FC5;
+    color: #fff;
+}
+.conversation-link:last-child {
+    border-bottom-width: 0;
+    border-radius: 0 0 8px 8px;
+}
+
+.user_picture_search {
+    width: 40px;
+    height: 40px;
+    padding: 1px;
+    margin-right: 15px;
+    background: #4F4F4F;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+}
+.user_picture_search_default {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    background: #4F4F4F;
+    border-radius: 8px;
+}
+
+.conversations_query {
+    display: none;
+    width: calc(100% - 32px);
+    position: absolute;
+    top: 41px;
+    left: 1px;
+    max-height: 60vh;
+    background: #ffffff;
+    margin-left: 15px;
+    border-top-width: 0;
+    border-radius: 0 0 12px 12px;
+    z-index: 9999;
+    overflow: auto;
+    box-shadow:
+            inset rgba(0,0,0,.6) 0 -3px 3px,
+            rgba(0,0,0,.8) 0 3px 8px -3px;
+}
+.block_no_search_result {
+    padding: 30px;
+    color: #787878;
+    text-align: center;
+}
+/*
+Ссылки для беседы для блока поиска
+---Конец---
+*/
+
+
+/*
+Стили для блока выбора беседы
+---Начало---
+*/
+.col-sm-6.conversation-list-menu,
+.col-lg-4.conversation-list-menu {
+    background: #707F99;
+    border-top: 1px solid #ffffff;
+    min-height: calc(100vh - 171px);
+    color: #ffffff;
+    padding: 0;
+}
+#conversation-list-menu {
+    max-height: calc(100vh - 171px);
+    overflow-y: auto;
+}
+
+
+.container-user_messages {
+    position: relative;
+    display:flex;
+    background: #707F99;
+    color: #FFFFFF;
+    padding: 0 5px;
+    min-height: 100px;
+    height: 100px;
+    border-bottom: 1px solid #ffffff;
+    transition: .3s;
+    cursor: pointer;
+}
+.container-user_messages:hover {
+    background: #7F9FC5;
+}
+.container-user_messages:focus {
+    background: #7F9FC5;
+}
+.container-user_messages div {
+    overflow: hidden;
+    max-height: inherit;
+}
+.container-user_messages.active-message {
+    background: #7F9FC5;
+}
+
+
+.user_picture {
+    width: 60px;
+    height: 60px;
+    padding: 1px;
+    margin: 20px 10px;
+    background: #4F4F4F;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+}
+.user_picture_default {
+    width: 60px;
+    height: 60px;
+    margin: 20px 10px;
+    background: #4F4F4F;
+    border-radius: 10px;
+}
+.icon_sender_last_message {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+}
+.icon_sender_last_message_default {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background: #4F4F4F;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+}
+
+
+.container_user_messages_text_content {
+    margin: 20px 5px 20px 0;
+    position: relative;
+    width: 100%;
+}
+.container_user_messages_text_content .block_top {
+    font-weight: 700;
+    line-height: 18px;
+    height: 36px;
+}
+.container_user_messages_text_content .block_top div:nth-child(2) {
+    font-size: 14px;
+}
+.container_user_messages_text_content .block_bottom_exist_message {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+}
+.container_user_messages_text_content .block_bottom_exist_message div {
+    height: 20px;
+}
+.container_user_messages_text_content .block_bottom_not_exist_message {
+    position: absolute;
+    bottom: 0;
+    height: 20px;
+    color: #ACACAC;
+}
+.block_not_conversations {
+    padding: 30px;
+    border-bottom: 1px solid #ffffff;
+}
+
+
+.title_block_conversation {
+    padding: 38px 15% 38px 15%;
+    border-bottom: 1px solid #ffffff;
+}
+.title_block_conversation .title {
+    overflow: hidden;
+    text-align: center;
+    color: #ACACAC;
+    font-weight: 700;
+}
+.title_block_conversation .title:before,
+.title_block_conversation .title:after {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    height: 1px;
+    background: #ACACAC;
+    position: relative;
+}
+.title_block_conversation .title:before {
+    margin-left: -100%;
+    left: -15px;
+}
+.title_block_conversation .title:after {
+    margin-right: -100%;
+    right: -15px;
+}
+/*
+Стили для блока выбора беседы
+---Конец---
+*/
+
+
+/*Блок прокрутки в сообщениях
+---Начало---
+*/
+.chat {
+    background: #ffffff;
+    max-height: calc(100vh - 200px);
+    height: calc(100vh - 200px);
+    position: relative;
+}
+.data-chat {
+    padding: 10px 0;
+    background: #ffffff;
+    max-height: calc(100vh - 290px);
+    overflow-y: auto;
+}
+.messages-pagination-list {
+    position: absolute;
+    top: -100%;
+}
+.block_for_link_next_page_masseges {
+    margin-top: 10px;
+}
+a.button_next_page_masseges {
+    color: #ACACAC;
+    text-decoration: none;
+    transition: .3s color ease;
+}
+a.button_next_page_masseges:hover {
+    color: #4F4F4F;
+    text-decoration: none;
+}
+a.button_next_page_masseges:focus {
+    color: #4F4F4F;
+    text-decoration: none;
+}
+.create-message {
+    margin: 35px 0 0 0;
+    position: absolute;
+    bottom: -30px;
+    width: 100%;
+}
+.create-message .form-send-email {
+    position: relative;
+}
+.create-message .form-send-email #input_send_message {
+    min-height: 50px;
+    max-height: 20vh;
+    min-width: 100%;
+    max-width: 100%;
+    padding: 15px 60px 15px 70px;
+    line-height: 19px;
+    resize: none;
+}
+.create-message .form-send-email #submit_send_message {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: -1;
+}
+.create-message .form-send-email #input_message_files {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: -1;
+}
+.create-message .form-send-email .send_message_button {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.create-message .form-send-email .attach_files_button {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    height: 30px;
+    width: 26px;
+    cursor: pointer;
+}
+.create-message .block_attach_files {
+    display: none;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    margin-top: -5px;
+}
+.dayAndDayMessage {
+    text-align: center;
+    margin: 10px 0;
+    color: #7F9FC5;
+}
+.message {
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 15px;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid #ACACAC;
+}
+.message.unreadmessage {
+    background: #f8f4ff;
+}
+.message.unreadmessage .icon_read_message {
+    opacity: 0;
+}
+.sender_data {
+    width: 100%;
+}
+.sender_data .sender_info {
+    display:flex;
+    justify-content: space-between;
+    font-weight: 700;
+    color: #707F99;
+}
+.sender_data .sender_info .interlocutor {
+    color: #52BE7F;
+}
+.sender_data .sender_info div:nth-child(2) {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+}
+.sender_data .sender_info div:nth-child(2) .icon_read_message {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+.sender_data .message-description {
+    padding-top: 5px;
+    line-height: 19px;
+}
+.sender_data .message-description .message-description-files {
+    margin-top: 10px;
+}
+.sender_data .message-description .message-description-files div {
+    height: 20px;
+    overflow: hidden;
+}
+.data-chat .block_not_exist_message {
+    display: flex;
+    min-height: calc(100vh - 370px);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: #ACACAC;
+}
+.user_picture_message {
+    width: 40px;
+    height: 40px;
+    padding: 1px;
+    margin-right: 15px;
+    background: #4F4F4F;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+}
+.user_picture_default_message {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    background: #4F4F4F;
+    border-radius: 8px;
+}
+/*Блок прокрутки в сообщениях
+---Конец---
+*/
+
+
+/* /projects/result-export - таблица kartik yii2-grid
+---Начало---
+*/
+.notification_result_export {
+    display: flex;
+    justify-content: center;
+}
+.project-result-export {
+    color: #373737;
+    font-weight: normal;
+    font-size: 14px;
+    position: absolute;
+    top: -100%;
+}
+.project-result-export .font-header-column {
+    text-align: center;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+/* /projects/result-export - таблица kartik yii2-grid
+---Конец---
+*/
+
+/*
+Навигация по этапам разработки пользов-го проекта
+---Начало---
+*/
+.navigation_blocks {
+    display: flex;
+}
+
+.navigation_block {
+    height: auto;
+    width: 11.111%;
+    font-size: 12px;
+    text-align: center;
+    justify-content: space-between;
+    padding: 2px 7px;
+    display: flex;
+    align-items: center;
+}
+
+.navigation_block:nth-child(7) > div:nth-child(2) {
+    padding-right: 30px;
+    padding-left: 15px;
+}
+.navigation_block:nth-child(8) > div:nth-child(2) {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.navigation_block:nth-child(9) > div:nth-child(2) {
+    padding-right: 15px;
+    padding-left: 5px;
+}
+
+@media screen and (min-width: 1400px) {
+
+    .navigation_block:nth-child(8) > div:nth-child(2) {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .navigation_block:nth-child(9) > div:nth-child(2) {
+        padding-right: 20px;
+        padding-left: 10px;
+    }
+}
+
+@media screen and (min-width: 1700px) {
+
+    .navigation_block:nth-child(1) > div:nth-child(2) {
+        padding-right: 25px;
+        padding-left: 5px;
+    }
+
+    .navigation_block:nth-child(7) > div:nth-child(2) {
+        padding-right: 35px;
+        padding-left: 20px;
+    }
+
+    .navigation_block:nth-child(9) > div:nth-child(2) {
+        padding-right: 30px;
+        padding-left: 15px;
+    }
+
+    .navigation_block > .stage_number {
+        padding-left: 7px;
+        padding-right: 10px;
+    }
+    .navigation_block {
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width: 1900px) {
+
+    .navigation_block:nth-child(1) > div:nth-child(2) {
+        padding-right: 25px;
+        padding-left: 5px;
+    }
+
+    .navigation_block:nth-child(2) > div:nth-child(2) {
+        padding-right: 15px;
+        padding-left: 5px;
+    }
+
+    .navigation_block:nth-child(3) > div:nth-child(2) {
+        padding-right: 15px;
+        padding-left: 5px;
+    }
+
+    .navigation_block:nth-child(7) > div:nth-child(2) {
+        padding-right: 50px;
+        padding-left: 30px;
+    }
+
+    .navigation_block:nth-child(8) > div:nth-child(2) {
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+
+    .navigation_block:nth-child(9) > div:nth-child(2) {
+        padding-right: 40px;
+        padding-left: 30px;
+    }
+
+    .navigation_block > .stage_number {
+        padding-left: 7px;
+        padding-right: 10px;
+    }
+    .navigation_block {
+        font-size: 14px;
+    }
+}
+
+.passive_navigation_block:hover {
+    background: url('/app/web/images/elements/active_navigation_block.png') no-repeat;
+    background-size: 100% 100%;
+    color: #F3F7F7;
+    text-decoration: none;
+}
+
+.passive_navigation_block:hover > .stage_number {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.passive_navigation_block:focus {
+    background: url('/app/web/images/elements/active_navigation_block.png') no-repeat;
+    background-size: 100% 100%;
+    color: #F3F7F7;
+    text-decoration: none;
+}
+
+.passive_navigation_block:focus > .stage_number {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.passive_navigation_block {
+    background: url('/app/web/images/elements/passive_navigation_block.png') no-repeat;
+    background-size: 100% 100%;
+    color: #4F4F4F;
+}
+
+.no_transition_navigation_block {
+    background: url('/app/web/images/elements/passive_navigation_block.png') no-repeat;
+    background-size: 100% 100%;
+    color: #BDBDBD;
+}
+
+.active_navigation_block {
+    background: url('/app/web/images/elements/active_navigation_block.png') no-repeat;
+    background-size: 100% 100%;
+    color: #F3F7F7;
+}
+
+.stage_number {
+    font-family: 'RobotoCondensed-Bold', serif;
+    font-size: 32px;
+    color: #707F99;
+    font-weight: bold;
+    padding-left: 2px;
+    padding-right: 0;
+}
+
+.active_navigation_block > .stage_number {
+    color: #FFFFFF;
+}
+
+.navigation_blocks > .navigation_block:nth-child(7) > .stage_number,
+.navigation_blocks > .navigation_block:nth-child(9) > .stage_number {
+    padding-right: 15px;
+}
+/*
+Навигация по этапам разработки пользов-го проекта
+---Конец---
+*/
+
+/*Стиль для заголовком модальных окон с формами
+---Начало---
+*/
+.style_header_modal_form {
+    border-bottom: none;
+}
+.style_header_modal_form h3{
+    margin-top: 5px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #333333;
+}
+/*Стиль для заголовком модальных окон с формами
+---Конец---
+*/
+
+/*Стили для полей форм
+---Начало---
+*/
+.style_form_field_respond {
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid #4F4F4F;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.form-control{
+    font-size: 20px;
+}
+
+.style-label {
+    font-size: 16px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+}
+/*Стили для полей форм
+---Конец---
+*/
+
+/*Стилизация для поля Select2
+---Начало---
+*/
+.select2-container--krajee .select2-selection--single,
+.select2-container--krajee .select2-selection--single {
+    font-size: 16px;
+    height: 40px;
+    padding-left: 15px;
+    padding-top: 8px;
+    padding-bottom: 15px;
+    border: 1px solid #828282;
+}
+
+.select2-container--krajee .select2-selection--single .select2-selection__arrow,
+.select2-container--krajee .select2-selection--single .select2-selection__arrow {
+    height: 39px;
+}
+
+.select2-results__option {
+    padding: 6px 15px;
+}
+
+.input-lg.select2-container--krajee .select2-selection__clear,
+.input-group-lg .select2-container--krajee .select2-selection__clear {
+    top: 0.6rem;
+}
+/*Стилизация для поля Select2
+---Конец---
+*/
+
+/*Стилизация для поля DepDrop::TYPE_SELECT2
+---Начало---
+*/
+.select2-container--krajee .select2-selection--single {
+    font-size: 16px;
+    height: 40px;
+    padding-left: 15px;
+    padding-top: 8px;
+    padding-bottom: 15px;
+}
+
+.select2-container--krajee .select2-selection__clear {
+    top: 0.6rem;
+}
+
+.select2-container--krajee .select2-selection--single .select2-selection__arrow {
+    height: 39px;
+}
+
+.select2-container--krajee .select2-search--dropdown .select2-search__field {
+    padding-left: 10px;
+}
+
+.select2-container--krajee .select2-selection {
+    border-radius: 12px;
+}
+/*Стилизация для поля DepDrop::TYPE_SELECT2
+---Конец---
+*/
+
+/*Стилизация для строки вопроса Шаг 2
+---Начало---
+*/
+.style_form_field_questions {
+    min-height: 40px;
+    border-radius: 12px;
+    border: 1px solid #828282;
+    background: #ffffff;
+    color: #333333;
+    padding: 5px 10px;
+}
+
+div.style_form_field_questions {
+    display:flex;
+    align-items: center;
+    margin: 2px 15px;
+}
+/*Стилизация для строки вопроса Шаг 2
+---Конец---
+*/
+
+/*Стили для главной страницы
+---Начало---
+*/
+
+@media screen and (max-width: 480px) {
+
+    .background_for_main_page {
+        background-image: url("../images/backgrounds/background_for_login_page_mobile.png");
+        min-height: 100%;
+        min-width: 300px;
+        width: 100%;
+        height: auto;
+        position: absolute;
+        top: 20px;
+        left: 0;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .content_main_page {
+        position:fixed;
+        top: 15%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .top_line_text_main_page {
+        display: none;
+    }
+
+    .style_form_login,
+    .style_error_not_user,
+    .style_go_password_recovery_for_email,
+    .style_answer_for_password_recovery,
+    .style_password_recovery_for_email,
+    .style_form_reset_password {
+        background: #707F99;
+        width: 280px;
+        min-width: 280px;
+        color: #ffffff;
+        height: 400px;
+        border-radius: 16px;
+        padding: 0;
+        margin-top: 15%;
+    }
+    .style_form_login > .hello-text{
+        font-size: 20px;
+        margin: 20px 0 30px 0;
+    }
+
+    .content_main_page_block_text_desktop {
+        display: none;
+    }
+
+    .content_main_page_block_text_mobile {
+        width: 100%;
+        font-family: 'RobotoCondensed-Bold', serif;
+        color: #FFFFFF;
+        text-transform: uppercase;
+    }
+    .content_main_page_block_text_mobile > div {
+        display:flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 0 auto;
+        justify-content: center;
+    }
+    .content_main_page_block_text_mobile > div > .top_title_main_page {
+        font-size: 36px;
+        line-height: 42px;
+        text-align: center;
+        margin-top: 0;
+    }
+    .content_main_page_block_text_mobile > div > .bottom_title_main_page {
+        font-size: 28px;
+        line-height: 32px;
+        text-align: center;
+        margin-top: 20px;
+    }
+    .content_main_page_block_text_mobile > div > .bottom_title_main_page > span {
+        color:#7F9FC5;
+    }
+
+    .style_error_not_user,
+    .style_go_password_recovery_for_email,
+    .style_answer_for_password_recovery {
+        display: none;
+    }
+
+    .style_error_not_user > .top-text,
+    .style_go_password_recovery_for_email > .top-text,
+    .style_answer_for_password_recovery > .top-text,
+    .style_form_reset_password > .top-text {
+        font-size: 20px;
+        margin: 20px 0 50px 0;
+    }
+    .style_error_not_user > .text-content {
+        font-size: 16px;
+        margin: 85px 0 70px 0;
+    }
+
+    .style_go_password_recovery_for_email > .text-content {
+        font-size: 16px;
+        margin: 60px 0 15px 0;
+    }
+
+    .style_answer_for_password_recovery > .text-content {
+        font-size: 16px;
+        margin: 112px 0 130px 0;
+    }
+
+    .style_password_recovery_for_email > .top-text {
+        font-size: 20px;
+        margin: 20px 0 20px 0;
+    }
+    .style_password_recovery_for_email > .text-content {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+    .style_password_recovery_for_email > .text-bottom {
+        font-size: 16px;
+        margin: 5px 0 30px 0;
+    }
+
+    .style_form_reset_password > .text-content {
+        font-size: 16px;
+        margin: 100px 0 10px 0;
+    }
+}
+
+@media screen and (max-width: 480px) and (max-height: 830px) {
+    .content_main_page {
+        top: 10%;
+    }
+    .content_main_page_block_text_mobile > div > .top_title_main_page {
+        font-size: 28px;
+        line-height: 28px;
+    }
+    .content_main_page_block_text_mobile > div > .bottom_title_main_page {
+        font-size: 24px;
+        line-height: 24px;
+        margin-top: 10px;
+    }
+    .style_form_login,
+    .style_error_not_user,
+    .style_go_password_recovery_for_email,
+    .style_answer_for_password_recovery,
+    .style_password_recovery_for_email,
+    .style_form_reset_password {
+        margin-top: 5%;
+    }
+}
+
+@media screen and (min-width: 481px) {
+
+    .background_for_main_page {
+        background-image: url("../images/backgrounds/background_for_login_page.png");
+        min-height: 100%;
+        min-width: 300px;
+        width: 100%;
+        height: auto;
+        position: absolute;
+        top: 20px;
+        left: 0;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .content_main_page {
+        position:fixed;
+        top: 20%;
+        display:flex;
+        width: 100%;
+    }
+
+    .style_form_login,
+    .style_error_not_user,
+    .style_go_password_recovery_for_email,
+    .style_answer_for_password_recovery,
+    .style_password_recovery_for_email,
+    .style_form_reset_password {
+        background: #707F99;
+        width: 340px;
+        min-width: 280px;
+        color: #ffffff;
+        height: 440px;
+        border-radius: 16px;
+        padding: 0;
+        margin-left: 60px;
+        margin-top: 10px;
+    }
+    .style_form_login > .hello-text{
+        font-size: 20px;
+        margin: 20px 0 30px 0;
+    }
+
+    .top_line_text_main_page {
+        margin: 60px 0 0 0;
+        padding: 0;
+    }
+    .top_line_text_main_page > div {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        text-transform: uppercase;
+        min-height: 60px;
+        height: 100%;
+        background: #E0E0E0;
+    }
+
+    .content_main_page_block_text_mobile {
+        display: none;
+    }
+
+    .content_main_page_block_text_desktop {
+        width: 100%;
+        font-family: 'RobotoCondensed-Bold', serif;
+        color: #4F4F4F;
+        text-transform: uppercase;
+    }
+    .content_main_page_block_text_desktop > div {
+        display:flex;
+        width: 100%;
+        margin: 0 auto;
+        justify-content: center;
+    }
+    .content_main_page_block_text_desktop .bottom_text_main_page {
+        margin-top: 15px;
+    }
+    .content_main_page_block_text_desktop > div > .top_title_main_page {
+        font-size: 52px;
+        line-height: 61px;
+        width: 530px;
+        text-align: center;
+        margin-top: 0;
+    }
+    .content_main_page_block_text_desktop > div > .bottom_title_main_page {
+        font-size: 36px;
+        width: 453px;
+        line-height: 42px;
+        text-align: center;
+    }
+    .content_main_page_block_text_desktop > div > .bottom_title_main_page > span {
+        color:#707F99;
+    }
+
+    .style_error_not_user,
+    .style_go_password_recovery_for_email,
+    .style_answer_for_password_recovery {
+        display: none;
+    }
+
+    .style_error_not_user > .top-text,
+    .style_go_password_recovery_for_email > .top-text,
+    .style_answer_for_password_recovery > .top-text,
+    .style_password_recovery_for_email > .top-text,
+    .style_form_reset_password > .top-text {
+        font-size: 20px;
+        margin: 20px 0 50px 0;
+    }
+    .style_error_not_user > .text-content {
+        font-size: 16px;
+        margin: 63px 0 45px 0;
+    }
+
+    .style_go_password_recovery_for_email > .text-content {
+        font-size: 16px;
+        margin: 22px 0 15px 0;
+    }
+
+    .style_answer_for_password_recovery > .text-content {
+        font-size: 16px;
+        margin: 95px 0 130px 0;
+    }
+
+    .style_password_recovery_for_email > .text-content {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .style_password_recovery_for_email > .text-bottom {
+        font-size: 16px;
+        margin: 5px 0 30px 0;
+    }
+
+    .style_form_reset_password > .text-content {
+        font-size: 16px;
+        margin: 80px 0 10px 0;
+    }
+}
+
+.style_error_not_confirm_singup {
+    display: none;
+    position: relative;
+    background: #707F99;
+    width: 340px;
+    min-width: 280px;
+    color: #ffffff;
+    height: 440px;
+    border-radius: 16px;
+    padding: 0;
+    margin-left: 60px;
+    margin-top: 10px;
+}
+
+.link_singup {
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 16px;
+}
+.link_singup:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+.link_singup:focus {
+    color: #ffffff;
+    text-decoration: none;
+}
+/*Стили для главной страницы
+---Конец---
+*/
+
+/*Стилизация Чекбоксов
+---Начало---
+*/
+input[type="checkbox"].custom-checkbox { display: none; }
+
+input[type="checkbox"].custom-checkbox + label {
+    margin-left: 15px;
+    display: block;
+    position: relative;
+    padding-left: 55px;
+    margin-bottom: 20px;
+    font-weight: 400;
+    font-size: 17px;
+    color: #ffffff;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+input[type="checkbox"].custom-checkbox + label:last-child { margin-bottom: 0; }
+
+input[type="checkbox"].custom-checkbox + label:before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #ffffff;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    opacity: .6;
+    -webkit-transition: all .12s, border-color .08s;
+    transition: all .12s, border-color .08s;
+}
+
+input[type="checkbox"].custom-checkbox:checked + label:before {
+    width: 10px;
+    top: -3px;
+    left: 5px;
+    border-radius: 0;
+    opacity: 1;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+/*Стилизация Чекбоксов
+---Конец---
+*/
+
+/*
+Стили для звездочек,
+обозначающие важность вопроса
+---Начало---
+*/
+.star {
+    display: inline-block;
+    vertical-align: top;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(to bottom, rgba(197, 196, 196, 1) 0%, rgba(180, 179, 178, 1) 100%);
+    position: relative;
+}
+.star-link {
+    position: relative;
+    margin-right: 20px;
+    float: right;
+}
+.star-passive {
+    float: right;
+}
+
+@media screen and (max-width: 480px) {
+    .star-link {
+        position: center;
+        margin: 0;
+    }
+}
+
+.star:before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    bottom: 3px;
+    right: 3px;
+    background: linear-gradient(to bottom, rgba(221, 220, 219, 1) 0%, rgba(209, 208, 206, 1) 100%);
+    z-index: 1;
+}
+
+.star,
+.star:before {
+    -webkit-clip-path: polygon(50% 0%, 66% 27%, 98% 35%, 76% 57%, 79% 91%, 50% 78%, 21% 91%, 24% 57%, 2% 35%, 32% 27%);
+    clip-path: polygon(50% 0%, 66% 27%, 98% 35%, 76% 57%, 79% 91%, 50% 78%, 21% 91%, 24% 57%, 2% 35%, 32% 27%);
+}
+
+.star-link > .star.active {
+    background: #52BE7F;
+}
+
+.star-link > .star.active:before {
+    background: #52BE7F;
+}
+
+.star-passive > .star.active {
+    background: #52BE7F;
+}
+
+.star-passive > .star.active:before {
+    background: #52BE7F;
+}
+
+@media screen and (min-width: 481px) {
+    .star-link > .star:hover {
+        background: #52BE7F;
+    }
+
+    .star-link > .star:hover:before {
+        background: #52BE7F;
+    }
+}
+
+/*
+Стили для звездочек,
+обозначающие важность вопроса
+---Конец---
+*/
+
+/*Стили для страницы About
+---Начало---
+*/
+
+.top_line_text_about_page,.bottom_line_text_about_page {
+    margin: 0;
+    padding: 0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    text-transform: uppercase;
+    min-height: 60px;
+    height: 100%;
+    background: #E0E0E0;
+}
+
+.block_middle_content_about_page {
+    margin: 0;
+    padding: 50px 15px;
+    font-size: 18px;
+    display: flex;
+    background: #F2F2F2;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 1400px) {
+
+    .block_middle_content_about_page {
+        font-size: 16px;
+    }
+}
+
+.text_block_about_page {
+    padding-right: 40px;
+}
+.text_block_about_page > div {
+    margin-bottom: 25px;
+    line-height: 21px;
+}
+
+.about_page_media_desktop {
+    float: left;
+    padding-top: 15px;
+}
+.about_page_media_desktop > iframe {
+    padding: 0 15px 0 0;
+}
+
+@media screen and (min-width: 1600px) {
+
+    .text_block_about_page > div {
+        line-height: 25px;
+    }
+}
+
+.text_block_about_page > div > p{
+    margin: 0;
+}
+
+.site-about {
+    margin-bottom: -20px;
+}
+
+.site-about > .navigation_blocks > .navigation_block {
+    cursor: pointer;
+}
+
+.site-about > .tab {
+    margin-bottom: 10px;
+}
+
+.site-about > .tabcontent {
+    margin-top: 10px;
+    border-radius: 12px;
+    padding: 15px 40px;
+    background: #707F99;
+    color: #FFFFFF;
+    font-size: 18px;
+}
+
+.site-about > .tabcontent > p {
+    line-height: 21px;
+}
+.site-about > .tabcontent > p:not(:last-child) {
+    margin-bottom: 20px;
+}
+.site-about > .tabcontent > p:last-child {
+    margin-bottom: 0;
+}
+
+.site-about > .tabcontent > p > a {
+    color: #ccc;
+}
+
+.site-about > .tab > div:hover {
+    background: url('/app/web/images/elements/active_navigation_block.png') no-repeat;
+    background-size: 100% 100%;
+    color: #ffffff;
+}
+
+.site-about > .tab > div.active {
+    background: url('/app/web/images/elements/active_navigation_block.png') no-repeat;
+    background-size: 100% 100%;
+    color: #ffffff;
+}
+.site-about > .tab > div.active > .stage_number {
+    color: #FFFFFF;
+}
+
+@media screen and (max-width: 1400px) {
+
+    .site-about > .tabcontent {
+        font-size: 16px;
+    }
+}
+/*Стили для страницы About
+---Конец---
+*/
+
+
+/*Стили для дорожной карты
+---Начало---
+*/
+#showRoadmapProject > .modal-lg {
+    display: flex;
+    justify-content: center;
+}
+#showRoadmapSegment > .modal-lg {
+    display: flex;
+    justify-content: center;
+}
+.roadmap_segment_modal_header_title {
+    display: flex;
+    justify-content: center;
+}
+.roadmap_segment_modal_header_title_h2 {
+    font-size: 32px;
+    color: #4F4F4F;
+    max-width: 900px;
+    text-align: center;
+}
+.content_roadmap {
+    padding: 5px;
+    max-width: 100%;
+    color: #4F4F4F;
+}
+.roadmap_row_header {
+    display: flex;
+    min-width: 1280px;
+    align-items: center;
+    padding: 7px 0;
+}
+.roadmap_block_stage {
+    width: 11.6%;
+}
+.roadmap_block_stage:nth-child(1) {
+    width: 20%;
+    font-size: 16px;
+    font-weight: 700;
+    padding-left: 10px;
+}
+.roadmap_block_stage:nth-child(2) {
+    width: 8%;
+}
+.roadmap_block_stage > div:nth-child(1) {
+    font-size: 13px;
+    font-weight: 700;
+}
+.roadmap_block_stage:not(:nth-child(2)) > div:nth-child(2) {
+    display: flex;
+    justify-content: space-around;
+    font-size: 12px;
+    padding-top: 5px;
+}
+.roadmap_block_stage:nth-child(2) > div:nth-child(2) {
+    font-size: 12px;
+    padding-top: 5px;
+}
+
+
+
+.roadmap_row_dates {
+    max-width: 100%;
+    min-width: 1280px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #4F4F4F;
+    border-radius: 12px;
+    padding: 2px 0;
+}
+.roadmap_block_name_segment {
+    width: 20%;
+    padding: 0 10px;
+    font-size: 18px;
+    border-right: 1px solid #E0E0E0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    line-height: 18px;
+    overflow: hidden;
+}
+.roadmap_block_date_segment {
+    width: 8%;
+    border-right: 1px solid #E0E0E0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.roadmap_block_date {
+    width: 11.6%;
+    border-right: 1px solid #E0E0E0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+@media screen and (min-width: 1500px) {
+
+    .roadmap_block_date {
+        justify-content: space-around;
+    }
+}
+.roadmap_block_date:last-child {
+    border: none;
+}
+.roadmap_block_date_link_success {
+    color: #4F4F4F;
+    border-bottom: 1px solid #4F4F4F;
+    text-decoration: none;
+}
+.roadmap_block_date_link_success:hover {
+    color: #4F4F4F;
+    text-decoration: none;
+}
+.roadmap_block_date_link_success:focus {
+    color: #4F4F4F;
+    text-decoration: none;
+}
+
+.roadmap_block_date_link_danger {
+    color: #EB5757;
+    border-bottom: 1px solid #EB5757;
+    text-decoration: none;
+}
+.roadmap_block_date_link_danger:hover {
+    color: #EB5757;
+    text-decoration: none;
+}
+.roadmap_block_date_link_danger:focus {
+    color: #EB5757;
+    text-decoration: none;
+}
+/* для мобильной версии */
+.roadmap-mobile {
+    margin-top: 20px;
+    font-size: 12px;
+    border-top: 1px solid #4F4F4F;
+    border-right: 1px solid #4F4F4F;
+    border-left: 1px solid #4F4F4F;
+    border-radius: 8px 8px 0 0;
+}
+.roadmap-mobile-header-segment {
+    height: 30px;
+    border-bottom: 1px solid #4F4F4F;
+    background: #52BE7F;
+    color: #FFFFFF;
+}
+.roadmap-mobile-header-segment:nth-child(1) {
+    border-radius: 8px 8px 0 0;
+}
+.roadmap-mobile-header-segment .col-xs-8 {
+    height: inherit;
+    overflow: hidden;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 0 0 0 10px;
+}
+.roadmap-mobile-header-segment .col-xs-4 {
+    line-height: 30px;
+    padding: 0 10px 0 0;
+    text-align: right;
+}
+.roadmap-mobile-header-column {
+    height: 30px;
+    border-bottom: 1px solid #4F4F4F;
+}
+.roadmap-mobile-header-column div {
+    line-height: 30px;
+    font-weight: 700;
+    padding: 0;
+}
+.roadmap-mobile-simple-column {
+    height: 30px;
+    border-bottom: 1px solid #4F4F4F;
+}
+.roadmap-mobile-simple-column .col-xs-4 {
+    line-height: 30px;
+    padding: 0;
+}
+.roadmap-mobile-simple-column .col-xs-4:nth-child(1) {
+    padding: 0 0 0 10px;
+}
+@media screen and (max-width: 370px) {
+    .roadmap-mobile {
+        font-size: 10px;
+    }
+    .roadmap-mobile-header-segment .col-xs-8 {
+        font-size: 12px;
+    }
+}
+/*Стили для дорожной карты
+---Конец---
+*/
+
+/*Жирный шрифт
+---Начало---
+*/
+.roboto_condensed_bold {
+    font-family: 'RobotoCondensed-Bold', 'serif';
+}
+/*Жирный шрифт
+---Конец---
+*/
+
+/*Стили для стрелки(открытие-закрытие контента) у ссылки с хлебными крошками
+---Начало---
+*/
+.arrow_link {
+    width: 15px;
+    height: 12px;
+    display: inline-block;
+    position: relative;
+    margin: 0 1rem;
+}
+.arrow_link > span {
+    top: .5rem;
+    position: absolute;
+    width: 9px;
+    height: 1px;
+    background-color: #efefef;
+    display: inline-block;
+    transition: all .5s ease;
+}
+.arrow_link > span:first-of-type {
+    left: 0;
+    transform: rotate(45deg);
+}
+.arrow_link > span:last-of-type {
+    right: 0;
+    transform: rotate(-45deg);
+}
+.arrow_link.active_arrow_link > span:first-of-type {
+    transform: rotate(-45deg);
+}
+.arrow_link.active_arrow_link > span:last-of-type {
+    transform: rotate(45deg);
+}
+/*---блок, который открывается с описанием стадий проекта---*/
+.block_description_stage {
+    display: none;
+}
+/*Стили для стрелки у ссылки с хлебными крошками
+---Конец---
+*/
+
+
+/* Стили для стрелок перехода на другой этап на мобильной версии
+---Начало---
+*/
+@media screen and (max-width: 480px) {
+    .arrow_links_router_mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .arrow_link_router_mobile_left img,
+    .arrow_link_router_mobile_right img,
+    .arrow_link_router_mobile_left a,
+    .arrow_link_router_mobile_right a {
+        width: 20px;
+    }
+    .arrow_link_router_mobile_right img {
+        transform: rotate(180deg);
+    }
+    .arrow_links_router_mobile .text-stage {
+        text-align: center;
+        padding-left: 10px;
+        padding-right: 10px;
+        line-height: 20px;
+        font-weight: 700;
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .arrow_links_router_mobile {
+        display: none;
+    }
+}
+/* Стили для стрелок перехода на другой этап на мобильной версии
+---Конец---
+*/
+
+
+/* Стилизация модального окна для удаления гипотезы
+---Начало---
+*/
+#delete_hypothesis_modal .modal-header {
+    background-color: #F5A4A4;
+    color: #ffffff;
+    border-radius: 5px 5px 0 0;
+}
+#delete_hypothesis_modal .modal-body {
+    background-color: #F5A4A4;
+    color: #FFFFFF;
+}
+#delete_hypothesis_modal .modal-body .modal-main-content {
+    font-size: 28px;
+    font-weight: 700;
+}
+#delete_hypothesis_modal .modal-footer {
+    background-color: #F5A4A4;
+    border-radius: 0 0 5px 5px;
+}
+#delete_hypothesis_modal .modal-footer .button-cancel {
+    background-color: #52BE7F;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #ffffff;
+}
+#delete_hypothesis_modal .modal-footer .button-remove {
+    background-color: #4F4F4F;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #ffffff;
+}
+/* Стилизация модального окна для удаления гипотезы
+---Конец---
+*/
+
+
+/* Стилизация модального окна для подтверждения разрешения на экспертизу
+---Начало---
+*/
+#confirm_enable_expertise_modal .modal-header {
+    background-color: #707F99;
+    color: #ffffff;
+    border-radius: 5px 5px 0 0;
+}
+#confirm_enable_expertise_modal .modal-body {
+    background-color: #F2F2F2;
+    color: #4F4F4F;
+}
+#confirm_enable_expertise_modal .modal-footer {
+    background-color: #707F99;
+    border-radius: 0 0 5px 5px;
+}
+/* Стилизация модального окна для подтверждения разрешения на экспертизу
+---Конец---
+*/
+
+
+/* Стилизация сводной таблицы проекта
+---Начало---
+*/
+#showResultTableProject .modal-lg {
+    display: flex;
+    justify-content: center;
+}
+#showResultTableProject .modal-header {
+    border-bottom: none;
+    padding: 15px 15px 0 15px;
+}
+
+.TableResultProject {
+    font-size: 12px;
+    color: #4F4F4F;
+    margin-bottom: 20px;
+}
+
+
+.containerHeaderTableResultProject {
+    display:flex;
+}
+.headerTableResultProject {
+    margin: 0 auto;
+    min-width: 1270px;
+    width: 1270px;
+    background: #707F99;
+    border-radius: 12px 12px 0 0;
+}
+.headerTableResultProject div{
+    font-size: 32px;
+    color: #F2F2F2;
+    font-weight: 700;
+    padding: 5px 0;
+}
+.headerTableResultProject span {
+    margin-right: 10px;
+}
+
+
+.containerHeaderDataOfTableResultProject {
+    display:flex;
+}
+.headerDataOfTableResultProject {
+    display:flex;
+    margin: 0 auto;
+    border-bottom: 1px solid #B4B4B4;
+    background: #F2F2F2;
+}
+.blocks_for_double_header_level {
+    display:flex;
+}
+.blocks_for_single_header_level {
+    display:flex;
+    font-size: 14px;
+    font-weight: 700;
+    min-width: 65px;
+    width: 65px;
+    align-items: center;
+}
+.one_block_for_double_header_level:not(:first-child) {
+    margin-left: 10px;
+}
+.one_block_for_double_header_level .stage {
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 700;
+}
+.one_block_for_double_header_level .columns_stage {
+    display: flex;
+}
+.headerDataOfTableResultProject .column_segment_name {
+    min-width: 200px;
+    width: 200px;
+    padding: 0 0 10px 0;
+    color: #000000;
+    border-right: 1px solid #B4B4B4;
+}
+.headerDataOfTableResultProject .regular_column {
+    min-width: 65px;
+    width: 65px;
+    padding: 0 0 10px 0;
+    color: #000000;
+    border-right: 1px solid #B4B4B4;
+}
+.headerDataOfTableResultProject .first_regular_column_of_stage {
+    max-width: 65px;
+    width: 65px;
+    padding: 0 0 10px 0;
+    color: #000000;
+    border-right: 1px solid #B4B4B4;
+    border-left: 1px solid #B4B4B4;
+}
+
+
+.containerDataOfTableResultProject {
+    display: flex;
+}
+.dataOfTableResultProject {
+    margin: 0 auto;
+}
+.rowSegmentTableResultProject {
+    display:flex;
+}
+.dataOfTableResultProject .container_all_stage{
+    display:flex;
+    width: 100%;
+}
+.dataOfTableResultProject .column_segment_name {
+    min-width: 200px;
+    width: 200px;
+    padding: 5px 10px;
+    border-right: 1px solid #B4B4B4;
+}
+.dataOfTableResultProject .column_segment_name span{
+    margin-right: 5px;
+}
+.dataOfTableResultProject .column_business_model {
+    min-width: 65px;
+    width: 65px;
+    padding: 5px 0;
+}
+.dataOfTableResultProject .regular_column {
+    min-width: 65px;
+    width: 65px;
+    padding: 5px 0;
+    border-right: 1px solid #B4B4B4;
+}
+.dataOfTableResultProject .first_regular_column_of_stage {
+    max-width: 65px;
+    width: 65px;
+    padding: 5px 0;
+    margin-left: 10px;
+    border-right: 1px solid #B4B4B4;
+    border-left: 1px solid #B4B4B4;
+}
+
+a.link_in_column_result_table {
+    color: #4F4F4F;
+    padding-bottom: 2px;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: all .3s ease;
+}
+a.link_in_column_result_table:hover {
+    color: #000000;
+    background-size: 100% 1px;
+}
+a.link_in_column_result_table:focus {
+    color: #000000;
+    background-size: 100% 1px;
+}
+
+
+
+@media screen and (min-width: 1800px) {
+
+    .TableResultProject {
+        font-size: 14px;
+    }
+
+    .headerTableResultProject {
+        min-width: 1560px;
+        width: 1560px;
+    }
+
+    .blocks_for_single_header_level {
+        font-size: 16px;
+        min-width: 80px;
+        width: 80px;
+    }
+
+    .one_block_for_double_header_level .stage {
+        font-size: 16px;
+    }
+
+    .headerDataOfTableResultProject .column_segment_name,
+    .dataOfTableResultProject .column_segment_name {
+        min-width: 250px;
+        width: 250px;
+    }
+
+    .headerDataOfTableResultProject .regular_column,
+    .headerDataOfTableResultProject .first_regular_column_of_stage,
+    .dataOfTableResultProject .column_business_model,
+    .dataOfTableResultProject .regular_column,
+    .dataOfTableResultProject .first_regular_column_of_stage {
+        min-width: 80px;
+        width: 80px;
+    }
+}
+
+/* Для мобильной версии */
+
+@media screen and (max-width: 480px) {
+
+    .projectsResultMobile {
+        position: relative;
+    }
+    .projectsResultMobile > .block-project-name {
+        display: block;
+        margin: 20px auto;
+    }
+    .projectsResultMobile > .block-project-name > div {
+        display: inline-flex;
+        text-transform: uppercase;
+        font-weight: 700;
+        padding: 5px;
+        align-items: center;
+        justify-content: center;
+        background: #D9D9D9;
+        border: 4px solid #4F4F4F;
+        border-radius: 4px;
+        min-width: 45%;
+        min-height: 40px;
+        font-size: 14px;
+    }
+
+    .projectsResultMobile .line-project {
+        border: 2px solid #4F4F4F;
+        position: absolute;
+        top: 35px;
+    }
+
+    .projectsResultMobile > .block-segment-margin {
+        margin-top: 20px;
+        margin-left: 7%;
+    }
+    .projectsResultMobile > .block-segment-margin > .block-segment {
+        position: relative;
+        display: block;
+        width: 40%;
+    }
+    .block-segment > .line-segment {
+        border: 1px solid #4F4F4F;
+        position: absolute;
+        left: 25%;
+    }
+
+    .block-segment .line-content {
+        position: absolute;
+        top: 15px;
+        border: 1px solid #4F4F4F;
+        left: -19%;
+        width: 19%;
+    }
+
+    .projectsResultMobile .block-problem-margin {
+        margin-top: 20px;
+        margin-left: 20%;
+    }
+    .block-problem-margin > .block-problem {
+        display: block;
+        width: 50%;
+    }
+    .block-problem > .line-problem {
+        border: 1px solid #4F4F4F;
+        position: absolute;
+        left: 35%;
+    }
+    .block-problem .line-content {
+        position: absolute;
+        top: 15px;
+        border: 1px solid #4F4F4F;
+        left: -25%;
+        width: 25%;
+    }
+
+    .projectsResultMobile .block-gcp-margin {
+        margin-top: 20px;
+        margin-left: 25%;
+    }
+    .block-gcp-margin > .block-gcp {
+        display: block;
+        width: 67%;
+    }
+    .block-gcp .line-content {
+        position: absolute;
+        top: 15px;
+        border: 1px solid #4F4F4F;
+        left: -25%;
+        width: 25%;
+    }
+    .block-gcp > .line-gcp {
+        border: 1px solid #4F4F4F;
+        position: absolute;
+        left: 53%;
+    }
+
+    .projectsResultMobile .block-mvp-margin {
+        margin-top: 20px;
+        margin-left: 33%;
+    }
+    .block-mvp-margin > .block-mvp {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+    .block-mvp .line-content {
+        position: absolute;
+        top: 15px;
+        border: 1px solid #4F4F4F;
+        left: -26%;
+        width: 26%;
+    }
+    .block-mvp > .line-mvp {
+        border: 1px solid #4F4F4F;
+        position: absolute;
+        left: 25%;
+        top: 100%;
+        height: 74%;
+    }
+
+    .projectsResultMobile .block-business-model-margin {
+        margin-top: 20px;
+        margin-left: 50%;
+    }
+    .block-business-model-margin > .block-business-model {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+    .block-business-model .line-content {
+        position: absolute;
+        top: 38px;
+        border: 1px solid #4F4F4F;
+        left: -50%;
+        width: 50%;
+    }
+
+    .projectsResultMobile .content {
+        position: relative;
+        border-width: 0 1px 1px 1px;
+        border-style: solid;
+        border-color: #4F4F4F;
+        border-radius: 0 0 4px 4px;
+        width: 100%;
+        min-height: 40px;
+    }
+    .projectsResultMobile .truncate-text {
+        overflow: hidden;
+        max-height: 40px;
+        width: inherit;
+        font-size: 12px;
+        padding: 3px;
+    }
+    .projectsResultMobile .content-bottom-incomplete,
+    .projectsResultMobile .content-bottom-complete,
+    .projectsResultMobile .content-bottom-not_completed {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 20px;
+        width: inherit;
+    }
+    .projectsResultMobile .content-bottom-incomplete > .date-created_at {
+        display: flex;
+        flex-grow: 1;
+        font-size: 10px;
+        justify-content: center;
+    }
+    .projectsResultMobile .content-bottom-complete > .date-created_at,
+    .projectsResultMobile .content-bottom-not_completed > .date-created_at {
+        display: flex;
+        font-size: 10px;
+        justify-content: center;
+        width: 50%;
+    }
+    .projectsResultMobile .content-bottom-incomplete > .block-button-confirm {
+        display: flex;
+        width: 50%;
+    }
+    .projectsResultMobile .content-bottom-complete > .date-confirm,
+    .projectsResultMobile .content-bottom-not_completed > .date-confirm {
+        display: flex;
+        font-size: 10px;
+        justify-content: center;
+        width: 50%;
+        font-weight: 700;
+    }
+
+    .link-confirm-result-mobile {
+        display: flex;
+        padding: 3px;
+        align-items: center;
+        border: 1px solid #4F4F4F;
+        border-radius: 4px 4px 0 0;
+        width: 100%;
+        height: 20px;
+        color: #FFFFFF;
+        font-size: 12px;
+        text-decoration: none;
+    }
+    .bg-grey {
+        background: #d9d9d9;
+    }
+    .bg-green {
+        background: #52BE7F;
+    }
+    .bg-red {
+        background: #F5A4A4;
+    }
+    .color-red {
+        color: #F5A4A4;
+    }
+
+    .button-confirm-result-mobile {
+        display: flex;
+        width: 100%;
+        height: 20px;
+        background: #7f9fc5;
+        color: #FFFFFF;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0 0 4px 0;
+        border-width: 1px 0 0 1px;
+        border-style: solid;
+        border-color: #4F4F4F;
+        font-size: 10px;
+        text-decoration: none;
+    }
+    .button-confirm-result-mobile:focus {
+        color: #FFFFFF;
+        text-decoration: none;
+    }
+    .button-confirm-result-mobile.disabled {
+        opacity: 0.65;
+    }
+
+    .button-business-model-result-mobile {
+        display: flex;
+        text-align: center;
+        padding: 3px;
+        align-items: center;
+        background: #52BE7F;
+        border: 1px solid #4F4F4F;
+        border-radius: 4px 4px 0 0;
+        width: 100%;
+        height: 40px;
+        color: #FFFFFF;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+    .button-close-result-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #F5A4A4;
+        color: #ffffff;
+        width: 140px;
+        height: 40px;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 700;
+        padding-top: 9px;
+        border-radius: 8px;
+        margin-top: 28px;
+    }
+    .button-business-model-result-mobile:focus,
+    .button-close-result-mobile:focus {
+        color: #FFFFFF;
+        text-decoration: none;
+    }
+}
+
+@media screen and (min-width: 481px) {
+
+    .projectsResultMobile,
+    .button-close-result-mobile {
+        display: none;
+    }
+}
+
+/* Стилизация сводной таблицы проекта
+---Конец---
+*/
+
+
+
+/*Стилизация страницы админка/проекты (порфель проектов)
+---Начало---
+*/
+.admin-projects-result .select_count_projects {
+    display:flex;
+    align-items: center;
+}
+@media screen and (min-width: 1600px) {
+    .admin-projects-result .select_count_projects {
+        width: 95%;
+    }
+}
+@media screen and (min-width: 1800px) {
+    .admin-projects-result .select_count_projects {
+        width: 85%;
+    }
+}
+
+
+.admin-projects-result .containerHeaderDataOfTableResultProject {
+    display:flex;
+    font-size: 12px;
+}
+.admin-projects-result .headerDataOfTableResultProject {
+    display:flex;
+    margin: 0 auto;
+    border-bottom: 1px solid #B4B4B4;
+    background: #F2F2F2;
+    width: 100%;
+}
+.admin-projects-result .blocks_for_double_header_level {
+    display:flex;
+    min-width: 94%;
+    width: 94%;
+}
+.admin-projects-result .blocks_for_single_header_level {
+    display:flex;
+    font-size: 14px;
+    font-weight: 700;
+    min-width: 6%;
+    width: 6%;
+    align-items: center;
+    padding-right: 10px;
+}
+.admin-projects-result .one_block_for_double_header_level {
+    min-width: 32.5%;
+    width: 32.5%;
+}
+.admin-projects-result .one_block_for_double_header_level:not(:first-child) {
+    margin-left: 10px;
+    min-width: 21.5%;
+    width: 21.5%;
+}
+.admin-projects-result .one_block_for_double_header_level .stage {
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 700;
+}
+.admin-projects-result .one_block_for_double_header_level .columns_stage {
+    display: flex;
+}
+.admin-projects-result .one_block_for_double_header_level .columns_stage .column_segment_name {
+    min-width: 52%;
+    width: 52%;
+    padding: 0 0 10px 0;
+    color: #000000;
+    border-right: 1px solid #B4B4B4;
+}
+.admin-projects-result .one_block_for_double_header_level:first-child .columns_stage .regular_column {
+    min-width: 16%;
+    width: 16%;
+}
+
+.admin-projects-result .one_block_for_double_header_level .columns_stage .regular_column {
+    min-width: 25%;
+    width: 25%;
+    padding: 0 0 10px 0;
+    color: #000000;
+    border-right: 1px solid #B4B4B4;
+}
+.admin-projects-result .one_block_for_double_header_level .columns_stage .first_regular_column_of_stage {
+    max-width: 25%;
+    width: 25%;
+    padding: 0 0 10px 0;
+    color: #000000;
+    border-right: 1px solid #B4B4B4;
+    border-left: 1px solid #B4B4B4;
+}
+
+
+
+.admin-projects-result .block_for_projectname_and_username {
+    display:flex;
+    height: 40px;
+    align-items: center;
+    background: #7F9FC5;
+    border-top: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    font-size: 22px;
+    font-weight: 700;
+}
+.admin-projects-result .block_for_projectname_and_username a {
+    color: #F2F2F2;
+    text-decoration: none;
+    transition: color .3s;
+}
+.admin-projects-result .block_for_projectname_and_username a:hover,
+.admin-projects-result .block_for_projectname_and_username a:focus{
+    color: #ffffff;
+}
+.admin-projects-result .block_for_projectname_and_username a span {
+    margin-right: 5px;
+}
+
+
+.admin-projects-result .ratingOfProject {
+    display: flex;
+}
+.admin-projects-result .ratingOfProject .base_line {
+    width: 94%;
+    display:flex;
+}
+.admin-projects-result .ratingOfProject .business_models_line {
+    width: 6%;
+    z-index: 98;
+}
+.admin-projects-result .ratingOfProject .segments_line_success {
+    height: 10px;
+    background: #52BE7F;
+    width: 32.5%;
+}
+.admin-projects-result .ratingOfProject .segments_line_default {
+    height: 10px;
+    background: #C4C4C4;
+    width: 32.5%;
+}
+.admin-projects-result .ratingOfProject .rating_line_success {
+    height: 10px;
+    background: #52BE7F;
+    width: calc(21.5% + 10px);
+    z-index: 99;
+}
+.admin-projects-result .ratingOfProject .rating_line_default {
+    height: 10px;
+    background: #C4C4C4;
+    width: calc(21.5% + 10px);
+    z-index: 99;
+}
+.admin-projects-result .ratingOfProject .business_models_line_success {
+    height: 10px;
+    background: #52BE7F;
+    width: 150%;
+    margin-left: -50%;
+}
+.admin-projects-result .ratingOfProject .business_models_line_default {
+    height: 10px;
+    background: #C4C4C4;
+    width: 150%;
+    margin-left: -50%;
+}
+
+
+
+.admin-projects-result .containerDataOfTableResultProject {
+    display: flex;
+    font-size: 12px;
+}
+.admin-projects-result .dataOfTableResultProject {
+    margin: 0 auto;
+    width: 100%;
+}
+.admin-projects-result .dataOfTableResultProject .rowSegmentTableResultProject {
+    display:flex;
+}
+.admin-projects-result .dataOfTableResultProject .container_all_stage{
+    display:flex;
+    width: 100%;
+}
+.admin-projects-result .dataOfTableResultProject .column_segment_name {
+    min-width: 52%;
+    width: 52%;
+    padding: 5px 10px;
+    border-right: 1px solid #B4B4B4;
+}
+.admin-projects-result .dataOfTableResultProject .column_segment_name span{
+    margin-right: 5px;
+}
+.admin-projects-result .dataOfTableResultProject .regular_column_for_segment {
+    min-width: 16%;
+    width: 16%;
+    padding: 5px 0;
+    border-right: 1px solid #B4B4B4;
+}
+.admin-projects-result .dataOfTableResultProject .regular_column_for_problem {
+    min-width: 7.275%;
+    width: 7.275%;
+    padding: 5px 0;
+    border-right: 1px solid #B4B4B4;
+}
+.admin-projects-result .dataOfTableResultProject .regular_column_for_gcp {
+    min-width: 10.44%;
+    width: 10.44%;
+    padding: 5px 0;
+    border-right: 1px solid #B4B4B4;
+}
+.admin-projects-result .dataOfTableResultProject .regular_column_for_mvp {
+    min-width: 18.55%;
+    width: 18.55%;
+    padding: 5px 0;
+    border-right: 1px solid #B4B4B4;
+}
+.admin-projects-result .dataOfTableResultProject .column_business_model_for_mvp {
+    min-width: 22%;
+    width: 22%;
+    padding: 5px 0 5px 15px;
+}
+.admin-projects-result .dataOfTableResultProject .first_regular_column_of_stage_for_problem {
+    min-width: 7.275%;
+    width: 7.275%;
+    padding: 5px 0;
+    margin-left: 10px;
+    border-right: 1px solid #B4B4B4;
+    border-left: 1px solid #B4B4B4;
+}
+.admin-projects-result .dataOfTableResultProject .first_regular_column_of_stage_for_gcp {
+    min-width: 10.43%;
+    width: 10.43%;
+    padding: 5px 0;
+    margin-left: 10px;
+    border-right: 1px solid #B4B4B4;
+    border-left: 1px solid #B4B4B4;
+}
+.admin-projects-result .dataOfTableResultProject .first_regular_column_of_stage_for_mvp {
+    min-width: 18.55%;
+    width: 18.55%;
+    padding: 5px 0;
+    margin-left: 10px;
+    border-right: 1px solid #B4B4B4;
+    border-left: 1px solid #B4B4B4;
+}
+
+
+.admin-projects-result .dataOfTableResultProject .regular_column_for_segment_empty {
+    min-width: 16%;
+    width: 16%;
+    padding: 5px 0;
+    min-height: 30px;
+    border-right: 1px solid #B4B4B4;
+}
+.admin-projects-result .dataOfTableResultProject .regular_column_for_problem_empty {
+    min-width: 7.275%;
+    width: 7.275%;
+    padding: 5px 0;
+    min-height: 30px;
+    border-right: 1px solid #B4B4B4;
+}
+.admin-projects-result .dataOfTableResultProject .regular_column_for_gcp_empty {
+    min-width: 10.44%;
+    width: 10.44%;
+    padding: 5px 0;
+    min-height: 30px;
+    border-right: 1px solid #B4B4B4;
+}
+.admin-projects-result .dataOfTableResultProject .regular_column_for_mvp_empty {
+    min-width: 18.55%;
+    width: 18.55%;
+    padding: 5px 0;
+    min-height: 30px;
+    border-right: 1px solid #B4B4B4;
+}
+
+
+.admin-projects-result a.link_in_column_result_table {
+    color: #4F4F4F;
+    padding-bottom: 2px;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: all .3s ease;
+}
+.admin-projects-result a.link_in_column_result_table:hover {
+    color: #000000;
+    background-size: 100% 1px;
+}
+.admin-projects-result a.link_in_column_result_table:focus {
+    color: #000000;
+    background-size: 100% 1px;
+}
+
+
+@media screen and (min-width: 1600px) {
+
+    .admin-projects-result .containerHeaderDataOfTableResultProject {
+        font-size: 14px;
+    }
+    .admin-projects-result .blocks_for_single_header_level {
+        font-size: 16px;
+    }
+    .admin-projects-result .blocks_for_double_header_level .one_block_for_double_header_level .stage {
+        font-size: 16px;
+    }
+    .admin-projects-result .containerDataOfTableResultProject {
+        font-size: 14px;
+    }
+    .admin-projects-result .dataOfTableResultProject .column_business_model_for_mvp {
+        padding-left: 30px;
+    }
+
+    .admin-projects-result .dataOfTableResultProject .regular_column_for_segment_empty,
+    .admin-projects-result .dataOfTableResultProject .regular_column_for_problem_empty,
+    .admin-projects-result .dataOfTableResultProject .regular_column_for_gcp_empty,
+    .admin-projects-result .dataOfTableResultProject .regular_column_for_mvp_empty {
+        min-height: 31px;
+    }
+}
+
+/*Стилизация страницы админка/проекты (порфель проектов)
+---Конец---
+*/
+
+
+
+/*Стилизация пагинации для страницы админка/проекты (порфель проектов)
+---Начало---
+*/
+.pagination-admin-projects-result {
+    margin: 15px 0;
+}
+ul.admin-projects-result-pagin-list {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+ul.admin-projects-result-pagin-list li {
+    display: inline;
+}
+ul.admin-projects-result-pagin-list li  {
+    display: flex;
+    float: left;
+    width: 45px;
+    height: 37px;
+    justify-content: center;
+    align-items: center;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+ul.admin-projects-result-pagin-list li a {
+    color: #333333;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ul.admin-projects-result-pagin-list li.pagination_active_page {
+    background-color: #7F9FC5;
+    border: 1px solid #7F9FC5;
+}
+ul.admin-projects-result-pagin-list li.pagination_active_page a{
+    color: white;
+}
+ul.admin-projects-result-pagin-list li:hover:not(.pagination_active_page) {
+    background-color: #ddd;
+}
+.admin-projects-result-pagin-list li:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.admin-projects-result-pagin-list li:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+/*Стилизация пагинации для страницы админка/проекты (порфель проектов)
+---Конец---
+*/
+
+
+/* Стилизация пагинации для страницы админка/пользователи
+---Начало---
+*/
+.pagination-users {
+    margin: 15px 0;
+}
+ul.pagination-users-list {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+ul.pagination-users-list li {
+    display: inline;
+}
+ul.pagination-users-list li  {
+    display: flex;
+    float: left;
+    width: 45px;
+    height: 37px;
+    justify-content: center;
+    align-items: center;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+ul.pagination-users-list li a {
+    color: #333333;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ul.pagination-users-list li.pagination_active_page {
+    background-color: #333333;
+    border: 1px solid #333333;
+}
+ul.pagination-users-list li.pagination_active_page a{
+    color: #FFFFFF;
+}
+ul.pagination-users-list li:hover:not(.pagination_active_page) {
+    background-color: #ddd;
+}
+.pagination-users-list li:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.pagination-users-list li:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+/* Стилизация пагинации для страницы админка/пользователи
+---Конец---
+*/
+
+
+/*Стилизация пагинации респондентов для страниц подтверждений
+---Начало---
+*/
+.pagination-responds-confirm {
+    margin: 15px 0;
+}
+ul.responds-confirm-pagin-list {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+ul.responds-confirm-pagin-list li {
+    display: inline;
+}
+ul.responds-confirm-pagin-list li  {
+    display: flex;
+    float: left;
+    width: 45px;
+    height: 37px;
+    justify-content: center;
+    align-items: center;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+ul.responds-confirm-pagin-list li a {
+    color: #333333;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ul.responds-confirm-pagin-list li.pagination_active_page {
+    background-color: #707F99;
+    border: 1px solid #707F99;
+}
+ul.responds-confirm-pagin-list li.pagination_active_page a{
+    color: white;
+}
+ul.responds-confirm-pagin-list li:hover:not(.pagination_active_page) {
+    background-color: #ddd;
+}
+.responds-confirm-pagin-list li:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.responds-confirm-pagin-list li:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+/*Стилизация пагинации респондентов для страниц подтверждений
+---Конец---
+*/
+
+
+
+/*Стили для таблицы - Протокол проекта
+---Начало---
+*/
+#showReportProject .modal-lg {
+    display: flex;
+    justify-content: center;
+}
+#showReportProject .modal-header {
+    border-bottom: none;
+    padding: 15px 15px 0 15px;
+}
+.report-project {
+    color: #4F4F4F;
+    min-width: 1270px;
+    margin-bottom: 20px;
+}
+
+
+.report-project-header {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+.report-project-header .left_part_header {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    overflow: auto;
+    font-weight: 700;
+}
+.report-project-header .right_part_header {
+    width: 56%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.report-project-header .right_part_header .right_part_header_top {
+    margin-bottom: 5px;
+    text-align: center;
+    font-weight: 700;
+}
+.report-project-header .right_part_header .right_part_header_bottom {
+    display:flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+.report-project-header .right_part_header .right_part_header_bottom div {
+    display:flex;
+    width:calc(100% / 7 );
+    align-items: center;
+    justify-content: center;
+}
+
+
+.report-project .stage_data_string {
+    display: flex;
+    height: 60px;
+    align-items: center;
+    border-radius: 12px;
+    border-top: 1px solid #4F4F4F;
+    border-left: 1px solid #4F4F4F;
+    border-right: 1px solid #4F4F4F;
+    padding: 0 10px;
+}
+.report-project .stage_data_string:last-child {
+    border-bottom: 1px solid #4F4F4F;
+}
+.report-project .stage_data_string .column_title_of_segment {
+    width: 100px;
+    font-size: 18px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.report-project .stage_data_string .column_title_of_stage {
+    width: 100px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.report-project .stage_data_string .column_description_of_segment {
+    font-size: 18px;
+    padding-right: 10px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    overflow: auto;
+}
+.report-project .stage_data_string .column_description_of_stage {
+    padding-right: 10px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    overflow: auto;
+}
+a.link_for_description_stage {
+    color: #4F4F4F;
+    padding-bottom: 1px;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: all .3s ease;
+}
+a.link_for_description_stage:hover {
+    color: #000000;
+    background-size: 100% 1px;
+}
+a.link_for_description_stage:focus {
+    color: #000000;
+    background-size: 100% 1px;
+}
+.report-project .stage_data_string .column_stage_confirm {
+    display:flex;
+    width: 8%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    border-left: 1px solid #E0E0E0;
+}
+
+
+.report-project .stage_data_string .column_block_text_min_1800 {
+    display: none;
+}
+
+@media screen and (min-width: 1800px) {
+
+    .report-project {
+        min-width: 1600px;
+    }
+
+    .report-project .stage_data_string .column_block_text_max_1800 {
+        display: none;
+    }
+    .report-project .stage_data_string .column_block_text_min_1800 {
+        display: block;
+    }
+
+    .report-project-header .left_part_header,
+    .report-project-header .right_part_header .right_part_header_top {
+        font-size: 18px;
+    }
+    .report-project-header .right_part_header .right_part_header_bottom {
+        font-size: 16px;
+    }
+}
+
+/* В мобильной версии */
+
+.report-mobile {
+    font-size: 12px;
+}
+.report-mobile-header-segment {
+    height: 30px;
+    border-bottom: 1px solid #4F4F4F;
+    color: #FFFFFF;
+    border-radius: 8px 8px 0 0;
+}
+.report-mobile-header-hypothesis {
+    height: 30px;
+    border-bottom: 1px solid #4F4F4F;
+}
+.report-mobile-header-mvp {
+    height: 30px;
+}
+.one-report-mobile {
+    margin-top: 20px;
+    border-top: 1px solid #4F4F4F;
+    border-left: 1px solid #4F4F4F;
+    border-right: 1px solid #4F4F4F;
+    border-radius: 8px 8px 0 0;
+}
+.report-mobile-bg-green {
+    background: #52BE7F;
+}
+.report-mobile-bg-grey {
+    background: #C6C6C6;
+}
+.report-mobile-bg-red {
+    background: #F5A4A4;
+}
+.report-mobile-header-segment .col-xs-8 {
+    height: inherit;
+    overflow: hidden;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 0 0 0 10px;
+}
+.report-mobile-header-segment .col-xs-4 {
+    height: inherit;
+    line-height: 30px;
+    padding: 0 10px 0 0;
+    text-align: right;
+}
+.report-mobile-header-hypothesis .col-xs-12 {
+    height: inherit;
+    overflow: hidden;
+    line-height: 30px;
+    padding: 0 0 0 10px;
+}
+.report-mobile-header-mvp .col-xs-9 {
+    height: inherit;
+    overflow: hidden;
+    line-height: 30px;
+    padding: 0 10px 0 10px;
+    border-bottom: 1px solid #4F4F4F;
+}
+.report-mobile-header-mvp .col-xs-3 {
+    height: inherit;
+    line-height: 30px;
+    padding: 0;
+    text-align: center;
+    border-left: 1px solid #4F4F4F;
+    border-bottom: 1px solid #4F4F4F;
+}
+a.link-stage-report-mobile{
+    text-transform: none;
+    border-bottom: none;
+}
+a.link-stage-report-mobile.white {
+    color: #FFFFFF;
+}
+a.link-stage-report-mobile.black {
+    color: #4F4F4F;
+}
+.col-xs-12.report-mobile-header-columns {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-top: 5px;
+}
+.col-xs-12.report-mobile-value-columns {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #4F4F4F;
+    font-weight: 700;
+}
+.col-xs-12.report-mobile-header-columns div,
+.col-xs-12.report-mobile-value-columns div {
+    width: 20%;
+    text-align: center;
+}
+/*Стили для таблицы - Протокол проекта
+---Конец---
+*/
+
+
+/*Стили для страницы
+презентации проекта в моб.версии
+---Начало---
+*/
+.presentation-mobile {
+    font-size: 12px;
+}
+.presentation-mobile-one-stage {
+    margin-top: 20px;
+    border-top: 1px solid #4F4F4F;
+    border-left: 1px solid #4F4F4F;
+    border-right: 1px solid #4F4F4F;
+    border-radius: 8px 8px 0 0;
+}
+.presentation-mobile-header-stage {
+    height: 30px;
+    line-height: 30px;
+    background: #52BE7F;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 14px;
+    border-bottom: 1px solid #4F4F4F;
+    border-radius: 8px 8px 0 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.presentation-mobile-title-row {
+    height: 30px;
+    line-height: 30px;
+    font-weight: 700;
+    border-bottom: 1px solid #4F4F4F;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.presentation-mobile-simple-row {
+    padding-top: 6px;
+    min-height: 30px;
+    border-bottom: 1px solid #4F4F4F;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.presentation-mobile-simple-row a {
+    text-transform: none;
+    border-bottom: none;
+    color: #4F4F4F;
+}
+/*Стили для страницы
+презентации проекта в моб.версии
+---Конец---
+*/
+
+/*Стили для всплывающих модальных окон
+---Начало---
+*/
+body .modal_instruction_page .modal-header {
+    border-bottom: none;
+}
+body .modal_instruction_page .modal-body .methodological-guide h3.header-text {
+    margin-top: -20px;
+    padding-top: 0;
+}
+
+body .hypothesis_create_modal .modal-header,
+body .hypothesis_update_modal .modal-header {
+    border-bottom: none;
+}
+body .hypothesis_create_modal .modal-body,
+body .hypothesis_update_modal .modal-body {
+    margin-top: -20px;
+}
+
+body #data_project_modal .modal-header {
+    border-bottom: none;
+}
+
+body .data_segment_modal .modal-header {
+    border-bottom: none;
+}
+
+body .data_confirm_hypothesis_modal .modal-header {
+    border-bottom: none;
+}
+
+body #add_admin_modal .modal-header {
+    border-bottom: none;
+}
+body #add_admin_modal .modal-header h3 {
+    margin-top: 0;
+}
+
+body #change_status_modal .modal-header {
+    border-bottom: none;
+}
+body #change_status_modal .modal-header h3 {
+    margin-top: 0;
+}
+
+body .confirm_user_delete_modal .modal-header { /* Модальное окно подтверждения удаления пользователя - header*/
+    background-color: #d9534f;
+    color: #ffffff;
+    border-radius: 5px 5px 0 0;
+}
+body .confirm_user_delete_modal .modal-body { /* Модальное окно подтверждения удаления пользователя - body*/
+    background-color: #F2F2F2;
+    color: #4F4F4F;
+}
+body .confirm_user_delete_modal .modal-footer { /* Модальное окно подтверждения удаления пользователя - footer*/
+    background-color: #d9534f;
+    border-radius: 0 0 5px 5px;
+}
+
+body .next_step_error .modal-content { /*невозможность перехода на следующий этап*/
+    background-color: #707F99;
+}
+
+body .information-table-questions .modal-content { /*информации о вопросах для подтверждения*/
+    background-color: #707F99;
+}
+
+body .error_respond_modal_style .modal-content { /*Модальные окна с ошибками при работе с респондентами*/
+    background-color: #707F99;
+}
+
+body .not_exist_confirm_modal .modal-header { /*Модальные окно выбора завершения подтверждения - header*/
+    background-color: #707F99;
+    color: #ffffff;
+    border-radius: 5px 5px 0 0;
+}
+body .not_exist_confirm_modal .modal-body { /*Модальные окно выбора завершения подтверждения - body*/
+    background-color: #F2F2F2;
+    color: #4F4F4F;
+}
+body .not_exist_confirm_modal .modal-footer { /*Модальные окно выбора завершения подтверждения - footer*/
+    background-color: #707F99;
+    border-radius: 0 0 5px 5px;
+}
+
+body .exist_confirm_modal .modal-header { /*Модальные окно выбора завершения подтверждения - header*/
+    background-color: #707F99;
+    color: #ffffff;
+    border-radius: 5px 5px 0 0;
+}
+body .exist_confirm_modal .modal-body { /*Модальные окно выбора завершения подтверждения - body*/
+    background-color: #F2F2F2;
+    color: #4F4F4F;
+}
+body .exist_confirm_modal .modal-footer { /*Модальные окно выбора завершения подтверждения - footer*/
+    background-color: #707F99;
+    border-radius: 0 0 5px 5px;
+}
+
+body .confirm_closing_modal .modal-header { /*Модальные окно подтверждения закрытия основного окна - header*/
+    background-color: #707F99;
+    color: #ffffff;
+    border-radius: 5px 5px 0 0;
+}
+body .confirm_closing_modal .modal-body { /*Модальные окно подтверждения закрытия основного окна  - body*/
+    background-color: #F2F2F2;
+    color: #4F4F4F;
+}
+body .confirm_closing_modal .modal-footer { /*Модальные окно подтверждения закрытия основного окна - footer*/
+    background-color: #707F99;
+    border-radius: 0 0 5px 5px;
+}
+body .data_profile_error .modal-content { /*Модальное окно сообщений об ошибках при работе с профилем пользователя*/
+    background-color: #707F99;
+    color: #F2F2F2;
+}
+body .data_profile_error .modal-header h3 { /*Модальное окно сообщений об ошибках при работе с профилем пользователя*/
+    text-align: center;
+    padding: 0 30px;
+}
+body .data_profile_error .modal-body h4 { /*Модальное окно сообщений об ошибках при работе с профилем пользователя*/
+    padding: 0 30px;
+}
+body .data_profile_error .modal-footer h4 { /*Модальное окно сообщений об ошибках при работе с профилем пользователя*/
+    text-align: center;
+    padding: 0 30px;
+}
+
+body #error_user_singup .modal-content, /* Фон для модального окна информации (валидация данных при регистрации) */
+body #error_model_singup .modal-content, /* Фон для модального окна информации (Ошибка регистрации) */
+body #user_status .modal-content, /* Фон для модального окна информации о статусе пользователя */
+body #result_singup .modal-content { /* Фон для модального окна информации об результате при регистрации и отправке письма на почту */
+    background-color: #707F99;
+}
+
+/*Стили для всплывающих модальных окон
+---Конец---
+*/
+
+
+/*Стили для ссылки экспорта гипотезы в pdf для админа
+---Начало---
+*/
+.block_export_link_hypothesis {
+    display: flex;
+    margin-top: -25px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+a.export_link_hypothesis {
+    margin: 0 auto;
+    padding-left: 5px;
+    color: #828282;
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a.export_link_hypothesis:hover,
+a.export_link_hypothesis:focus {
+    color: #4F4F4F;
+    text-decoration: none;
+}
+/*Стили для ссылки экспорта гипотезы в pdf для админа
+---Конец---
+*/
+
+/*Стили для ссылки экспорта гипотезы в pdf для проектанта
+---Начало---
+*/
+a.export_link_hypothesis_for_user {
+    margin: 0 auto;
+    padding-left: 5px;
+    color: #4F4F4F;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+a.export_link_hypothesis_for_user:hover,
+a.export_link_hypothesis_for_user:focus {
+    color: #333333;
+    /*text-decoration: none;*/
+}
+/*Стили для ссылки экспорта гипотезы в pdf для проектанта
+---Конец---
+*/
+
+
+/* Стили для контейнеров гипотез на индексных страницах в мобильной версии
+--Начало--
+*/
+@media screen and (max-width: 480px) {
+    .row .container-one_hypothesis_mobile {
+        margin: 5px 0;
+        padding: 0;
+    }
+    .container-one_hypothesis_mobile {
+        background: #707F99;
+        color: #FFFFFF;
+        padding: 10px;
+        min-height: 60px;
+        border-radius: 0;
+    }
+    .container-one_hypothesis_mobile:hover {
+        background: #7F9FC5;
+        transition: .3s;
+    }
+
+    .container-one_hypothesis_mobile:focus {
+        background: #7F9FC5;
+    }
+    .hypothesis_title_mobile {
+        font-size: 28px;
+        font-weight: 700;
+        padding: 10px 0 5px 0;
+        overflow: hidden;
+        max-height: 50px;
+        margin-bottom: 15px;
+    }
+    .header_table_hypothesis_mobile {
+        color: #C7C7C7;
+        font-size: 16px;
+        font-weight: 700;
+        padding-right: 10px;
+    }
+    .text_14_table_hypothesis {
+        font-size: 16px;
+        padding-top: 3px;
+        overflow: hidden;
+        max-height: 50px;
+    }
+    .hypothesis_buttons_mobile {
+        display:flex;
+        width: 100%;
+    }
+}
+/* Стили для контейнеров гипотез на индексных страницах в мобильной версии
+--Конец--
+*/
+
+
+/* Стили для ссылкок на показ инструкции по разработке проекта
+---Начало---
+*/
+a.link_to_instruction_page {
+    font-size: 28px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #4F4F4F;
+}
+a.link_to_instruction_page:hover,
+a.link_to_instruction_page:focus {
+    text-decoration: none;
+    color: #4F4F4F;
+}
+a.link_to_instruction_page img {
+    height: 22px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+
+a.link_to_instruction_page_in_modal {
+    font-size: 28px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #4F4F4F;
+    transition: color .3s ease;
+}
+a.link_to_instruction_page_in_modal:hover,
+a.link_to_instruction_page_in_modal:focus {
+    text-decoration: none;
+    color: #333333;
+}
+a.link_to_instruction_page_in_modal img {
+    height: 22px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+
+a.link_to_instruction_page_mobile img,
+a.link_show_search_field_mobile img {
+    width: 36px;
+}
+a.link_cancel_search_field_mobile img {
+    width: 32px;
+    margin-top: 5px;
+}
+.add_respond_block_mobile,
+.search_block_mobile {
+    display: none;
+}
+/* Стили для ссылкок на показ инструкции по разработке проекта
+---Конец---
+*/
+
+
+/* Стили для пунктира обозначающего этапы проекта в мобильной версии
+--Начало--
+*/
+@media screen and (max-width: 480px) {
+    .arrow_stages_project_mobile {
+        display: flex;
+        margin-top: -15px;
+        margin-bottom: 15px;
+    }
+    .arrow_stages_project_mobile .item-stage {
+        width: 10.1%;
+        height: 4px;
+        border-radius: 4px;
+        margin-right: 0.5%;
+        margin-left: 0.5%;
+    }
+    .arrow_stages_project_mobile .item-stage.active {
+        background: #F5A4A4;
+    }
+    .arrow_stages_project_mobile .item-stage.passive {
+        background: #D9D9D9;
+    }
+}
+@media screen and (min-width: 481px) {
+    .arrow_stages_project_mobile {
+        display: none;
+    }
+}
+/* Стили для пунктира обозначающего этапы проекта в мобильной версии
+--Конец--
+*/
+
+
+/* Стили для пунктира обозначающего этапы подтверждения гипотезы в мобильной версии
+--Начало--
+*/
+@media screen and (max-width: 480px) {
+    .arrow_stages_confirm_hypothesis_mobile {
+        display: flex;
+        margin-bottom: 15px;
+    }
+    .arrow_stages_confirm_hypothesis_mobile .item-stage {
+        width: 32.3%;
+        height: 4px;
+        border-radius: 4px;
+        margin-right: 0.5%;
+        margin-left: 0.5%;
+    }
+    .arrow_stages_confirm_hypothesis_mobile .item-stage.active {
+        background: #F5A4A4;
+    }
+    .arrow_stages_confirm_hypothesis_mobile .item-stage.passive {
+        background: #D9D9D9;
+    }
+}
+@media screen and (min-width: 481px) {
+    .arrow_stages_confirm_hypothesis_mobile {
+        display: none;
+    }
+}
+/* Стили для пунктира обозначающего этапы подтверждения гипотезы в мобильной версии
+--Конец--
+*/
+
+
+/* Общие стили для разных страниц mobile/desktop
+--Начало--
+*/
+@media screen and (max-width: 480px) {
+
+    .header-title-mobile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 40px;
+        background-color: #52BE7F;
+        font-family: 'RobotoCondensed-Light', serif;
+        font-weight: 700;
+        color: #FFFFFF;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    /* Страница - О сервисе */
+    .top_line_text_about_page {
+        padding-top: 40px;
+        text-align: center;
+        font-family: 'RobotoCondensed-Bold', serif;
+        font-size: 18px;
+        color: #4F4F4F;
+        text-transform: uppercase;
+        background: #F2F2F2;
+    }
+
+    .block_middle_content_about_page {
+        padding: 0 15px;
+    }
+
+    .text_block_about_page {
+        font-size: 14px;
+        padding: 0;
+    }
+    .text_block_about_page > div {
+        margin: 0;
+        padding: 0;
+    }
+    .text_block_about_page > div > p {
+        padding-top: 10px;
+    }
+
+    .about_page_media_mobile {
+        display: flex;
+        justify-content: center;
+        margin: 30px 0 20px 0;
+    }
+    .about_page_media_desktop {
+        display: none;
+    }
+
+    .image-tech-meeting-flatlay {
+        display: none;
+    }
+
+    .bottom_line_text_about_page {
+        padding: 40px 5px;
+        text-align: center;
+        font-family: 'RobotoCondensed-Light', serif;
+        font-weight: 700;
+        font-size: 16px;
+        color: #4F4F4F;
+        text-transform: uppercase;
+        background: #F2F2F2;
+    }
+
+    /* Карусель на странице "О сервисе" */
+    .navigation_blocks {
+        display: none;
+    }
+    .nav_blocks_mobile {
+        background: #F2F2F2;
+    }
+    .navigation_blocks_mobile{
+        height: 100%;
+        margin: 3px;
+        border: 1px solid #C1C1C1;
+        border-radius: 8px;
+    }
+
+    .navigation_block_top_mobile {
+        background: #7F9FC5; /* Old browsers */
+        background: -moz-linear-gradient(top,  #7F9FC5 0%, #7F9FC5 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,  #7F9FC5 0%,#7F9FC5 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,  #7F9FC5 0%,#7F9FC5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7F9FC5', endColorstr='#7F9FC5',GradientType=0 ); /* IE6-9 */
+        color: #ffffff;
+        overflow: hidden;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        border: 0;
+        outline: none;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+        height: 80px;
+    }
+    .navigation_block_top_mobile-text_left {
+        width: 100px;
+        text-align: center;
+        font-size: 48px;
+        font-weight: 700;
+    }
+    .navigation_block_top_mobile-text_right {
+        width: 100%;
+        line-height: 23px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .navigation_block_bottom_mobile {
+        padding: 20px 40px 70px 40px;
+        border-radius: 0 0 8px 8px;
+        word-break: normal;
+        word-wrap: normal;
+        overflow-wrap: normal;
+    }
+
+    .site_about_block_button_create_project_desktop {
+        display: none;
+    }
+    .site_about_block_button_create_project_mobile {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    /* Значек существования непрочитанных сообщений или коммуникаций */
+    .existUnreadMessagesOrCommunications.active {
+        opacity: 1;
+    }
+    .existUnreadMessagesOrCommunications {
+        z-index: 9999;
+        top: 20px;
+        right: 11%;
+        display: flex;
+        min-width: 15px;
+        min-height: 15px;
+        opacity: 0;
+        position: absolute;
+        background: #FF5C5C;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        border-radius: 50%;
+        border: 1px solid #FFFFFF;
+    }
+    /* Значек кол-ва непрочитанных сообщений */
+    .countUnreadMessages {
+        bottom: 7px;
+        left: unset;
+        right: 15%;
+    }
+    /* Значек кол-ва непрочитанных уведомлений */
+    .countUnreadCommunications {
+        bottom: 7px;
+        left: unset;
+        right: 15%;
+    }
+    /* Значек кол-ва непрочитанных уведомлений от исполнителей */
+    .countUnreadCommunicationsFromContractors {
+        bottom: 7px;
+        left: unset;
+        right: 15%;
+    }
+}
+
+@media screen and (min-width: 481px) {
+
+    .header-title-mobile {
+        display: none;
+    }
+    .nav_blocks_mobile {
+        display: none;
+    }
+    .about_page_media_mobile {
+        display: none;
+    }
+
+    .site_about_block_button_create_project_mobile {
+        display: none;
+    }
+}
+/* Общие стили для разных страниц mobile/desktop
+--Конец--
+*/
+
+
+/* Общие стили для разных страниц
+--Начало--
+*/
+.color-green {
+    color: #52BE7F;
+}
+.color-red {
+    color: #FF5C5C;
+}
+.text-block-not-expertise-mobile {
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-align: center;
+}
+.header-title-confirm-hypothesis-mobile {
+    display: flex;
+    text-align: center;
+    background: #707F99;
+    font-size: 24px;
+    color: #FFFFFF;
+    font-weight: 700;
+    margin: 0 -15px 5px -15px;
+    height: 48px;
+    justify-content: center;
+}
+
+.header_hypothesis_first_index,
+.header-title-index-mobile {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-align: center;
+    background: #52BE7F;
+    font-size: 24px;
+    color: #FFFFFF;
+    font-weight: 700;
+    margin: 0 -15px 20px -15px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+}
+.project-menu-mobile {
+    display: none;
+    margin: -20px -15px 20px -15px;
+    background: #52BE7F;
+}
+.project-menu-mobile .project_buttons_mobile {
+    display:flex;
+    width: 100%;
+}
+
+.header_hypothesis_modal {
+    text-align: center;
+    background: #52BE7F;
+    font-size: 24px;
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+.modal-header > .close {
+    font-size: 32px;
+}
+
+.p-0 {
+    padding: 0;
+}
+.pl-10 {
+    padding-left: 10px;
+}
+.pl-15 {
+    padding-left: 15px;
+}
+.pl-20 {
+    padding-left: 20px;
+}
+.pl-25 {
+    padding-left: 25px;
+}
+.pl-30 {
+    padding-left: 30px;
+}
+.pl-5 {
+    padding-left: 5px;
+}
+.pr-5 {
+    padding-right: 5px;
+}
+.pr-10 {
+    padding-right: 10px;
+}
+.pr-15 {
+    padding-right: 15px;
+}
+.pt-2 {
+    padding-top: 2px;
+}
+.pt-5 {
+    padding-top: 5px;
+}
+.pt-10 {
+    padding-top: 10px;
+}
+.pt-15 {
+    padding-top: 15px;
+}
+.pt-20 {
+    padding-top: 20px;
+}
+.pb-2 {
+    padding-bottom: 2px;
+}
+.pb-3 {
+    padding-bottom: 3px;
+}
+.pb-5 {
+    padding-bottom: 5px;
+}
+.pb-10 {
+    padding-bottom: 10px;
+}
+.pb-15 {
+    padding-bottom: 15px;
+}
+
+.mr-25 {
+    margin-right: 25px;
+}
+.mt-10 {
+    margin-top: 10px;
+}
+.mt-15 {
+    margin-top: 15px;
+}
+.mt-20 {
+    margin-top: 20px;
+}
+.mb-5 {
+    margin-bottom: 5px;
+}
+.mb-10 {
+    margin-bottom: 10px;
+}
+.mb-15 {
+    margin-bottom: 15px;
+}
+.mt-3 {
+    margin-top: 3px;
+}
+.mt-30 {
+    margin-top: 30px;
+}
+.mt--5 {
+    margin-top: -5px;
+}
+.ml-50 {
+    margin-left: 50px;
+}
+.mt-30 {
+    margin-top: 30px;
+}
+.mb-30 {
+    margin-bottom: 30px;
+}
+
+.display-flex {
+    display: flex;
+}
+.display-none {
+    display: none;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+.align-items-center {
+    align-items: center;
+}
+.block_all_responds {
+    margin-bottom: 160px;
+}
+
+.font-size-12 {
+    font-size: 12px;
+}
+.font-size-14 {
+    font-size: 14px;
+}
+.font-size-18 {
+    font-size: 18px;
+}
+.border {
+    font-weight: 700;
+}
+
+.blockTaskCompleteForm {
+    display: none;
+}
+
+@media screen and (max-width: 480px) {
+    .desktop-mt--15 {
+        margin-top: 0;
+    }
+    .desktop-mt-15 {
+        margin-top: 0;
+    }
+    .desktop-mb-15 {
+        margin-bottom: 0;
+    }
+    .mobile-mb-10 {
+        margin-bottom: 10px;
+    }
+    .mobile-mb-15 {
+        margin-bottom: 15px;
+    }
+    .mobile-mt-10 {
+        margin-top: 10px;
+    }
+    .mobile-mt-15 {
+        margin-top: 15px;
+    }
+    .mobile-mt-20 {
+        margin-top: 20px;
+    }
+    .desktop-pl-15 {
+        padding-left: 0;
+    }
+    .desktop-pr-15 {
+        padding-right: 0;
+    }
+    .header_hypothesis_first_index,
+    .header-title-index-mobile,
+    .header-title-mobile,
+    .header-title-confirm-hypothesis-mobile {
+        padding: 7px;
+    }
+    .project_info_data,
+    .segment_info_data,
+    .row_header_data_generation,
+    .all_headers_data_hypothesis,
+    .information_status_confirm,
+    .hypothesis_table_desktop {
+        display: none;
+    }
+    .hypothesis_table_mobile {
+        display: block;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    .confirm-create-button-instruction-mobile {
+        display:flex;
+        justify-content: center;
+        margin-top: -20px;
+    }
+    .confirm-hypothesis-add-questions-mobile,
+    .confirm-hypothesis-view-mobile {
+        display: block;
+    }
+    .block_all_responds {
+        margin-top: 10px;
+    }
+    .confirm-view-bottom-report-desktop {
+        display: none;
+    }
+    .header_hypothesis_first_index {
+        display: none;
+    }
+    .table_responds_to_confirm_segment_desktop {
+        display: none;
+    }
+    .block-link-create-interview {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .desktop-pt-5 {
+        padding-top: 5px;
+    }
+    .desktop-pb-5 {
+        padding-bottom: 5px;
+    }
+    .desktop-mt--15 {
+        margin-top: -15px;
+    }
+    .desktop-mt-15 {
+        margin-top: 15px;
+    }
+    .desktop-mt-25 {
+        margin-top: 25px;
+    }
+    .desktop-mb-15 {
+        margin-bottom: 15px;
+    }
+    .mobile-mb-15 {
+        margin-bottom: 0;
+    }
+    .mobile-mt-15 {
+        margin-top: 0;
+    }
+    .mobile-mt-20 {
+        margin-top: 0;
+    }
+    .desktop-pl-15 {
+        padding-left: 15px;
+    }
+    .desktop-pr-15 {
+        padding-right: 15px;
+    }
+    .header-title-confirm-hypothesis-mobile,
+    .header-title-index-mobile,
+    .hypothesis_table_mobile {
+        display: none;
+    }
+    .hypothesis_table_desktop {
+        display: block;
+    }
+    .project-menu-mobile {
+        display: none;
+    }
+    .confirm-create-button-instruction-mobile,
+    .confirm-hypothesis-add-questions-mobile,
+    .confirm-hypothesis-view-mobile {
+        display: none;
+    }
+    .confirm-view-bottom-report-mobile {
+        display: none;
+    }
+}
+
+.confirm-hypothesis-step-one-mobile,
+.confirm-hypothesis-step-two-mobile,
+.confirm-hypothesis-step-three-mobile {
+    display: none;
+}
+
+.select2-container--krajee .select2-results__option[aria-selected] {
+    font-size: 20px;
+}
+
+.hereAddProjectTasks {
+    display: none;
+}
+
+.switches-between-responds-products {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    font-size: 18px;
+    font-weight: 700;
+    margin: -5px -15px 5px -15px;
+    border-top: 1px solid #FFFFFF;
+}
+.switches-between-responds-products .switch-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    color: #333333;
+    cursor: pointer;
+    border-bottom: 1px solid #707F99;
+}
+.switches-between-responds-products .switch-button.active {
+    background: #707F99;
+    color: #FFFFFF;
+}
+
+.confirm-stage-mobile-list-products {
+    display: none;
+}
+
+.switches-between-responds-similar-products {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    font-size: 18px;
+    font-weight: 700;
+    margin: -5px -15px 5px -15px;
+    border-top: 1px solid #FFFFFF;
+}
+.switches-between-responds-similar-products .switch-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33.33%;
+    height: 100%;
+    color: #333333;
+    cursor: pointer;
+    border-bottom: 1px solid #707F99;
+    border-left: 1px solid #707F99;
+}
+.switches-between-responds-similar-products .switch-button:nth-child(1) {
+    border-left: none;
+}
+.switches-between-responds-similar-products .switch-button.active {
+    background: #707F99;
+    color: #FFFFFF;
+}
+
+.confirm-stage-mobile-list-similar-products {
+    display: none;
+}
+
+.row.viewSimilarParam {
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+    border-top: 1px solid #cccccc;
+    padding: 10px 0;
+}
+
+/* Общие стили для разных страниц
+--Конец--
+*/

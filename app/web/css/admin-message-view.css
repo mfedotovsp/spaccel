@@ -1,0 +1,91 @@
+body {
+    margin-bottom: 60px;
+    font-family: 'RobotoCondensed-Light', serif;
+    font-size: 16px;
+    padding-right: 0 !important;
+}
+body .wrap {
+    min-height: calc(100vh - 40px);
+    margin-bottom: 0;
+}
+
+
+.message_menu {
+    background: #707F99;
+    padding: 5px 0 0 0;
+}
+.search-block {
+    position: relative;
+    padding: 0;
+    margin-bottom: -10px;
+}
+input#search_conversation {
+    outline: none; /* Убираем свечение в Chrome и Safari */
+    -webkit-appearance: none; /* Убираем рамку в Chrome и Safari */
+    box-shadow:
+            inset rgba(0,0,0,.6) 0 -1px 3px,
+            rgba(0,0,0,.8) 0 3px 8px -3px;
+}
+
+
+.button_open_close_list_users {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 150px;
+    text-align: center;
+    opacity: 0.8;
+    cursor: pointer;
+    border-radius: 0 12px 12px 0;
+    margin-top: 5px; z-index: 100;
+    background: #707F99;
+    color: #ffffff;
+    padding: 7px 5px;
+    font-size: 18px;
+}
+@media screen and (max-width: 768px) {
+    .col-sm-6.conversation-list-menu {
+        position: fixed;
+        display: block;
+        height: calc(100vh - 171px);
+        width: 100%;
+        left: -100%;
+        z-index: 1;
+        transition: left 1s;
+    }
+    .col-sm-6.conversation-list-menu.active {
+        left: 0;
+        transition: left 1s;
+    }
+    .button_open_close_list_users {
+        display: block;
+    }
+}
+
+
+/*
+Скрытие полосы прокрутки
+---Начало---
+*/
+@-moz-document url-prefix() { /* Disable scrollbar Firefox */
+    #conversation-list-menu, #data-chat,
+    #input_send_message, #conversations_query {
+        scrollbar-width: none;
+    }
+}
+#conversation-list-menu,
+#data-chat, #input_send_message {
+    margin: 0; /* remove default margin */
+    scrollbar-width: none; /* Also needed to disable scrollbar Firefox */
+    -ms-overflow-style: none;  /* Disable scrollbar IE 10+ */
+    overflow-y: scroll;
+}
+#conversation-list-menu::-webkit-scrollbar, #data-chat::-webkit-scrollbar,
+#input_send_message::-webkit-scrollbar, #conversations_query::-webkit-scrollbar {
+    width: 0;
+    background: transparent; /* Disable scrollbar Chrome/Safari/Webkit */
+}
+/*
+Скрытие полосы прокрутки
+---Конец---
+*/
