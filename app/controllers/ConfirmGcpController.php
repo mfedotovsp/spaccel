@@ -74,15 +74,15 @@ class ConfirmGcpController extends AppUserPartController
 
             $hypothesis = $confirm->hypothesis;
             $project = $hypothesis->project;
-            
+
             if (($project->getUserId() === $currentUser->getId())){
                 return parent::beforeAction($action);
-            } 
-            
+            }
+
             if (User::isUserAdmin($currentUser->getUsername()) && $project->user->getIdAdmin() === $currentUser->getId()) {
                 return parent::beforeAction($action);
-            } 
-            
+            }
+
             if (User::isUserMainAdmin($currentUser->getUsername()) || User::isUserDev($currentUser->getUsername()) || User::isUserAdminCompany($currentUser->getUsername())) {
 
                 $modelClientUser = $project->user->clientUser;
@@ -96,8 +96,8 @@ class ConfirmGcpController extends AppUserPartController
                 }
 
                 PatternHttpException::noAccess();
-            } 
-            
+            }
+
             if (User::isUserExpert($currentUser->getUsername())) {
 
                 $expert = User::findOne(Yii::$app->user->getId());
@@ -143,7 +143,7 @@ class ConfirmGcpController extends AppUserPartController
             $confirm = ConfirmGcp::findOne((int)Yii::$app->request->get('id'));
             $hypothesis = $confirm->hypothesis;
             $project = $hypothesis->project;
-            
+
             if ($project->getUserId() === $currentUser->getId()){
                 // ОТКЛЮЧАЕМ CSRF
                 $this->enableCsrfValidation = false;
@@ -159,7 +159,7 @@ class ConfirmGcpController extends AppUserPartController
                 PatternHttpException::noData();
             }
             $project = $hypothesis->project;
-            
+
             if ($project->getUserId() === $currentUser->getId()){
                 return parent::beforeAction($action);
             }
@@ -170,7 +170,7 @@ class ConfirmGcpController extends AppUserPartController
 
             $hypothesis = Gcps::findOne((int)Yii::$app->request->get('id'));
             $project = $hypothesis->project;
-            
+
             if ($project->getUserId() === $currentUser->getId()){
                 // ОТКЛЮЧАЕМ CSRF
                 $this->enableCsrfValidation = false;
@@ -188,15 +188,15 @@ class ConfirmGcpController extends AppUserPartController
 
             $hypothesis = $confirm->hypothesis;
             $project = $hypothesis->project;
-            
+
             if (($project->getUserId() === $currentUser->getId())){
                 return parent::beforeAction($action);
-            } 
-            
+            }
+
             if (User::isUserAdmin($currentUser->getUsername()) && $project->user->getIdAdmin() === $currentUser->getId()) {
                 return parent::beforeAction($action);
             }
-            
+
             if (User::isUserMainAdmin($currentUser->getUsername()) || User::isUserDev($currentUser->getUsername()) || User::isUserAdminCompany($currentUser->getUsername())) {
 
                 $modelClientUser = $project->user->clientUser;
@@ -210,8 +210,8 @@ class ConfirmGcpController extends AppUserPartController
                 }
 
                 PatternHttpException::noAccess();
-            } 
-            
+            }
+
             if (User::isUserExpert($currentUser->getUsername())) {
 
                 $expert = User::findOne(Yii::$app->user->getId());
@@ -295,6 +295,7 @@ class ConfirmGcpController extends AppUserPartController
             ->count();
 
         $model->setCountRespond($count_represent_problem);
+        $model->setAddCountRespond(0);
 
         if ($gcp->getEnableExpertise() === EnableExpertise::OFF) {
             return $this->redirect(['/gcps/index', 'id' => $confirmProblem->getId()]);

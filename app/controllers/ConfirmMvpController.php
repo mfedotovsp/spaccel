@@ -121,7 +121,7 @@ class ConfirmMvpController extends AppUserPartController
                         } elseif (time() < $userAccessToProject->getDateStop()) {
                             return parent::beforeAction($action);
                         }
-                        
+
                         PatternHttpException::noAccess();
 
                     } elseif ($userAccessToProject->getCommunicationType() === CommunicationTypes::MAIN_ADMIN_APPOINTS_EXPERT_PROJECT) {
@@ -159,7 +159,7 @@ class ConfirmMvpController extends AppUserPartController
                 PatternHttpException::noData();
             }
             $project = $hypothesis->project;
-            
+
             if ($project->getUserId() === $currentUser->getId()){
                 return parent::beforeAction($action);
             }
@@ -170,7 +170,7 @@ class ConfirmMvpController extends AppUserPartController
 
             $hypothesis = Mvps::findOne((int)Yii::$app->request->get('id'));
             $project = $hypothesis->project;
-            
+
             if ($project->getUserId() === $currentUser->getId()){
                 // ОТКЛЮЧАЕМ CSRF
                 $this->enableCsrfValidation = false;
@@ -191,12 +191,12 @@ class ConfirmMvpController extends AppUserPartController
 
             if (($project->getUserId() === $currentUser->getId())){
                 return parent::beforeAction($action);
-            } 
-            
+            }
+
             if (User::isUserAdmin($currentUser->getUsername()) && $project->user->getIdAdmin() === $currentUser->getId()) {
                 return parent::beforeAction($action);
-            } 
-            
+            }
+
             if (User::isUserMainAdmin($currentUser->getUsername()) || User::isUserDev($currentUser->getUsername()) || User::isUserAdminCompany($currentUser->getUsername())) {
 
                 $modelClientUser = $project->user->clientUser;
@@ -210,8 +210,8 @@ class ConfirmMvpController extends AppUserPartController
                 }
 
                 PatternHttpException::noAccess();
-            } 
-            
+            }
+
             if (User::isUserExpert($currentUser->getUsername())) {
 
                 $expert = User::findOne(Yii::$app->user->getId());
@@ -299,6 +299,7 @@ class ConfirmMvpController extends AppUserPartController
             ->count();
 
         $model->setCountRespond($count_represent_gcp);
+        $model->setAddCountRespond(0);
 
         if ($mvp->getEnableExpertise() === EnableExpertise::OFF) {
             return $this->redirect(['/mvps/index', 'id' => $confirmGcp->getId()]);

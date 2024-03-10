@@ -94,7 +94,7 @@ $(body).on('click', '#switch_add_count_respond', function () {
         changeBtnContent = $(this).find('.changeBtnContent');
 
     if (typeof $(field).attr('readonly') === 'undefined') {
-        $(field).attr('readonly', true).val('');
+        $(field).attr('readonly', true).val(0);
         if (parseInt($(confirm_count_respond).val()) < parseInt($(confirm_count_positive).val()))
             $(confirm_count_positive).val($(confirm_count_respond).val());
         // Обновляем кэш на формы

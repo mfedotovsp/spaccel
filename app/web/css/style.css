@@ -941,7 +941,7 @@ a.button_next_page_masseges:focus {
 }
 
 .passive_navigation_block:hover {
-    background: url('/app/web/images/elements/active_navigation_block.png') no-repeat;
+    background: url('../images/elements/active_navigation_block.png') no-repeat;
     background-size: 100% 100%;
     color: #F3F7F7;
     text-decoration: none;
@@ -953,7 +953,7 @@ a.button_next_page_masseges:focus {
 }
 
 .passive_navigation_block:focus {
-    background: url('/app/web/images/elements/active_navigation_block.png') no-repeat;
+    background: url('../images/elements/active_navigation_block.png') no-repeat;
     background-size: 100% 100%;
     color: #F3F7F7;
     text-decoration: none;
@@ -965,19 +965,19 @@ a.button_next_page_masseges:focus {
 }
 
 .passive_navigation_block {
-    background: url('/app/web/images/elements/passive_navigation_block.png') no-repeat;
+    background: url('../images/elements/passive_navigation_block.png') no-repeat;
     background-size: 100% 100%;
     color: #4F4F4F;
 }
 
 .no_transition_navigation_block {
-    background: url('/app/web/images/elements/passive_navigation_block.png') no-repeat;
+    background: url('../images/elements/passive_navigation_block.png') no-repeat;
     background-size: 100% 100%;
     color: #BDBDBD;
 }
 
 .active_navigation_block {
-    background: url('/app/web/images/elements/active_navigation_block.png') no-repeat;
+    background: url('../images/elements/active_navigation_block.png') no-repeat;
     background-size: 100% 100%;
     color: #F3F7F7;
 }
@@ -1688,13 +1688,13 @@ input[type="checkbox"].custom-checkbox:checked + label:before {
 }
 
 .site-about > .tab > div:hover {
-    background: url('/app/web/images/elements/active_navigation_block.png') no-repeat;
+    background: url('../images/elements/active_navigation_block.png') no-repeat;
     background-size: 100% 100%;
     color: #ffffff;
 }
 
 .site-about > .tab > div.active {
-    background: url('/app/web/images/elements/active_navigation_block.png') no-repeat;
+    background: url('../images/elements/active_navigation_block.png') no-repeat;
     background-size: 100% 100%;
     color: #ffffff;
 }
