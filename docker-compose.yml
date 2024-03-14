@@ -1,6 +1,7 @@
 networks:
   spaccel_network:
     name: spaccel_network
+    external: true
 
 services:
   nginx:
