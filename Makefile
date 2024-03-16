@@ -18,7 +18,7 @@ up:
 
 down:
 	docker compose down -v --remove-orphans
-# 	docker network prune -f
+	docker network rm spaccel_network
 
 git-pull:
 	git pull
