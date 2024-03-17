@@ -51,38 +51,51 @@ class TasksController extends AppUserPartController
             $contractorIds = array_unique(array_column($contractorProjects, 'contractor_id'));
 
             if (count($contractorIds) > 0) {
-                $contractorsQuery = User::find()
-                    ->leftJoin('contractor_info', '`contractor_info`.`contractor_id` = `user`.`id`')
-                    ->andWhere(['in', 'user.id', $contractorIds]);
 
                 /** @var $activitiesForStage ContractorActivities[] */
                 $activitiesForStage = [];
                 if (in_array($stage, [StageExpertise::SEGMENT, StageExpertise::PROBLEM, StageExpertise::GCP, StageExpertise::MVP], true)) {
                     if ($stage === StageExpertise::GCP) {
                         $activitiesForStage = ContractorActivities::find()->andWhere(['in', 'title', ['Маркетинг', 'Техническая разработка']])->all();
-                        $contractorsQuery->andWhere(['or',
-                            ['like', 'contractor_info.activities', $activitiesForStage[0]->getId()],
-                            ['like', 'contractor_info.activities', $activitiesForStage[1]->getId()],
-                        ]);
                     } else {
                         $activitiesForStage = ContractorActivities::findAll(['title' => 'Маркетинг']);
-                        $contractorsQuery->andWhere(['like', 'contractor_info.activities', $activitiesForStage[0]->getId()]);
                     }
 
                 } elseif (in_array($stage, [StageExpertise::CONFIRM_SEGMENT, StageExpertise::CONFIRM_PROBLEM, StageExpertise::CONFIRM_GCP, StageExpertise::CONFIRM_MVP], true)) {
                     if ($stage === StageExpertise::CONFIRM_MVP) {
                         $activitiesForStage = ContractorActivities::findAll(['title' => 'Полевая работа']);
-                        $contractorsQuery->andWhere(['like', 'contractor_info.activities', $activitiesForStage[0]->getId()]);
                     } else {
                         $activitiesForStage = ContractorActivities::find()->andWhere(['in', 'title', ['Маркетинг', 'Полевая работа']])->all();
-                        $contractorsQuery->andWhere(['or',
-                            ['like', 'contractor_info.activities', $activitiesForStage[0]->getId()],
-                            ['like', 'contractor_info.activities', $activitiesForStage[1]->getId()],
-                        ]);
                     }
                 }
 
                 if (!$activitiesForStage) {
+                    $response = [
+                        'headerContent' => 'Новое задание',
+                        'renderAjax' => $this->renderAjax('not-found-activities'),
+                    ];
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    Yii::$app->response->data = $response;
+                    return $response;
+                }
+
+                $contractorIdsToActivities = [];
+                foreach ($contractorProjects as $contractorProject) {
+                    if (!in_array($contractorProject->getContractorId(), $contractorIdsToActivities, true)) {
+                        foreach ($activitiesForStage as $activity) {
+                            if ($contractorProject->getActivityId() === $activity->getId()) {
+                                $contractorIdsToActivities[] = $contractorProject->getContractorId();
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                $contractorsQuery = User::find()
+                    ->innerJoin('contractor_info', '`contractor_info`.`contractor_id` = `user`.`id`')
+                    ->andWhere(['in', 'user.id', $contractorIdsToActivities]);
+
+                if ((int)$contractorsQuery->count() === 0) {
                     $response = [
                         'headerContent' => 'Новое задание',
                         'renderAjax' => $this->renderAjax('not-found-contractors'),
