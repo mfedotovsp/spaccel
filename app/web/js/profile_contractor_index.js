@@ -8,7 +8,7 @@ var delete_unused_image = true; // Проверка на необходимос�
 
 // Скрыть редактирование профиля и показать форму изменения пароля
 $(body).on('click', '#show_form_change_password', function () {
-    console.log($('.update_user_form').html())
+    console.log($('.update_user_form').html());
     $('.update_user_form').hide();
     $('.change_password_content').show();
 });
@@ -27,8 +27,6 @@ $(body).on('beforeSubmit', '#update_data_profile', function(e){
     var modal_error = $('.data_profile_error');
     $(body).append($(modal_error).first());
     $(modal_error).find('.modal-body').html('');
-
-    console.log(data)
 
     $.ajax({
 

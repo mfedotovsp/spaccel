@@ -137,7 +137,7 @@ $(body).on('beforeSubmit', '#form_user_singup', function(e){
             var result_singup = $('#result_singup');
 
             if(response.success_singup){
-                $('.result-registration').html('<\h3 style=\"color: #FFFFFF;\" class=\"text-center\">' + response.message + '<\/h3>')
+                $('.result-registration').html('<\h3 style=\"color: #FFFFFF;\" class=\"text-center\">' + response.message + '<\/h3>');
                 $('.wrap').css('margin-bottom', '20px');
             }
 

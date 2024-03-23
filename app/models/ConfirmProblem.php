@@ -133,8 +133,9 @@ class ConfirmProblem extends ActiveRecord implements ConfirmationInterface
             [['problem_id'], 'integer'],
             ['need_consumer', 'trim'],
             ['need_consumer', 'string', 'max' => 255],
-            [['count_respond', 'count_positive'], 'integer', 'integerOnly' => TRUE, 'min' => '1'],
-            [['count_respond', 'count_positive'], 'integer', 'integerOnly' => TRUE, 'max' => '100'],
+            ['count_respond', 'integer', 'integerOnly' => TRUE, 'min' => 0],
+            ['count_positive', 'integer', 'integerOnly' => TRUE, 'min' => 1],
+            [['count_respond', 'count_positive'], 'integer', 'integerOnly' => TRUE, 'max' => 100],
             ['enable_expertise', 'default', 'value' => EnableExpertise::OFF],
             ['enable_expertise', 'in', 'range' => [
                 EnableExpertise::OFF,

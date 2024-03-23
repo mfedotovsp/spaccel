@@ -10,12 +10,12 @@ var body = $('body');
 $(document).ready(function () {
     if ($(window).width() <= '480') {
         $('.confirm-problem-view').remove();
-        $('.confirm-hypothesis-step-three-mobile').toggle('display')
+        $('.confirm-hypothesis-step-three-mobile').toggle('display');
     } else {
-        $('.confirm-hypothesis-view-mobile').remove()
+        $('.confirm-hypothesis-view-mobile').remove();
     }
 
-    getQueryResponds()
+    getQueryResponds();
 });
 
 $(window).resize(function () {
@@ -31,7 +31,7 @@ $(window).resize(function () {
 
 // Получение списка респондентов
 function getQueryResponds() {
-    var url
+    var url;
     if ($(window).width() <= '480') {
         if (action === 'view-trash') {
             url = '/responds/get-query-responds?stage=4&id=' + confirmId + '&isMobile=true&isOnlyNotDelete=false&isModuleContractor=' + isContractorModule;
@@ -111,7 +111,7 @@ $(body).on('beforeSubmit', '#update_data_confirm', function(e){
         cache: false,
         success: function(response){
             if (response.success) {
-                getQueryResponds()
+                getQueryResponds();
             }
         }
     });
@@ -315,29 +315,48 @@ $(body).on('click', '.delete-question-confirm-hypothesis', function(e){
 //Открытие и закрытие списка вопросов для добавления в анкету
 $(body).on('click', '#button_add_text_question_confirm', function(e){
 
-    if(!$(this).hasClass('openDropDownList')){
+    if(!$(this).hasClass('openDropDownList')) {
 
         $('#add_new_question_confirm').select2('open');
         $(this).addClass('openDropDownList');
         $(this).css('border-width', '0');
         $(this).find('.triangle-bottom').css('transform', 'rotate(180deg)');
 
-        var position_button = $('#button_add_text_question_confirm').offset().top;
-        var position_select = $('.select2-container--krajee .select2-dropdown').offset().top;
+        var button = $('#button_add_text_question_confirm');
+        var select = $('.select2-container--krajee-bs3 .select2-dropdown');
 
-        if (position_button < position_select) {
-            $('#add_text_question_confirm').css({'border-bottom-width': '0', 'border-radius': '12px 12px 0 0'});
-        } else {
-            $('#add_text_question_confirm').css({'border-top-width': '0', 'border-radius': '0 0 12px 12px'});
+        var positionButton = 0;
+        if (button.length > 0) {
+            positionButton = button.offset().top;
         }
 
-    }else {
+        var positionSelect = 0;
+        if (select.length > 0) {
+            positionSelect = select.offset().top;
+        }
+
+        if (positionButton < positionSelect) {
+            $('#add_text_question_confirm').css({
+                'border-bottom-width': '0',
+                'border-radius': '12px 12px 0 0'
+            });
+        } else {
+            $('#add_text_question_confirm').css({
+                'border-top-width': '0',
+                'border-radius': '0 0 12px 12px'
+            });
+        }
+
+    } else {
 
         $('#add_new_question_confirm').select2('close');
         $(this).removeClass('openDropDownList');
         $(this).css('border-width', '0 0 0 1px');
         $(this).find('.triangle-bottom').css('transform', 'rotate(0deg)');
-        $('#add_text_question_confirm').css({'border-width': '1px', 'border-radius': '12px'});
+        $('#add_text_question_confirm').css({
+            'border-width': '1px',
+            'border-radius': '12px'
+        });
     }
 
     e.preventDefault();
@@ -348,26 +367,26 @@ $(body).on('click', '#button_add_text_question_confirm', function(e){
 $(window).on('scroll', function() {
 
     var button = $('#button_add_text_question_confirm');
-    var select = $('.select2-container--krajee .select2-dropdown');
+    var select = $('.select2-container--krajee-bs3 .select2-dropdown');
 
     if($(button).length > 0 && $(select).length > 0) {
 
-        var position_button = $(button).offset().top;
-        var position_select = $(select).offset().top;
+        var positionButton = button.offset().top;
+        var positionSelect = select.offset().top;
 
-        if (position_button < position_select) {
+        if (positionButton < positionSelect) {
 
             $('#add_text_question_confirm').css({
                 'border-top-width': '1px',
                 'border-bottom-width': '0',
-                'border-radius': '12px 12px 0 0',
+                'border-radius': '12px 12px 0 0'
             });
         } else {
 
             $('#add_text_question_confirm').css({
                 'border-bottom-width': '1px',
                 'border-top-width': '0',
-                'border-radius': '0 0 12px 12px',
+                'border-radius': '0 0 12px 12px'
             });
         }
     }
@@ -376,67 +395,55 @@ $(window).on('scroll', function() {
 // Отслеживаем клик вне поля Select
 $(document).mouseup(function (e){ // событие клика по веб-документу
 
-    if (!isContractorModule && action !== 'view-trash') {
-        var search = $('.select2-container--krajee .select2-search--dropdown .select2-search__field'); // поле поиска в select
-        var button = $('#button_add_text_question_confirm'); // кнопка открытия и закрытия списка select
+    var search = $('.select2-container--krajee-bs3 .select2-search--dropdown .select2-search__field'); // поле поиска в select
+    var button = $('#button_add_text_question_confirm'); // кнопка открытия и закрытия списка select
 
-        if (!search.is(e.target) && !button.is(e.target) // если клик был не полю поиска и не по кнопке
-            && search.has(e.target).length === 0 && button.has(e.target).length === 0) { // и не их по его дочерним элементам
+    // если клик был не полю поиска и не по кнопке
+    // и не их по его дочерним элементам
+    if (!search.is(e.target) && !button.is(e.target) && search
+        .has(e.target).length === 0 && button.has(e.target).length === 0) {
 
-            $('#add_new_question_confirm').select2('close'); // скрываем список select
-            $(button).removeClass('openDropDownList'); // убираем класс открытового списка у кнопки открытия и закрытия списка select
+        $('#add_new_question_confirm').select2('close'); // скрываем список select
+        $(button).removeClass('openDropDownList'); // убираем класс открытового списка у кнопки открытия и закрытия списка select
 
-            $(button).css('border-width', '0 0 0 1px'); // возвращаем стили кнопке
-            $(this).find('.triangle-bottom').css('transform', 'rotate(0deg)'); // возвращаем стили кнопке
-            $('#add_text_question_confirm').css({'border-width': '1px', 'border-radius': '12px'}); // возвращаем стили для поля ввода
-        }
+        $(button).css('border-width', '0 0 0 1px'); // возвращаем стили кнопке
+        $(this).find('.triangle-bottom').css('transform', 'rotate(0deg)'); // возвращаем стили кнопке
+        $('#add_text_question_confirm').css({'border-width': '1px', 'border-radius': '12px'}); // возвращаем стили для поля ввода
     }
 });
 
 
-//Если задано, что count_respond < count_positive, то count_respond = count_positive
+//Отслеживаем изменения в count_respond
 $(body).on('change', 'input#confirm_count_respond', function () {
-    var value1 = $('input#confirm_count_positive').val();
-    var value2 = $(this).val();
+    var value = $(this).val();
     var valueMax = 100;
-    var valueMin = 1;
+    var valueMin = 0;
 
-    if (parseInt(value2) < parseInt(value1)){
-        value2 = value1;
-        $(this).val(value2);
+    if (parseInt(value) > parseInt(valueMax)){
+        value = valueMax;
+        $(this).val(value);
     }
 
-    if (parseInt(value2) > parseInt(valueMax)){
-        value2 = valueMax;
-        $(this).val(value2);
-    }
-
-    if (parseInt(value2) < parseInt(valueMin)){
-        value2 = valueMin;
-        $(this).val(value2);
+    if (parseInt(value) < parseInt(valueMin)){
+        value = valueMin;
+        $(this).val(value);
     }
 });
 
-//Если задано, что count_positive > count_respond, то count_positive = count_respond
+//Отслеживаем изменения в count_positive
 $(body).on('change', 'input#confirm_count_positive', function () {
-    var value1 = $(this).val();
-    var value2 = $('input#confirm_count_respond').val();
+    var value = $(this).val();
     var valueMax = 100;
     var valueMin = 1;
 
-    if (parseInt(value1) > parseInt(value2)){
-        value1 = value2;
-        $(this).val(value1);
+    if (parseInt(value) > parseInt(valueMax)){
+        value = valueMax;
+        $(this).val(value);
     }
 
-    if (parseInt(value1) > parseInt(valueMax)){
-        value1 = valueMax;
-        $(this).val(value1);
-    }
-
-    if (parseInt(value1) < parseInt(valueMin)){
-        value1 = valueMin;
-        $(this).val(value1);
+    if (parseInt(value) < parseInt(valueMin)){
+        value = valueMin;
+        $(this).val(value);
     }
 });
 
@@ -549,7 +556,7 @@ $(body).on('beforeSubmit', '#new_respond_form', function(e){
                 if (!response.error) {
 
                     //Загружаем данные респондентов (Шаг 3)
-                    getQueryResponds()
+                    getQueryResponds();
 
                     //Закрываем окно создания нового респондента
                     if ($(window).width() <= '480') {
@@ -593,19 +600,20 @@ $(body).on('beforeSubmit', '#new_respond_form', function(e){
 //Получение формы редактирования данных репондента
 $(body).on('click', '.showRespondUpdateForm', function(e){
 
+    var url;
     var id = $(this).attr('id').split('-')[1];
     if (!isContractorModule) {
         if (action !== 'view-trash') {
-            var url = '/responds/get-data-update-form?stage=4&id=' + id;
+            url = '/responds/get-data-update-form?stage=4&id=' + id;
         } else {
-            var url = '/responds/get-data-update-form?stage=4&id=' + id + '&isOnlyNotDelete=false';
+            url = '/responds/get-data-update-form?stage=4&id=' + id + '&isOnlyNotDelete=false';
         }
     } else {
         $('#formUpdateRespond').remove();
         if (action !== 'view-trash') {
-            var url = '/contractor/responds/get-data-update-form?stage=4&id=' + id;
+            url = '/contractor/responds/get-data-update-form?stage=4&id=' + id;
         } else {
-            var url = '/contractor/responds/get-data-update-form?stage=4&id=' + id + '&isOnlyNotDelete=false';
+            url = '/contractor/responds/get-data-update-form?stage=4&id=' + id + '&isOnlyNotDelete=false';
         }
     }
 
@@ -676,7 +684,7 @@ $(body).on('beforeSubmit', '#formUpdateRespond', function(e){
 
             if (!response.error) {
 
-                getQueryResponds()
+                getQueryResponds();
                 //Закрываем окно редактирования
                 if (catchChange === true) catchChange = false;
                 $('#respond_update_modal').modal('hide');
@@ -792,7 +800,7 @@ $(body).on('beforeSubmit', '#formCreateDescInterview', function(e){
         cache: false,
         success: function(response){
 
-            getQueryResponds()
+            getQueryResponds();
             //Закрываем модальное окно с формой
             $('#create_descInterview_modal').modal('hide');
         }
@@ -806,11 +814,12 @@ $(body).on('beforeSubmit', '#formCreateDescInterview', function(e){
 //Получение формы редактирования интервью респондента
 $(body).on('click', '.showDescInterviewUpdateForm', function(e){
 
+    var url;
     var id = $(this).attr('id').split('-')[1];
     if (action !== 'view-trash') {
-        var url = '/interviews/get-data-update-form?stage=4&id=' + id;
+        url = '/interviews/get-data-update-form?stage=4&id=' + id;
     } else {
-        var url = '/interviews/get-data-update-form?stage=4&id=' + id + '&isOnlyNotDelete=false';
+        url = '/interviews/get-data-update-form?stage=4&id=' + id + '&isOnlyNotDelete=false';
     }
     var update_descInterview_modal = $('#update_descInterview_modal');
     $(body).append($(update_descInterview_modal).first());
@@ -1079,11 +1088,11 @@ $(body).on('click', '#cancel-not_exist-confirm', function(e) {
 //Показать таблицу ответов на вопросы интервью
 $(body).on('click', '.openTableQuestionsAndAnswers', function (e) {
 
-    var url
+    var url;
     if (action !== 'view-trash') {
         url = $(this).attr('href');
     } else {
-        var url = $(this).attr('href') + '&isOnlyNotDelete=false';
+        url = $(this).attr('href') + '&isOnlyNotDelete=false';
     }
     var showQuestionsAndAnswers_modal = $('#showQuestionsAndAnswers');
     $(body).append($(showQuestionsAndAnswers_modal).first());

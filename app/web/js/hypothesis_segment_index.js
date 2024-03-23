@@ -82,7 +82,7 @@ $(body).on('click', '.open_modal_instruction_page', function (e) {
 //Отслеживаем изменения в форме создания сегмента и записываем их в кэш
 $(body).on('change', 'form#hypothesisCreateForm', function(){
 
-    var url, data
+    var url, data;
     if (module === 'contractor') {
         url = '/segments/save-cache-creation-form?id=0&taskId=' + id_page;
     } else {
@@ -290,9 +290,9 @@ $(body).on('click', '#showListRequirements', function(e){
 // Показать информацию о запросе b2b компании
 $(body).on('click', '.container-one_requirement', function(){
     if ($(this).hasClass('active')) {
-        $(this).removeClass('active')
+        $(this).removeClass('active');
     } else {
-        $(this).addClass('active')
+        $(this).addClass('active');
     }
     $(this).find('.details-requirement').toggle('display');
 });

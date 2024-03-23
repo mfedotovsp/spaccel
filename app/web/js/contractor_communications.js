@@ -8,10 +8,10 @@ var contractor_id = window.location.search.split('=')[1];
 $(document).ready(function() {
 
     // Получаем коммуникаци по проектам
-    var allHypothesis = $(body).find('.allHypothesis').children('.hypothesis')
+    var allHypothesis = $(body).find('.allHypothesis').children('.hypothesis');
     if (allHypothesis.length > 0) {
         $.each(allHypothesis, function(){
-            var projectId = $(this).attr('id').split('hypothesis-')[1]
+            var projectId = $(this).attr('id').split('hypothesis-')[1];
             $.ajax({
                 url: '/contractors/get-communication-by-project?contractorId='+contractor_id+'&projectId='+projectId,
                 method: 'POST',
@@ -21,8 +21,8 @@ $(document).ready(function() {
                         $('#hypothesis-' + projectId).find('.hereAddProjectCommunications').html(response.renderAjax);
                     }
                 }
-            })
-        })
+            });
+        });
     }
 });
 
@@ -48,7 +48,7 @@ $(body).on('click', '.container-one_hypothesis', function () {
     }
 
     $(block_data_project).toggle('display');
-})
+});
 
 
 // Назначение исполнителя на проект, отзыв запроса о готовности участвовать в проекте, отказ в назначении на проект, отзыв исполнителя с проекта
@@ -80,16 +80,16 @@ $(body).on('click', '.appoints-contractor-project', function (e) {
                 }
 
                 if (textButton === 'Назначить') {
-                    $(container).html('<div class="text-success pl-15">Назначен(-а) на проект</div>')
+                    $(container).html('<div class="text-success pl-15">Назначен(-а) на проект</div>');
                 }
                 if (textButton === 'Отказать') {
-                    $(container).html('<div class="text-danger pl-15">Отказано</div>')
+                    $(container).html('<div class="text-danger pl-15">Отказано</div>');
                 }
                 if (textButton === 'Отозвать запрос') {
-                    $(container).html('<div class="text-danger pl-15">Запрос отозван</div>')
+                    $(container).html('<div class="text-danger pl-15">Запрос отозван</div>');
                 }
                 if (textButton === 'Отозвать с проекта') {
-                    $(container).html('<div class="text-danger pl-15">Отозван с проекта</div>')
+                    $(container).html('<div class="text-danger pl-15">Отозван с проекта</div>');
                 }
             }
         }

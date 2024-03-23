@@ -372,7 +372,9 @@ $(document).on('click', 'a.star-link', function (e) {
         url: url,
         method: 'POST',
         cache: false,
-        error: function(){alert('Ошибка')},
+        error: function() {
+            alert('Ошибка');
+        },
     });
 
     e.preventDefault();
@@ -412,7 +414,7 @@ $(document).on('click', 'img.close-project-menu-mobile', function (e) {
 $(document).on('click', '.open-confirm-hypothesis-step-one-mobile', function (e) {
     $(this).parents('.confirm-stage-mobile').toggle('display');
     $('.confirm-hypothesis-step-one-mobile').toggle('display');
-})
+});
 
 /*
 Переход на второй этап подтверждения гипотезы в собильной версии
@@ -420,7 +422,7 @@ $(document).on('click', '.open-confirm-hypothesis-step-one-mobile', function (e)
 $(document).on('click', '.open-confirm-hypothesis-step-two-mobile', function (e) {
     $(this).parents('.confirm-stage-mobile').toggle('display');
     $('.confirm-hypothesis-step-two-mobile').toggle('display');
-})
+});
 
 /*
 Переход на третий этап подтверждения гипотезы в собильной версии
@@ -428,7 +430,7 @@ $(document).on('click', '.open-confirm-hypothesis-step-two-mobile', function (e)
 $(document).on('click', '.open-confirm-hypothesis-step-three-mobile', function (e) {
     $(this).parents('.confirm-stage-mobile').toggle('display');
     $('.confirm-hypothesis-step-three-mobile').toggle('display');
-})
+});
 
 //При нажатии на кнопку добавить задание исполнителю
 $(document).on('click', '#showFormContractorTaskCreate', function(e){

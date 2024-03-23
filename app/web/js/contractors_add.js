@@ -32,22 +32,23 @@ $(body).on('beforeSubmit', '#searchContractorsForm', function(e){
 // Показать информацию о исполнителе
 $(body).on('click', '.openContractorInfo', function (e) {
 
+    var parent, preParent, id_contractor;
     if ($(window).width() > '990') {
-        var parent = $(this).parents('.column-user-fio');
-        var id_contractor = $(parent).attr('id').split('linkContractorInfo-')[1];
+        parent = $(this).parents('.column-user-fio');
+        id_contractor = $(parent).attr('id').split('linkContractorInfo-')[1];
         $('.blockContractorInfo.containerContractorInfo-' + id_contractor).toggle('display');
-        var preParent = parent.parents('.container-one_user')
+        preParent = parent.parents('.container-one_user');
     } else {
-        var parent = $(this).parents('.action-buttons');
-        var id_contractor = $(parent).attr('id').split('linkContractorInfo-')[1];
+        parent = $(this).parents('.action-buttons');
+        id_contractor = $(parent).attr('id').split('linkContractorInfo-')[1];
         $('.blockContractorInfo.containerContractorInfo-' + id_contractor).toggle('display');
-        var preParent = parent.parents('.container-one_user_mobile')
+        preParent = parent.parents('.container-one_user_mobile');
     }
 
     if (preParent.hasClass('active')) {
-        preParent.removeClass('active')
+        preParent.removeClass('active');
     } else {
-        preParent.addClass('active')
+        preParent.addClass('active');
     }
 
     e.preventDefault();
@@ -58,11 +59,12 @@ $(body).on('click', '.openContractorInfo', function (e) {
 // Отправка коммуникации
 $(body).on('click', '.send-communication', function (e) {
 
+    var container;
     var url = $(this).attr('href');
     if ($(window).width() > '990') {
-        var container = $(this).parent();
+        container = $(this).parent();
     } else {
-        var container = $('.button-send-communication');
+        container = $('.button-send-communication');
     }
 
     $.ajax({

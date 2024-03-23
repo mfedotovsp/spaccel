@@ -64,11 +64,11 @@ $(document).ready(function() {
                                         $(lineMvp).css('height', '92%');
                                     }
                                 }
-                            })
+                            });
                         }
-                    })
+                    });
                 }
-            })
+            });
         }
-    })
+    });
 });

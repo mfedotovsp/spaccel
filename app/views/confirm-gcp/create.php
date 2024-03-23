@@ -394,7 +394,7 @@ $this->registerCssFile('@web/css/confirm-gcp-create-style.css');
 
                     <?= $form->field($model, 'count_respond', [
                         'template' => '<div class="col-xs-12 col-sm-9 col-md-10 pl-20">{label}</div><div class="col-xs-12 col-sm-3 col-md-2">{input}</div>'
-                    ])->label('<div style="padding-top: 5px;">Количество респондентов, подтвердивших проблему</div>')
+                    ])->label('<div style="padding-top: 5px;">Количество личных респондентов, подтвердивших проблему</div><div class="font-size-12 color-grey">Респондентов, подтвердивших проблему и прикрепленных к исполнителям, можно добавить при создании задания</div>')
                         ->textInput([
                             'type' => 'number',
                             'readonly' => true,

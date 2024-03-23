@@ -16,13 +16,13 @@ use app\models\ExpertType;
 ?>
 
 <style>
-    .select2-container--krajee .select2-selection--multiple .select2-search--inline .select2-search__field {
+    .select2-container--krajee-bs3 .select2-selection--multiple .select2-search--inline .select2-search__field {
         height: 38px;
     }
     .select2-container .select2-search--inline .select2-search__field {
         font-size: 16px;
     }
-    .select2-container--krajee .select2-selection {
+    .select2-container--krajee-bs3 .select2-selection {
         font-size: 20px;
         height: 45px;
         padding-left: 15px;
@@ -34,7 +34,7 @@ use app\models\ExpertType;
     #type-expert-field {
         margin-bottom: 15px;
     }
-    #type-expert-field .select2-container--krajee .select2-selection {
+    #type-expert-field .select2-container--krajee-bs3 .select2-selection {
         font-size: 20px;
         height: 125px;
         padding-left: 5px;
@@ -44,21 +44,21 @@ use app\models\ExpertType;
         border-radius: 8px;
     }
     @media screen and (max-width: 1140px) {
-        #type-expert-field .select2-container--krajee .select2-selection {
+        #type-expert-field .select2-container--krajee-bs3 .select2-selection {
             font-size: 14px;
             height: 160px;
         }
-        .select2-container--krajee .select2-results__option[aria-selected] {
+        .select2-container--krajee-bs3 .select2-results__option[aria-selected] {
             font-size: 14px;
         }
     }
     .select2-container .select2-search--inline .select2-search__field {
         font-size: 20px;
     }
-    .select2-container--krajee .select2-selection--single .select2-selection__arrow {
+    .select2-container--krajee-bs3 .select2-selection--single .select2-selection__arrow {
         height: 44px;
     }
-    .select2-container--krajee .select2-selection__clear {
+    .select2-container--krajee-bs3 .select2-selection__clear {
         top: 0.9rem;
     }
 </style>

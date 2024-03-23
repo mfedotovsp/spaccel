@@ -42,6 +42,17 @@ use app\models\QuestionStatus;
 
 ?>
 
+<style>
+    .select2-container--krajee-bs3 .select2-selection {
+        font-size: 20px;
+        height: 45px;
+        padding: 8px 30px 15px 15px;
+        border-radius: 8px;
+    }
+    .select2-container--krajee-bs3 .select2-selection--single .select2-selection__arrow {
+        height: 43px;
+    }
+</style>
 
 <?php if ($isOnlyNotDelete && $hypothesis->getExistConfirm() === StatusConfirmHypothesis::MISSING_OR_INCOMPLETE &&
     ((User::isUserSimple(Yii::$app->user->identity['username']) && !$respond->getContractorId()) ||

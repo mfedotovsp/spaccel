@@ -327,7 +327,7 @@ setInterval(function(){
             $(conversation_list_menu).find(response.blockConversationAdminMain).html(response.conversationAdminMainForAdminAjax);
             $(conversation_list_menu).find(response.blockConversationDevelopment).html(response.conversationDevelopmentForAdminAjax);
             $(conversation_list_menu).find('.containerForAllUserConversations').html(response.conversationsUserForAdminAjax);
-            $(conversation_list_menu).find('.containerForExpertConversations').html(response.conversationsExpertForAdminAjax)
+            $(conversation_list_menu).find('.containerForExpertConversations').html(response.conversationsExpertForAdminAjax);
             if (!$(conversation_list_menu).find(conversation_id).hasClass('active-message')) $(conversation_list_menu).find(conversation_id).addClass('active-message');
         }
     });

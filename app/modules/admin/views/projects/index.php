@@ -18,13 +18,13 @@ $this->title ?: $this->title = 'Портфель проектов';
 ?>
 
 <style>
-    .select2-container--krajee .select2-selection {
+    .select2-container--krajee-bs3 .select2-selection {
         font-size: 20px;
         height: 45px;
         padding: 8px 30px 15px 15px;
         border-radius: 8px;
     }
-    .select2-container--krajee .select2-selection--single .select2-selection__arrow {
+    .select2-container--krajee-bs3 .select2-selection--single .select2-selection__arrow {
         height: 43px;
     }
 </style>

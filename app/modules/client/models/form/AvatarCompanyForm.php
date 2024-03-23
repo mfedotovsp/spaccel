@@ -120,7 +120,7 @@ class AvatarCompanyForm extends Model
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadFile)) {
             $arr['success'] = true;
-            $arr['path_max'] = '/web/'.$uploadFile;
+            $arr['path_max'] = $uploadFile;
             $arr['imageMax'] = $_FILES['file']['name'];
         } else {
             $arr['error'] = true;

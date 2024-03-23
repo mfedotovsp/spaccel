@@ -59,7 +59,7 @@ $(body).on('click', '.open_modal_instruction_page', function (e) {
 //Отслеживаем изменения в форме создания MVP и записываем их в кэш
 $(body).on('change', 'form#hypothesisCreateForm', function(){
 
-    var url, data
+    var url, data;
     if (module === 'contractor') {
         url = '/mvps/save-cache-creation-form?id=0&taskId=' + id_page;
     } else {

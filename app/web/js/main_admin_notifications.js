@@ -52,7 +52,7 @@ $(body).on('beforeSubmit', '#form_types_expert', function (e) {
                 $(blockCountUnreadCommunications).html(newQuantityAfterRead);
                 if (newQuantityAfterRead < 1) $(blockCountUnreadCommunications).removeClass('active');
 
-                $(containerAppointsExpertProject).html('<div class="text-success">Назначен(-а) на проект</div>')
+                $(containerAppointsExpertProject).html('<div class="text-success">Назначен(-а) на проект</div>');
                 $(modal).modal('hide');
             }
         }
@@ -80,13 +80,13 @@ $(body).on('click', '.send-communication', function (e) {
             var newQuantityAfterRead = response.countUnreadCommunications;
             $(blockCountUnreadCommunications).html(newQuantityAfterRead);
             if (newQuantityAfterRead < 1) $(blockCountUnreadCommunications).removeClass('active');
-            if (response.type == 350) $(container).html('<div class="text-danger">Отказано</div>')
+            if (response.type == 350) $(container).html('<div class="text-danger">Отказано</div>');
         }
     });
 
     e.preventDefault();
     return false;
-})
+});
 
 
 // Прочтение уведомления

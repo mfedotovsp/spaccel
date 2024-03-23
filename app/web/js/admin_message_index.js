@@ -161,7 +161,7 @@ setInterval(function(){
             $(conversation_list_menu).find(response.blockConversationAdminMain).html(response.conversationAdminMainForAdminAjax);
             $(conversation_list_menu).find(response.blockConversationDevelopment).html(response.conversationDevelopmentForAdminAjax);
             $(conversation_list_menu).find('.containerForAllUserConversations').html(response.conversationsUserForAdminAjax);
-            $(conversation_list_menu).find('.containerForAllExpertConversations').html(response.conversationsExpertForAdminAjax)
+            $(conversation_list_menu).find('.containerForAllExpertConversations').html(response.conversationsExpertForAdminAjax);
         }
     });
 

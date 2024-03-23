@@ -9,9 +9,9 @@ var body = $('body');
 $(document).ready(function () {
     if ($(window).width() <= '480') {
         $('.confirm-problem-view').remove();
-        $('.confirm-hypothesis-step-three-mobile').toggle('display')
+        $('.confirm-hypothesis-step-three-mobile').toggle('display');
     } else {
-        $('.confirm-hypothesis-view-mobile').remove()
+        $('.confirm-hypothesis-view-mobile').remove();
     }
 
     getQueryResponds();
@@ -24,7 +24,7 @@ $(document).ready(function () {
                 '<div class="switch-button active" id="showMobileListResponds">Респонденты</div>' +
                 '<div class="switch-button" id="showMobileListProducts">Продукты</div>' +
                 '<div class="switch-button" id="showMobileListSimilarProducts">Аналоги</div>' +
-                '</div>'
+                '</div>';
         });
     }
 });
@@ -42,7 +42,7 @@ $(window).resize(function () {
 
 // Получение списка респондентов
 function getQueryResponds() {
-    var url
+    var url;
     if ($(window).width() <= '480') {
         if (action === 'view-trash') {
             url = '/responds/get-query-responds?stage=4&id=' + taskId + '&isMobile=true&isOnlyNotDelete=false&isModuleContractor=true';
@@ -73,11 +73,11 @@ function getQueryResponds() {
 
 // Получение списка продуктов
 function getQueryProducts() {
-    var url
+    var url;
     if ($(window).width() <= '480') {
         url = '/contractor/products/get-product-list?taskId=' + taskId + '&isMobile=true';
     } else {
-        url = '/contractor/products/get-product-list?taskId=' + taskId
+        url = '/contractor/products/get-product-list?taskId=' + taskId;
     }
 
     $.ajax({
@@ -97,11 +97,11 @@ function getQueryProducts() {
 
 // Получение списка продуктов-аналогов
 function getQuerySimilarProducts() {
-    var url
+    var url;
     if ($(window).width() <= '480') {
         url = '/contractor/products/get-similar-product-list?taskId=' + taskId + '&isMobile=true';
     } else {
-        url = '/contractor/products/get-similar-product-list?taskId=' + taskId
+        url = '/contractor/products/get-similar-product-list?taskId=' + taskId;
     }
 
     $.ajax({
@@ -430,7 +430,7 @@ $(body).on('beforeSubmit', '#formCreateContractorTaskProduct', function(e){
     var data = $(this).serialize();
     var url = $(this).attr('action');
     if ($(window).width() <= '480') {
-        url = url + '&isMobile=true'
+        url = url + '&isMobile=true';
     }
     var productCreate_modal = $('#productCreate_modal');
 
@@ -502,7 +502,7 @@ $(body).on('beforeSubmit', '#formUpdateContractorTaskProduct', function(e){
     var data = $(this).serialize();
     var url = $(this).attr('action');
     if ($(window).width() <= '480') {
-        url = url + '&isMobile=true'
+        url = url + '&isMobile=true';
     }
     var update_product_modal = $('#productUpdate_modal');
 
@@ -622,7 +622,7 @@ $(body).on('click', '#showMobileListProducts', function() {
         $('.confirm-stage-mobile-list-products').toggle('display');
         $('#showMobileListResponds').removeClass('active');
         $('#showMobileListSimilarProducts').removeClass('active');
-        $(this).addClass('active')
+        $(this).addClass('active');
     }
 });
 
@@ -637,7 +637,7 @@ $(body).on('click', '#showMobileListSimilarProducts', function() {
         $('.confirm-stage-mobile-list-similar-products').toggle('display');
         $('#showMobileListResponds').removeClass('active');
         $('#showMobileListProducts').removeClass('active');
-        $(this).addClass('active')
+        $(this).addClass('active');
     }
 });
 
@@ -672,7 +672,7 @@ $(body).on('click', '#showNewSimilarParamForm', function (e){
     $('.newSimilarParam').toggle('display');
     e.preventDefault();
     return false;
-})
+});
 
 
 //При создании нового параметра сравнения аналогов из формы
@@ -821,7 +821,7 @@ $(body).on('beforeSubmit', '#formCreateContractorTaskSimilarProduct', function(e
     var data = $(this).serialize();
     var url = $(this).attr('action');
     if ($(window).width() <= '480') {
-        url = url + '&isMobile=true'
+        url = url + '&isMobile=true';
     }
     var productSimilarCreate_modal = $('#productSimilarCreate_modal');
 
@@ -893,7 +893,7 @@ $(body).on('beforeSubmit', '#formUpdateContractorTaskSimilarProduct', function(e
     var data = $(this).serialize();
     var url = $(this).attr('action');
     if ($(window).width() <= '480') {
-        url = url + '&isMobile=true'
+        url = url + '&isMobile=true';
     }
     var productSimilarUpdate_modal = $('#productSimilarUpdate_modal');
 

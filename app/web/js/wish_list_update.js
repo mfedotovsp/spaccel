@@ -15,7 +15,7 @@ $(body).on('click', '.delete-requirement-wish-list', function (e){
             if (response.success) {
                 $('.blockRequirementsTable').html(response.renderAjax);
             } else {
-                console.log(response.messageErrorr)
+                console.log(response.messageErrorr);
             }
         }
     });

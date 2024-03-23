@@ -22,7 +22,7 @@ $(document).ready(function () {
             return '<div class="switches-between-responds-products">' +
                 '<div class="switch-button active" id="showMobileListResponds">Респонденты</div>' +
                 '<div class="switch-button" id="showMobileListProducts">Продукты</div>' +
-                '</div>'
+                '</div>';
         });
     }
 });
@@ -39,7 +39,7 @@ $(window).resize(function () {
 
 // Получение списка респондентов
 function getQueryResponds() {
-    var url
+    var url;
     if ($(window).width() <= '480') {
         if (action === 'view-trash') {
             url = '/responds/get-query-responds?stage=2&id=' + taskId + '&isMobile=true&isOnlyNotDelete=false&isModuleContractor=true';
@@ -70,11 +70,11 @@ function getQueryResponds() {
 
 // Получение списка продуктов
 function getQueryProducts() {
-    var url
+    var url;
     if ($(window).width() <= '480') {
         url = '/contractor/products/get-product-list?taskId=' + taskId + '&isMobile=true';
     } else {
-        url = '/contractor/products/get-product-list?taskId=' + taskId
+        url = '/contractor/products/get-product-list?taskId=' + taskId;
     }
 
     $.ajax({
@@ -401,7 +401,7 @@ $(body).on('beforeSubmit', '#formCreateContractorTaskProduct', function(e){
     var data = $(this).serialize();
     var url = $(this).attr('action');
     if ($(window).width() <= '480') {
-        url = url + '&isMobile=true'
+        url = url + '&isMobile=true';
     }
     var productCreate_modal = $('#productCreate_modal');
 
@@ -473,7 +473,7 @@ $(body).on('beforeSubmit', '#formUpdateContractorTaskProduct', function(e){
     var data = $(this).serialize();
     var url = $(this).attr('action');
     if ($(window).width() <= '480') {
-        url = url + '&isMobile=true'
+        url = url + '&isMobile=true';
     }
     var update_product_modal = $('#productUpdate_modal');
 
@@ -587,6 +587,6 @@ $(body).on('click', '#showMobileListProducts', function() {
         $('.confirm-stage-mobile-list-responds').toggle('display');
         $('.confirm-stage-mobile-list-products').toggle('display');
         $('#showMobileListResponds').removeClass('active');
-        $(this).addClass('active')
+        $(this).addClass('active');
     }
 });

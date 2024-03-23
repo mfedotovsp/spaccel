@@ -1,10 +1,8 @@
 //Установка Simple ScrollBar
 const simpleBar = new SimpleBar(document.getElementById('simplebar-shared-container'));
 
-
 var body = $('body');
 var module = (window.location.pathname).split('/')[1];
-
 
 var id = (window.location.search).split('?id=')[1];
 if (typeof id === 'undefined') {
@@ -52,8 +50,8 @@ $(body).change('#field_count_projects', function(){
 //Поиск проектов по назаванию и полному названию проекта
 $(body).on('input', '#search_project_name', function(){
 
-    var search = $('body').find('#search_project_name').val();
-    var count_projects = $('body').find('#field_count_projects').val();
+    var search = $(body).find('#search_project_name').val();
+    var count_projects = $(body).find('#field_count_projects').val();
 
     $.ajax({
 

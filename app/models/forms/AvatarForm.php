@@ -117,7 +117,7 @@ class AvatarForm extends Model
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
             $arr['success'] = true;
-            $arr['path_max'] = '/web/'.$uploadfile;
+            $arr['path_max'] = $uploadfile;
             $arr['imageMax'] = $_FILES['file']['name'];
         } else {
             $arr['error'] = true;

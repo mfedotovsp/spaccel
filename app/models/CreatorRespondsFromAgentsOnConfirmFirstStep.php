@@ -27,14 +27,16 @@ class CreatorRespondsFromAgentsOnConfirmFirstStep extends Model implements Creat
          * @var RespondsInterface $respond
          */
         foreach ($confirm->hypothesis->respondsAgents as $respond) {
-            $respondConfirm = self::getCreateModel($confirm);
-            $respondConfirm->setConfirmId($confirm->getId());
-            $respondConfirm->setName($respond->getName());
-            $respondConfirm->setParams([
-                'info_respond' => $respond->getInfoRespond(),
-                'place_interview' =>$respond->getPlaceInterview(),
-                'email' => $respond->getEmail()]);
-            $respondConfirm->save();
+            if (!$respond->getContractorId()) {
+                $respondConfirm = self::getCreateModel($confirm);
+                $respondConfirm->setConfirmId($confirm->getId());
+                $respondConfirm->setName($respond->getName());
+                $respondConfirm->setParams([
+                    'info_respond' => $respond->getInfoRespond(),
+                    'place_interview' =>$respond->getPlaceInterview(),
+                    'email' => $respond->getEmail()]);
+                $respondConfirm->save();
+            }
         }
     }
 

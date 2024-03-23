@@ -943,7 +943,7 @@ use yii\widgets\ActiveForm;
     }
     ?>
 
-    <?php if ($contractorTask && $isCompleteInterviews && $_GET['id'] === $contractorTask->getId() && in_array($contractorTask->getStatus(), [ContractorTasks::TASK_STATUS_PROCESS, ContractorTasks::TASK_STATUS_RETURNED], true)): ?>
+    <?php if ($contractorTask && $isCompleteInterviews && (int)$_GET['id'] === $contractorTask->getId() && in_array($contractorTask->getStatus(), [ContractorTasks::TASK_STATUS_PROCESS, ContractorTasks::TASK_STATUS_RETURNED], true)): ?>
 
         <div class="mt-15 buttonShowTaskCompleteForm" style="display: flex; justify-content: center;">
 

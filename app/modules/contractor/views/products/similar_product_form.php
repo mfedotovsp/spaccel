@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 ?>
 
 <style>
-    .select2-container--krajee .select2-selection {
+    .select2-container--krajee-bs3 .select2-selection {
         font-size: 20px;
         height: 45px;
         padding-left: 15px;
@@ -25,10 +25,10 @@ use yii\widgets\ActiveForm;
         border: 1px solid #4F4F4F;
         border-radius: 8px;
     }
-    .select2-container--krajee .select2-selection--single .select2-selection__arrow {
+    .select2-container--krajee-bs3 .select2-selection--single .select2-selection__arrow {
         height: 44px;
     }
-    .select2-container--krajee .select2-selection__clear {
+    .select2-container--krajee-bs3 .select2-selection__clear {
         top: 0.9rem;
     }
 </style>

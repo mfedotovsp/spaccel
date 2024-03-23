@@ -19,7 +19,7 @@ use app\models\Problems;
 
 
 <style>
-    .select2-container--krajee .select2-selection {
+    .select2-container--krajee-bs3 .select2-selection {
         font-size: 16px;
         height: 40px;
         padding-left: 15px;
@@ -27,7 +27,7 @@ use app\models\Problems;
         padding-bottom: 15px;
         border-radius: 12px;
     }
-    .select2-container--krajee .select2-selection--single .select2-selection__arrow {
+    .select2-container--krajee-bs3 .select2-selection--single .select2-selection__arrow {
         height: 39px;
     }
 </style>

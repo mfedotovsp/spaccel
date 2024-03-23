@@ -66,16 +66,10 @@ class FormCreateConfirmProblem extends FormCreateConfirm
     {
         return [
             [['hypothesis_id', 'count_positive', 'need_consumer'], 'required'],
-            ['count_respond', 'required', 'when' => function($model) {
-                return $model->add_count_respond === 0;
-            }],
-            ['add_count_respond', 'required', 'when' => function($model) {
-                return $model->count_respond === 0;
-            }],
-            [['hypothesis_id'], 'integer'],
+            [['count_respond', 'add_count_respond', 'hypothesis_id'], 'integer'],
             [['need_consumer'], 'trim'],
             [['need_consumer'], 'string', 'max' => 255],
-            [['count_respond', 'count_positive', 'add_count_respond'], 'integer', 'integerOnly' => TRUE, 'max' => '100'],
+            [['count_respond', 'count_positive', 'add_count_respond'], 'integer', 'integerOnly' => TRUE, 'max' => 100],
         ];
     }
 

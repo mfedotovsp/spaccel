@@ -7,10 +7,10 @@ var contractor_id = window.location.search.split('=')[1];
 $(document).ready(function() {
 
     // Получаем задания для исполнителя по проектам
-    var allHypothesis = $(body).find('.allHypothesis').children('.hypothesis')
+    var allHypothesis = $(body).find('.allHypothesis').children('.hypothesis');
     if (allHypothesis.length > 0) {
         $.each(allHypothesis, function(){
-            var projectId = $(this).attr('id').split('hypothesis-')[1]
+            var projectId = $(this).attr('id').split('hypothesis-')[1];
             $.ajax({
                 url: '/tasks/get-tasks-by-params?contractorId='+contractor_id+'&projectId='+projectId,
                 method: 'POST',
@@ -18,8 +18,8 @@ $(document).ready(function() {
                 success: function(response){
                     $('#hypothesis-' + projectId).find('.hereAddProjectTasks').html(response.renderAjax);
                 }
-            })
-        })
+            });
+        });
     }
 });
 
@@ -44,7 +44,7 @@ $(body).on('click', '.container-one_hypothesis', function () {
     }
 
     $(block_data_project).toggle('display');
-})
+});
 
 // При клике по кнопке "Подробнее"
 // Показываем и скрываем историю статусов задачи
@@ -55,7 +55,7 @@ $(body).on('click', '.openTaskHistory', function () {
         $(body).find('.blockTaskHistory').hide();
     }
     $(blockHistory).toggle('display');
-})
+});
 
 // Изменение статуса задания в зависимости от выбранного статуса кнопки
 $(body).on('click', '.changeStatusSubmit', function (e) {
@@ -73,7 +73,7 @@ $(body).on('click', '.changeStatusSubmit', function (e) {
         cache: false,
         success: function(response){
             if (response.success) {
-                var projectId = response.projectId
+                var projectId = response.projectId;
                 $.ajax({
                     url: '/tasks/get-tasks-by-params?contractorId='+contractor_id+'&projectId='+projectId,
                     method: 'POST',
@@ -81,7 +81,7 @@ $(body).on('click', '.changeStatusSubmit', function (e) {
                     success: function(response){
                         $('#hypothesis-' + projectId).find('.hereAddProjectTasks').html(response.renderAjax);
                     }
-                })
+                });
             }
         }
     });

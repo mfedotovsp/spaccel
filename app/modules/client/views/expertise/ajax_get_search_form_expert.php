@@ -16,13 +16,13 @@ use app\models\ExpertType;
 ?>
 
 <style>
-    .select2-container--krajee .select2-selection {
+    .select2-container--krajee-bs3 .select2-selection {
         font-size: 16px;
         padding: 3px 8px;
         border-radius: 12px;
         border: 1px solid #828282;
     }
-    .select2-container--krajee .select2-selection--single .select2-selection__arrow {
+    .select2-container--krajee-bs3 .select2-selection--single .select2-selection__arrow {
         height: 38px;
     }
 </style>

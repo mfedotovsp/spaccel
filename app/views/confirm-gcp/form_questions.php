@@ -131,9 +131,9 @@ use yii\widgets\ActiveForm;
                     ],
                     'pluginEvents' => [
                         "select2:open" => 'function() { 
-                                        $(".select2-container--krajee .select2-dropdown").css("border-color","#828282");
-                                        $(".select2-container--krajee.select2-container--open .select2-selection, .select2-container--krajee .select2-selection:focus").css("border-color","#828282");
-                                        $(".select2-container--krajee.select2-container--open .select2-selection, .select2-container--krajee .select2-selection:focus").css("box-shadow","none"); 
+                                        $(".select2-container--krajee-bs3 .select2-dropdown").css("border-color","#828282");
+                                        $(".select2-container--krajee-bs3.select2-container--open .select2-selection, .select2-container--krajee-bs3 .select2-selection:focus").css("border-color","#828282");
+                                        $(".select2-container--krajee-bs3.select2-container--open .select2-selection, .select2-container--krajee-bs3 .select2-selection:focus").css("box-shadow","none");
                                     }',
                     ],
                     'disabled' => false,  //Сделать поле неактивным

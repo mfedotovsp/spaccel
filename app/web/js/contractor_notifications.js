@@ -132,7 +132,7 @@ $(body).on('change', '.communication-response-answer', function (e) {
     } else {
         $(this).parents('.form-create-response-communication').find('.communication-response-expert-types-block').show();
     }
-})
+});
 
 
 // Сохранение формы ответа на коммуникацию
@@ -175,4 +175,4 @@ $(body).on('beforeSubmit', '#formCreateResponseCommunication', function (e) {
 
     e.preventDefault();
     return false;
-})
+});

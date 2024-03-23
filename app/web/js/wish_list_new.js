@@ -15,7 +15,7 @@ $(body).on('click', '.delete-wish-list', function (e){
             if (response.success) {
                 $('.block_all_wish_lists_new').html(response.renderAjax);
             } else {
-                console.log(response.messageError)
+                console.log(response.messageError);
             }
         }
     });
@@ -52,12 +52,12 @@ $(body).on('click', '.one-wish_list_new .hide-show-ready-data', function (){
             'border-radius': '12px 12px 0 0',
             'margin-bottom': '0',
             'background': '#7F9FC5'
-        })
+        });
     } else {
         $(oneWishList).css({
             'border-radius': '12px',
             'margin-bottom': '5px',
             'background': '#707F99'
-        })
+        });
     }
 });

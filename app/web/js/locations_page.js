@@ -27,7 +27,7 @@ $(body).on('beforeSubmit', 'form#createLocationForm', function(e){
                 $('form#createLocationForm')[0].reset();
                 $('#showLocationToCreate').trigger('click');
             } else {
-                alert(response.message)
+                alert(response.message);
             }
         }
     });
@@ -78,7 +78,7 @@ $(body).on('beforeSubmit', 'form#updateLocationForm', function(e){
             if (response.success) {
                 $('.data-locations').html(response.renderAjax);
             } else {
-                alert(response.message)
+                alert(response.message);
             }
         }
     });

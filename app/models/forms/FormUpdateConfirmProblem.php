@@ -62,8 +62,9 @@ class FormUpdateConfirmProblem extends FormUpdateConfirm
         return [
             ['need_consumer', 'trim'],
             [['need_consumer'], 'string', 'max' => 255],
-            [['count_respond', 'count_positive'], 'integer', 'integerOnly' => TRUE, 'min' => '1'],
-            [['count_respond', 'count_positive'], 'integer', 'integerOnly' => TRUE, 'max' => '100'],
+            ['count_respond', 'integer', 'integerOnly' => TRUE, 'min' => 0],
+            ['count_positive', 'integer', 'integerOnly' => TRUE, 'min' => 1],
+            [['count_respond', 'count_positive'], 'integer', 'integerOnly' => TRUE, 'max' => 100],
         ];
     }
 

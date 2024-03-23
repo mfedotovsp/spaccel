@@ -7,7 +7,7 @@ var body = $('body');
 $(document).ready(function () {
     if ($(window).width() <= '480') {
         $('.confirm-mvp-add_questions').remove();
-        $('.confirm-hypothesis-step-two-mobile').toggle('display')
+        $('.confirm-hypothesis-step-two-mobile').toggle('display');
     } else {
         $('.confirm-hypothesis-add-questions-mobile').remove();
     }
@@ -265,22 +265,41 @@ $(body).on('click', '#button_add_text_question_confirm', function(e){
         $(this).css('border-width', '0');
         $(this).find('.triangle-bottom').css('transform', 'rotate(180deg)');
 
-        var position_button = $('#button_add_text_question_confirm').offset().top;
-        var position_select = $('.select2-container--krajee .select2-dropdown').offset().top;
+        var button = $('#button_add_text_question_confirm');
+        var select = $('.select2-container--krajee-bs3 .select2-dropdown');
 
-        if (position_button < position_select) {
-            $('#add_text_question_confirm').css({'border-bottom-width': '0', 'border-radius': '12px 12px 0 0'});
-        } else {
-            $('#add_text_question_confirm').css({'border-top-width': '0', 'border-radius': '0 0 12px 12px'});
+        var positionButton = 0;
+        if (button.length > 0) {
+            positionButton = button.offset().top;
         }
 
-    }else {
+        var positionSelect = 0;
+        if (select.length > 0) {
+            positionSelect = select.offset().top;
+        }
+
+        if (positionButton < positionSelect) {
+            $('#add_text_question_confirm').css({
+                'border-bottom-width': '0',
+                'border-radius': '12px 12px 0 0'
+            });
+        } else {
+            $('#add_text_question_confirm').css({
+                'border-top-width': '0',
+                'border-radius': '0 0 12px 12px'
+            });
+        }
+
+    } else {
 
         $('#add_new_question_confirm').select2('close');
         $(this).removeClass('openDropDownList');
         $(this).css('border-width', '0 0 0 1px');
         $(this).find('.triangle-bottom').css('transform', 'rotate(0deg)');
-        $('#add_text_question_confirm').css({'border-width': '1px', 'border-radius': '12px'});
+        $('#add_text_question_confirm').css({
+            'border-width': '1px',
+            'border-radius': '12px'
+        });
     }
 
     e.preventDefault();
@@ -291,26 +310,26 @@ $(body).on('click', '#button_add_text_question_confirm', function(e){
 $(window).on('scroll', function() {
 
     var button = $('#button_add_text_question_confirm');
-    var select = $('.select2-container--krajee .select2-dropdown');
+    var select = $('.select2-container--krajee-bs3 .select2-dropdown');
 
     if($(button).length > 0 && $(select).length > 0) {
 
-        var position_button = $(button).offset().top;
-        var position_select = $(select).offset().top;
+        var positionButton = button.offset().top;
+        var positionSelect = select.offset().top;
 
-        if (position_button < position_select) {
+        if (positionButton < positionSelect) {
 
             $('#add_text_question_confirm').css({
                 'border-top-width': '1px',
                 'border-bottom-width': '0',
-                'border-radius': '12px 12px 0 0',
+                'border-radius': '12px 12px 0 0'
             });
         } else {
 
             $('#add_text_question_confirm').css({
                 'border-bottom-width': '1px',
                 'border-top-width': '0',
-                'border-radius': '0 0 12px 12px',
+                'border-radius': '0 0 12px 12px'
             });
         }
     }
@@ -319,11 +338,13 @@ $(window).on('scroll', function() {
 // Отслеживаем клик вне поля Select
 $(document).mouseup(function (e){ // событие клика по веб-документу
 
-    var search = $('.select2-container--krajee .select2-search--dropdown .select2-search__field'); // поле поиска в select
+    var search = $('.select2-container--krajee-bs3 .select2-search--dropdown .select2-search__field'); // поле поиска в select
     var button = $('#button_add_text_question_confirm'); // кнопка открытия и закрытия списка select
 
-    if (!search.is(e.target) && !button.is(e.target) // если клик был не полю поиска и не по кнопке
-        && search.has(e.target).length === 0 && button.has(e.target).length === 0) { // и не их по его дочерним элементам
+    // если клик был не полю поиска и не по кнопке
+    // и не их по его дочерним элементам
+    if (!search.is(e.target) && !button.is(e.target) && search
+        .has(e.target).length === 0 && button.has(e.target).length === 0) {
 
         $('#add_new_question_confirm').select2('close'); // скрываем список select
         $(button).removeClass('openDropDownList'); // убираем класс открытового списка у кнопки открытия и закрытия списка select
@@ -335,49 +356,37 @@ $(document).mouseup(function (e){ // событие клика по веб-до�
 });
 
 
-//Если задано, что count_respond < count_positive, то count_respond = count_positive
+//Отслеживаем изменения в count_respond
 $(body).on('change', 'input#confirm_count_respond', function () {
-    var value1 = $('input#confirm_count_positive').val();
-    var value2 = $(this).val();
+    var value = $(this).val();
     var valueMax = 100;
-    var valueMin = 1;
+    var valueMin = 0;
 
-    if (parseInt(value2) < parseInt(value1)){
-        value2 = value1;
-        $(this).val(value2);
+    if (parseInt(value) > parseInt(valueMax)){
+        value = valueMax;
+        $(this).val(value);
     }
 
-    if (parseInt(value2) > parseInt(valueMax)){
-        value2 = valueMax;
-        $(this).val(value2);
-    }
-
-    if (parseInt(value2) < parseInt(valueMin)){
-        value2 = valueMin;
-        $(this).val(value2);
+    if (parseInt(value) < parseInt(valueMin)){
+        value = valueMin;
+        $(this).val(value);
     }
 });
 
-//Если задано, что count_positive > count_respond, то count_positive = count_respond
+//Отслеживаем изменения в count_positive
 $(body).on('change', 'input#confirm_count_positive', function () {
-    var value1 = $(this).val();
-    var value2 = $('input#confirm_count_respond').val();
+    var value = $(this).val();
     var valueMax = 100;
     var valueMin = 1;
 
-    if (parseInt(value1) > parseInt(value2)){
-        value1 = value2;
-        $(this).val(value1);
+    if (parseInt(value) > parseInt(valueMax)){
+        value = valueMax;
+        $(this).val(value);
     }
 
-    if (parseInt(value1) > parseInt(valueMax)){
-        value1 = valueMax;
-        $(this).val(value1);
-    }
-
-    if (parseInt(value1) < parseInt(valueMin)){
-        value1 = valueMin;
-        $(this).val(value1);
+    if (parseInt(value) < parseInt(valueMin)){
+        value = valueMin;
+        $(this).val(value);
     }
 });
 

@@ -405,7 +405,7 @@ $this->registerCssFile('@web/css/confirm-problem-create-style.css');
 
                     <?= $form->field($model, 'count_respond', [
                         'template' => '<div class="col-xs-12 col-sm-9 col-md-10 pl-20">{label}</div><div class="col-xs-12 col-sm-3 col-md-2">{input}</div>'
-                    ])->label('<div class="desktop-pt-5">Количество респондентов (представителей сегмента)</div>')
+                    ])->label('<div class="desktop-pt-5">Количество личных респондентов (представителей сегмента)</div><div class="font-size-12 color-grey">Респондентов, подтвердивших сегмент и прикрепленных к исполнителям, можно добавить при создании задания</div>')
                         ->textInput([
                             'type' => 'number',
                             'readonly' => true,

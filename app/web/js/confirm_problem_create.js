@@ -41,7 +41,6 @@ $(confirm_add_count_respond).change(function () {
 
     var value1 = $(this).val(),
         value2 = $(confirm_count_respond).val(),
-        value3 = $(confirm_count_positive).val(),
         valueMax = 100,
         valueMin = 1;
 
@@ -53,11 +52,6 @@ $(confirm_add_count_respond).change(function () {
         value1 = valueMin;
         $(this).val(value1);
     }
-
-    if (parseInt(value3) > (parseInt(value1) + parseInt(value2))) {
-        value3 = (parseInt(value1) + parseInt(value2));
-        $(confirm_count_positive).val(value3);
-    }
 });
 
 
@@ -65,23 +59,17 @@ $(confirm_add_count_respond).change(function () {
 $(confirm_count_positive).change(function () {
 
     var valueMin = 1,
-        value1 = $(this).val(),
-        value2;
+        valueMax = 100,
+        value = $(this).val();
 
-    if ($(confirm_add_count_respond).val() !== ''){
-        value2 = (parseInt($(confirm_count_respond).val()) + parseInt($(confirm_add_count_respond).val()));
-    } else {
-        value2 = parseInt($(confirm_count_respond).val());
+    if (parseInt(value) > parseInt(valueMax)){
+        value = valueMax;
+        $(this).val(value);
     }
 
-    if (parseInt(value1) > parseInt(value2)){
-        value1 = value2;
-        $(this).val(value1);
-    }
-
-    if (parseInt(value1) < parseInt(valueMin)){
-        value1 = valueMin;
-        $(this).val(value1);
+    if (parseInt(value) < parseInt(valueMin)){
+        value = valueMin;
+        $(this).val(value);
     }
 });
 
@@ -95,8 +83,6 @@ $(body).on('click', '#switch_add_count_respond', function () {
 
     if (typeof $(field).attr('readonly') === 'undefined') {
         $(field).attr('readonly', true).val(0);
-        if (parseInt($(confirm_count_respond).val()) < parseInt($(confirm_count_positive).val()))
-            $(confirm_count_positive).val($(confirm_count_respond).val());
         // Обновляем кэш на формы
         $(form).trigger('change');
         $(changeBtnContent).html('Добавить новых респондентов');

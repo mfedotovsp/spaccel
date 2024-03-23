@@ -11,13 +11,13 @@ $(body).on('click', '.one-wish_list_ready', function (){
             'border-radius': '12px 12px 0 0',
             'margin-bottom': '0',
             'background': '#7F9FC5'
-        })
+        });
     } else {
         $(this).css({
             'border-radius': '12px',
             'margin-bottom': '5px',
             'background': '#707F99'
-        })
+        });
     }
 });
 
@@ -25,7 +25,7 @@ $(body).on('click', '.one-wish_list_ready', function (){
 $(body).on('click', '.change-requirement-actual', function (e){
 
     var url = $(this).attr('href');
-    var parent = $(this).parent()
+    var parent = $(this).parent();
 
     $.ajax({
         url: url,

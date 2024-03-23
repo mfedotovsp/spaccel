@@ -17,7 +17,7 @@ use yii\helpers\Html;
 
 
 <style>
-    .select2-container--krajee .select2-selection {
+    .select2-container--krajee-bs3 .select2-selection {
         font-size: 16px;
         height: 40px;
         padding-left: 15px;
@@ -26,10 +26,10 @@ use yii\helpers\Html;
         border-radius: 12px;
         border: 1px solid #828282;
     }
-    .select2-container--krajee .select2-selection--single .select2-selection__arrow {
+    .select2-container--krajee-bs3 .select2-selection--single .select2-selection__arrow {
         height: 39px;
     }
-    .select2-container--krajee .select2-selection--multiple {
+    .select2-container--krajee-bs3 .select2-selection--multiple {
         height: 100%;
         padding-bottom: 2px;
         padding-top: 2px;

@@ -133,8 +133,9 @@ class ConfirmMvp extends ActiveRecord implements ConfirmationInterface
         return [
             [['mvp_id', 'count_respond', 'count_positive'], 'required'],
             [['mvp_id'], 'integer'],
-            [['count_respond', 'count_positive'], 'integer', 'integerOnly' => TRUE, 'min' => '1'],
-            [['count_respond', 'count_positive'], 'integer', 'integerOnly' => TRUE, 'max' => '100'],
+            ['count_respond', 'integer', 'integerOnly' => TRUE, 'min' => 0],
+            ['count_positive', 'integer', 'integerOnly' => TRUE, 'min' => 1],
+            [['count_respond', 'count_positive'], 'integer', 'integerOnly' => TRUE, 'max' => 100],
             ['enable_expertise', 'default', 'value' => EnableExpertise::OFF],
             ['enable_expertise', 'in', 'range' => [
                 EnableExpertise::OFF,

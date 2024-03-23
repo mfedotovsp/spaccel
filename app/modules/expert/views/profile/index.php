@@ -13,18 +13,18 @@ use app\models\ExpertType;
 $this->title = 'Эксперт | Профиль';
 $this->registerCssFile('@web/css/profile-style.css');
 
-/** 
- * @var User $user 
- * @var ProfileExpertForm $profile 
- * @var PasswordChangeForm $passwordChangeForm 
- * @var AvatarForm $avatarForm 
+/**
+ * @var User $user
+ * @var ProfileExpertForm $profile
+ * @var PasswordChangeForm $passwordChangeForm
+ * @var AvatarForm $avatarForm
  */
 
 ?>
 
 
 <style>
-    .select2-container--krajee
+    .select2-container--krajee-bs3
     .select2-selection--multiple
     .select2-search--inline
     .select2-search__field {
@@ -35,7 +35,7 @@ $this->registerCssFile('@web/css/profile-style.css');
     .select2-search__field {
         font-size: 16px;
     }
-    .select2-container--krajee
+    .select2-container--krajee-bs3
     .select2-selection {
         border: 1px solid #828282;
     }

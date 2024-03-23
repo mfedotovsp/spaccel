@@ -15,10 +15,11 @@ var module = (window.location.pathname).split('/')[1];
 // Прокрутка во время работы прелоадера
 window.addEventListener('DOMContentLoaded', function() {
     // Прокрутка до блока активной беседы
+    var linkAllConversation;
     if (module === 'admin') {
-        var linkAllConversation = $('.containerForAllConversations').find('#adminConversation-'+id_page);
+        linkAllConversation = $('.containerForAllConversations').find('#adminConversation-'+id_page);
     } else {
-        var linkAllConversation = $('.containerForAllConversations').find('#clientAdminConversation-'+id_page);
+        linkAllConversation = $('.containerForAllConversations').find('#clientAdminConversation-'+id_page);
     }
     simpleBarConversations.getScrollElement().scrollTop = $(linkAllConversation).offset().top - 211;
     // Прокрутка блока сообщений

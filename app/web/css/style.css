@@ -1048,8 +1048,8 @@ a.button_next_page_masseges:focus {
 /*Стилизация для поля Select2
 ---Начало---
 */
-.select2-container--krajee .select2-selection--single,
-.select2-container--krajee .select2-selection--single {
+.select2-container--krajee-bs3 .select2-selection--single,
+.select2-container--krajee-bs3 .select2-selection--single {
     font-size: 16px;
     height: 40px;
     padding-left: 15px;
@@ -1058,8 +1058,8 @@ a.button_next_page_masseges:focus {
     border: 1px solid #828282;
 }
 
-.select2-container--krajee .select2-selection--single .select2-selection__arrow,
-.select2-container--krajee .select2-selection--single .select2-selection__arrow {
+.select2-container--krajee-bs3 .select2-selection--single .select2-selection__arrow,
+.select2-container--krajee-bs3 .select2-selection--single .select2-selection__arrow {
     height: 39px;
 }
 
@@ -1067,8 +1067,8 @@ a.button_next_page_masseges:focus {
     padding: 6px 15px;
 }
 
-.input-lg.select2-container--krajee .select2-selection__clear,
-.input-group-lg .select2-container--krajee .select2-selection__clear {
+.input-lg.select2-container--krajee-bs3 .select2-selection__clear,
+.input-group-lg .select2-container--krajee-bs3 .select2-selection__clear {
     top: 0.6rem;
 }
 /*Стилизация для поля Select2
@@ -1078,7 +1078,7 @@ a.button_next_page_masseges:focus {
 /*Стилизация для поля DepDrop::TYPE_SELECT2
 ---Начало---
 */
-.select2-container--krajee .select2-selection--single {
+.select2-container--krajee-bs3 .select2-selection--single {
     font-size: 16px;
     height: 40px;
     padding-left: 15px;
@@ -1086,19 +1086,19 @@ a.button_next_page_masseges:focus {
     padding-bottom: 15px;
 }
 
-.select2-container--krajee .select2-selection__clear {
+.select2-container--krajee-bs3 .select2-selection__clear {
     top: 0.6rem;
 }
 
-.select2-container--krajee .select2-selection--single .select2-selection__arrow {
+.select2-container--krajee-bs3 .select2-selection--single .select2-selection__arrow {
     height: 39px;
 }
 
-.select2-container--krajee .select2-search--dropdown .select2-search__field {
+.select2-container--krajee-bs3 .select2-search--dropdown .select2-search__field {
     padding-left: 10px;
 }
 
-.select2-container--krajee .select2-selection {
+.select2-container--krajee-bs3 .select2-selection {
     border-radius: 12px;
 }
 /*Стилизация для поля DepDrop::TYPE_SELECT2
@@ -3907,6 +3907,9 @@ a.link_cancel_search_field_mobile img {
 .color-red {
     color: #FF5C5C;
 }
+.color-grey {
+    color: #828282;
+}
 .text-block-not-expertise-mobile {
     text-transform: uppercase;
     margin-bottom: 15px;
@@ -4237,7 +4240,7 @@ a.link_cancel_search_field_mobile img {
     display: none;
 }
 
-.select2-container--krajee .select2-results__option[aria-selected] {
+.select2-container--krajee-bs3 .select2-results__option[aria-selected] {
     font-size: 20px;
 }
 
