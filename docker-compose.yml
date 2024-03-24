@@ -1,6 +1,6 @@
 networks:
   spaccel_network:
-    name: spaccel_network
+    name: ${SPACCEL_NETWORK}
     external: true
 
 services:

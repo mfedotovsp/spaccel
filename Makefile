@@ -1,3 +1,5 @@
+include .env
+
 default:
 	@echo 'Enter command'
 
@@ -13,12 +15,12 @@ start: \
 	__initialization-an-existing-project
 
 up:
-	docker network create -d bridge spaccel_network
+	docker network create -d bridge ${SPACCEL_NETWORK}
 	docker compose up -d --build --remove-orphans
 
 down:
 	docker compose down -v --remove-orphans
-	docker network rm spaccel_network
+	docker network rm ${SPACCEL_NETWORK}
 
 git-pull:
 	git pull
