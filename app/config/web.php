@@ -66,27 +66,13 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-
             //'useFileTransport' => true, /*Письмо отправляется в дирректорию runtime/mail/ */
-
-            'useFileTransport' => false,/*Письмо отправляется на реальный адрес*/
+            'useFileTransport' => false, /*Письмо отправляется на реальный адрес*/
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.mail.ru',
-                'username' => 'fedotov.michail@mail.ru',
-                'password' => 'eWAYRPwYFSeShmtfxUNZ', // пароль для приложения
-                //'password' => 'iIiI4R2Spyt*', // для входа на почту
-                //'username' => 'spaccel@mail.ru',
-                //'password' => 'tUr-ityNIU19',
-                //'username' => 'aleksejj.latukhin@mail.ru',
-                //'password' => 'TaaJaas2AI5*',
-                //'username' => 'site.startup@mail.ru',
-                //'password' => 'AtiPprlIV72)',
-                //'username' => 'info.site.startup@mail.ru',
-                //'password' => 'R1uGITp3sta*',
+                'username' => getenv('SUPPORT_EMAIL'),
+                'password' => getenv('SUPPORT_PASSWORD'), // пароль для приложения
                 'port' => '465',
                 'encryption' => 'ssl',
             ],
