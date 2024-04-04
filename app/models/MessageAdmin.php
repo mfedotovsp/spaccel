@@ -200,7 +200,7 @@ class MessageAdmin extends ActiveRecord
             return 'Вчера';
         }
 
-        return ( date('d', $this->getCreatedAt()) . ' MessageAdmin.php' . $monthes[(date('n', $this->getCreatedAt()))]
+        return ( date('d', $this->getCreatedAt()) . $monthes[(date('n', $this->getCreatedAt()))]
             . ' ' . date(' Y', $this->getCreatedAt()));
     }
 

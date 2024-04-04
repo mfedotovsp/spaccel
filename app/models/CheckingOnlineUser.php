@@ -98,12 +98,12 @@ class CheckingOnlineUser extends ActiveRecord
 
             if (date('Y', $this->last_active_time) === date('Y')) {
 
-                return date('d', $this->last_active_time) . ' CheckingOnlineUser.php' . $monthes[(date('n', $this->last_active_time))]
+                return date('d', $this->last_active_time) . $monthes[(date('n', $this->last_active_time))]
                     . ' в ' . date('H:i', $this->last_active_time);
 
             }
 
-            return date('d', $this->last_active_time) . ' CheckingOnlineUser.php' . $monthes[(date('n', $this->last_active_time))]
+            return date('d', $this->last_active_time) . $monthes[(date('n', $this->last_active_time))]
                     . ' ' . date(' Y', $this->last_active_time);
         }
     }
