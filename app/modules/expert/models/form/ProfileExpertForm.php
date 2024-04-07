@@ -237,9 +237,9 @@ class ProfileExpertForm extends  Model
         try {
 
             $mail = Yii::$app->mailer->compose('changeProfile', ['user' => $this])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo($this->email)
-                ->setSubject('Изменение профиля на сайте Spaccel.ru');
+                ->setSubject('Изменение профиля на сайте ' . Yii::$app->params['siteName']);
 
             $mail->send();
             return true;

@@ -40,7 +40,7 @@ class CommunicationsController extends AppExpertController
         $currentUser = User::findOne(Yii::$app->user->getId());
 
         if ($action->id === 'notifications') {
-            
+
             $user = User::findOne((int)Yii::$app->request->get('id'));
             if (!$user) {
                 PatternHttpException::noData();
@@ -271,9 +271,9 @@ class CommunicationsController extends AppExpertController
 
         if ($user) {
             return Yii::$app->mailer->compose('communications__FromExpertToMainAdmin', ['user' => $user, 'communication' => $communication])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo($admin->email)
-                ->setSubject('Эксперт '.$user->username.' отправил Вам новое уведомление на сайте Spaccel.ru')
+                ->setSubject('Эксперт '.$user->username.' отправил Вам уведомление на сайте ' . Yii::$app->params['siteName'])
                 ->send();
         }
 

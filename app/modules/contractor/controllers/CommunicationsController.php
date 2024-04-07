@@ -194,7 +194,7 @@ class CommunicationsController extends AppContractorController
      * Метод для отправки
      * коммуникации
      *
-     * @param int $adressee_id
+     * @param int $addressee_id
      * @param int $project_id
      * @param int $type
      * @param int $activity_id
@@ -206,13 +206,13 @@ class CommunicationsController extends AppContractorController
      * @throws StaleObjectException
      * @throws Throwable
      */
-    public function actionSend(int $adressee_id, int $project_id, int $type, int $activity_id, int $triggered_communication_id, int $stage = null, int $stage_id = null)
+    public function actionSend(int $addressee_id, int $project_id, int $type, int $activity_id, int $triggered_communication_id, int $stage = null, int $stage_id = null)
     {
         if(Yii::$app->request->isAjax) {
 
             // Создаем новую коммуникацию
             $communication = new ContractorCommunications();
-            $communication->setParams($adressee_id, $project_id, $activity_id, $type, $stage, $stage_id, $triggered_communication_id);
+            $communication->setParams($addressee_id, $project_id, $activity_id, $type, $stage, $stage_id, $triggered_communication_id);
             if ($communication->save()) {
                 // Создаем объект содержащий ответ по созданной коммуникации
                 $communicationResponse = new FormCreateCommunicationResponse();
@@ -231,7 +231,7 @@ class CommunicationsController extends AppContractorController
                             $communicationAnsweredAccessToProject->update();
 
                             $accessToProject = new ContractorProjectAccess();
-                            $accessToProject->setParams($adressee_id, $project_id, $communication);
+                            $accessToProject->setParams($addressee_id, $project_id, $communication);
                             $accessToProject->save();
                         }
 
@@ -239,9 +239,7 @@ class CommunicationsController extends AppContractorController
                         $result_ReadCommunication = $this->responseForReadCommunication($communicationAnswered->getId());
 
                         // Отправка письма проектанту на почту
-                        //TODO: Раскомментировать, когда будет нормально работать отправка писем
-
-                        // $this->sendCommunicationToEmail($communication);
+                        $this->sendCommunicationToEmail($communication);
 
                         // Получить обновленные коммуникации
                         $result_GetCommunications =  $this->actionGetCommunications($project_id);
@@ -272,9 +270,9 @@ class CommunicationsController extends AppContractorController
 
         if ($contractor) {
             return Yii::$app->mailer->compose('communications__FromContractorToSimpleUser', ['contractor' => $contractor, 'communication' => $communication])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo($user->getEmail())
-                ->setSubject('Исполнитель '.$contractor->getUsername().' отправил Вам новое уведомление на сайте Spaccel.ru')
+                ->setSubject('Исполнитель '.$contractor->getUsername().' отправил Вам уведомление на сайте ' . Yii::$app->params['siteName'])
                 ->send();
         }
 

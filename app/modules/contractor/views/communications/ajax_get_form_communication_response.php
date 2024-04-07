@@ -43,7 +43,7 @@ use yii\helpers\Html;
         'id' => 'formCreateResponseCommunication',
         'action' => Url::to([
             '/contractor/communications/send',
-            'adressee_id' => $communication->getSenderId(),
+            'addressee_id' => $communication->getSenderId(),
             'project_id' => $communication->getProjectId(),
             'type' => ContractorCommunicationTypes::CONTRACTOR_ANSWERS_QUESTION_ABOUT_READINESS_TO_JOIN_PROJECT,
             'activity_id' => $communication->getActivityId(),

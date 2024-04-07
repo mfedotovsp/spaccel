@@ -164,9 +164,9 @@ class SingupForm extends Model
     public function sendActivationEmail(User $user): bool
     {
         return Yii::$app->mailer->compose('activationEmail', ['user' => $user])
-            ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
             ->setTo($this->getEmail())
-            ->setSubject('Регистрация на сайте Spaccel.ru')
+            ->setSubject('Регистрация на сайте ' . Yii::$app->params['siteName'])
             ->send();
     }
 

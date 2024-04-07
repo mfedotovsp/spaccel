@@ -11,7 +11,7 @@ if ($user->getStatus() === User::STATUS_ACTIVE) {
 
     echo '<p>Добрый день! '.Html::encode($user->getUsername()).', Ваш профиль на сайте активирован. </p>';
     echo '<p>Теперь Вы можете приступить к работе на нашем сайте. Для этого перейдите по ссылке ' .
-        Html::a('Spaccel.ru',
+        Html::a(Yii::$app->params['siteName'],
             Yii::$app->urlManager->createAbsoluteUrl(
                 [
                     '/',
@@ -21,7 +21,7 @@ if ($user->getStatus() === User::STATUS_ACTIVE) {
 }else {
     echo '<p>Добрый день! '.Html::encode($user->getUsername()).', Ваш профиль на сайте заблокирован. </p>';
     echo '<p>Обратитесь по этому вопросу к администратору сайта. Для этого перейдите по ссылке ' .
-        Html::a('Spaccel.ru',
+        Html::a(Yii::$app->params['siteName'],
             Yii::$app->urlManager->createAbsoluteUrl(
                 [
                     '/',

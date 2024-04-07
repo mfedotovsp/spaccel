@@ -8,5 +8,5 @@ use app\models\User;
 
 ?>
 
-<div>Добрый день, <?= $user->getUsername() ?>, данные вашего профиля на сайте Spaccel.ru были обновлены.</div>
+<div>Добрый день, <?= $user->getUsername() ?>, данные вашего профиля на сайте <?= Yii::$app->params['siteName'] ?> были обновлены.</div>
 

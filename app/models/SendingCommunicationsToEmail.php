@@ -22,17 +22,17 @@ class SendingCommunicationsToEmail
 
         if ($mainAdmin) {
             Yii::$app->mailer->compose('communications__UserAllowExpertiseToProject', ['communication' => $communication, 'role' => $mainAdmin->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo($mainAdmin->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте Spaccel.ru')
+                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
                 ->send();
         }
 
         if ($admin) {
             Yii::$app->mailer->compose('communications__UserAllowExpertiseToProject', ['communication' => $communication, 'role' => $admin->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo($admin->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте Spaccel.ru')
+                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
                 ->send();
         }
     }
@@ -54,17 +54,17 @@ class SendingCommunicationsToEmail
 
         if ($expert) {
             Yii::$app->mailer->compose('communications__UserAllowExpertiseToStageProject', ['communication' => $communication, 'role' => $expert->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo($expert->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте Spaccel.ru')
+                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
                 ->send();
         }
 
         if ($admin && $isSendTracker) {
             Yii::$app->mailer->compose('communications__UserAllowExpertiseToStageProject', ['communication' => $communication, 'role' => $admin->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo($admin->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте Spaccel.ru')
+                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
                 ->send();
         }
     }
@@ -86,17 +86,17 @@ class SendingCommunicationsToEmail
 
         if ($expert) {
             Yii::$app->mailer->compose('communications__UserSoftDeleteStageProject', ['communication' => $communication, 'role' => $expert->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo($expert->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте Spaccel.ru')
+                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
                 ->send();
         }
 
         if ($admin && $isSendTracker) {
             Yii::$app->mailer->compose('communications__UserSoftDeleteStageProject', ['communication' => $communication, 'role' => $admin->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo($admin->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте Spaccel.ru')
+                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
                 ->send();
         }
     }

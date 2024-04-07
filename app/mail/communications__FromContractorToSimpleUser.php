@@ -13,7 +13,7 @@ use app\modules\contractor\models\form\FormCreateCommunicationResponse;
 ?>
 
 <p>
-    Данное письмо является ответом исполнителя <b><?= $contractor->getUsername() ?></b> на запрос о готовности присоединиться к работе над проектм <?= Html::a('«'.$communication->project->getProjectName().'»', Yii::$app->urlManager->createAbsoluteUrl(['/projects/index', 'id' => $communication->project->getUserId(), 'project_id' => $communication->getProjectId()])) ?>
+    Данное письмо является ответом исполнителя <b><?= $contractor->getUsername() ?></b> на запрос о готовности присоединиться к работе над проектом <?= Html::a('«'.$communication->project->getProjectName().'»', Yii::$app->urlManager->createAbsoluteUrl(['/projects/index', 'id' => $communication->project->getUserId(), 'project_id' => $communication->getProjectId()])) ?>
 </p>
 
 <p>

@@ -534,9 +534,9 @@ class User extends ActiveRecord implements IdentityInterface
 
         if($user){
             return Yii::$app->mailer->compose('change-status', ['user' => $user])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo($this->getEmail())
-                ->setSubject('Изменение Вашего статуса на сайте Spaccel.ru')
+                ->setSubject('Изменение Вашего статуса на сайте ' . Yii::$app->params['siteName'])
                 ->send();
         }
         return false;
@@ -646,9 +646,9 @@ class User extends ActiveRecord implements IdentityInterface
             $admin = $user->mainAdmin;
 
             return Yii::$app->mailer->compose('signup-admin', ['user' => $user])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo([$admin->getEmail()])
-                ->setSubject('Регистрация нового пользователя на сайте Spaccel.ru')
+                ->setSubject('Регистрация нового пользователя на сайте ' . Yii::$app->params['siteName'])
                 ->send();
         }
         return false;

@@ -574,9 +574,9 @@ class CommunicationsController extends AppAdminController
 
         if ($user) {
             return Yii::$app->mailer->compose('communications__FromMainAdminToExpert', ['user' => $user, 'communication' => $communication])
-                ->setFrom([Yii::$app->params['supportEmail'] => 'Spaccel.ru - Акселератор стартап-проектов'])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
                 ->setTo($user->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте Spaccel.ru')
+                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
                 ->send();
         }
 

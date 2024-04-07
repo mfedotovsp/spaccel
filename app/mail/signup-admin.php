@@ -7,5 +7,5 @@ use app\models\User;
  */
 
 
-echo 'На сайте Spaccel.ru был зарегистрирован новый пользователь: '. $user->getUsername() . '(' . $user->getTextRole() . ')';
+echo 'На сайте ' . Yii::$app->params['siteName'] . ' был зарегистрирован новый пользователь: '. $user->getUsername() . '(' . $user->getTextRole() . ')';
 

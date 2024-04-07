@@ -35,7 +35,7 @@ class CommunicationPatterns extends ActiveRecord
     public const COMMUNICATION_DEFAULT_WITHDRAWS_REQUEST_ABOUT_READINESS_CONDUCT_EXPERTISE = 'Произошли изменения в проекте {{наименование проекта}}. Приносим Вам свои извинения, запрос на экспертизу отозван.';
     public const COMMUNICATION_DEFAULT_APPOINTS_EXPERT_PROJECT = 'Вы назначены на экспертизу по проекту {{наименование проекта, ссылка на проект}} по типам деятельности: {{список типов деятельности эксперта}}. Приступайте к экспертизе на этапе описания проекта. Внимание! В работе эксперта есть ограничение по времени, не более 7 дней для выставления экспертной оценки после уведомления о необходимости провести экспертизу для той или иной сущности на этапе проекта.';
     public const COMMUNICATION_DEFAULT_DOES_NOT_APPOINTS_EXPERT_PROJECT = 'Вы не назначены на экспертизу по проекту {{наименование проекта}}. Приносим Вам свои извинения, запрос на экспертизу отозван.';
-    public const COMMUNICATION_DEFAULT_WITHDRAWS_EXPERT_FROM_PROJECT = 'Вы отозваны с экспертизы по проекту {{наименование проекта}}. Подробную информацию получите у администратора сайта Spaccel.ru';
+    public const COMMUNICATION_DEFAULT_WITHDRAWS_EXPERT_FROM_PROJECT = 'Вы отозваны с экспертизы по проекту {{наименование проекта}}. Подробную информацию получите у администратора сайта.';
     public const COMMUNICATION_DEFAULT_USER_ALLOWED_STAGE_EXPERTISE = 'Проектант, {{проектант}}, разрешил экспертизу по этапу «{{наименование этапа проекта, ссылка на этап проекта}}».<br>Проект: {{наименование проекта}}.';
     public const COMMUNICATION_DEFAULT_USER_DELETED_STAGE_PROJECT = 'Проектант, {{проектант}}, удалил «{{наименование этапа проекта, ссылка на этап проекта}}».<br>Проект: {{наименование проекта}}.';
 
