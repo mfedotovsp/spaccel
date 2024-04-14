@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\models\forms\CacheForm;
 use app\models\traits\SoftDeleteModelTrait;
+use app\services\MailerService;
 use Throwable;
 use Yii;
 use yii\base\Exception;
@@ -877,11 +878,12 @@ class Projects extends ActiveRecord
                 $user = User::findOne($communication->getAdresseeId());
 
                 if ($user) {
-                    Yii::$app->mailer->compose('communications__FromMainAdminToExpert', ['user' => $user, 'communication' => $communication])
-                        ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                        ->setTo($user->getEmail())
-                        ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
-                        ->send();
+                    MailerService::send(
+                        $user->getEmail(),
+                        'Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'],
+                        'communications__FromMainAdminToExpert',
+                        ['user' => $user, 'communication' => $communication]
+                    );
                 }
             }
         }

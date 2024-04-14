@@ -84,16 +84,16 @@ class BehaviorsUserPartController extends AppController
 
                     [
                         'allow' => true,
-                        'controllers' => ['site'],
-                        'actions' => ['get-form-registration', 'registration', 'singup', 'error', 'login', 'index', 'about', 'send-email', 'reset-password', 'activate-account', 'confidentiality-policy', 'download-presentation'],
+                        'controllers' => ['site', 'mailing'],
+                        'actions' => ['get-form-registration', 'registration', 'singup', 'error', 'login', 'index', 'about', 'send-email', 'reset-password', 'activate-account', 'confidentiality-policy', 'download-presentation', 'unsubscribe'],
                         'verbs' => ['GET', 'POST'],
                         'roles' => ['?']
                     ],
 
                     [
                         'allow' => true,
-                        'controllers' => ['site'],
-                        'actions' => ['get-form-registration', 'registration', 'singup', 'error', 'login', 'index', 'about', 'send-email', 'reset-password', 'activate-account', 'confidentiality-policy', 'download-presentation', 'logout'],
+                        'controllers' => ['site', 'mailing'],
+                        'actions' => ['get-form-registration', 'registration', 'singup', 'error', 'login', 'index', 'about', 'send-email', 'reset-password', 'activate-account', 'confidentiality-policy', 'download-presentation', 'logout', 'unsubscribe'],
                         'verbs' => ['GET', 'POST'],
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -105,9 +105,9 @@ class BehaviorsUserPartController extends AppController
 
                     [
                         'allow' => true,
-                        'controllers' => ['site', 'profile'],
+                        'controllers' => ['site', 'profile', 'mailing'],
                         'actions' => ['singup', 'login', 'index', 'about', 'send-email', 'reset-password', 'update-profile', 'change-password',
-                            'logout', 'project', 'roadmap', 'prefiles', 'not-found'],
+                            'logout', 'project', 'roadmap', 'prefiles', 'not-found', 'unsubscribe'],
                         'verbs' => ['GET', 'POST'],
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {

@@ -4,6 +4,7 @@
 namespace app\models\forms;
 
 use app\models\User;
+use app\services\MailerService;
 use yii\base\Model;
 use Yii;
 
@@ -137,20 +138,12 @@ class ProfileForm extends Model
      */
     public function sendEmail(): bool
     {
-        try {
-
-            $mail = Yii::$app->mailer->compose('changeProfile', ['user' => $this])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo($this->email)
-                ->setSubject('Изменение профиля на сайте ' . Yii::$app->params['siteName']);
-
-            $mail->send();
-            return true;
-
-        } catch (\Swift_TransportException  $e) {
-
-            return  false;
-        }
+        return MailerService::send(
+            $this->getEmail(),
+            'Изменение профиля на сайте ' . Yii::$app->params['siteName'],
+            'changeProfile',
+            ['user' => $this]
+        );
     }
 
 

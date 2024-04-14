@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /**
  * @var ProjectCommunications $communication
  * @var int $role
+ * @var string $unsubscribeLink
 */
 
 ?>
@@ -24,3 +25,8 @@ use yii\helpers\Html;
     </p>
 
 <?php endif; ?>
+
+<p style="color:slategray; font-size: 12px; margin-top: 30px">
+    Отписаться от рассылки можно по
+    <a style="color:slategray" href="<?= $unsubscribeLink ?>">этой ссылке</a>.
+</p>

@@ -7,6 +7,7 @@ use app\modules\admin\models\MessageMainAdmin;
 use app\modules\admin\models\MessageManager;
 use app\modules\expert\models\ConversationExpert;
 use app\modules\expert\models\MessageExpert;
+use app\services\MailerService;
 use yii\base\Exception;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -533,11 +534,12 @@ class User extends ActiveRecord implements IdentityInterface
         $user = static::findOne(['email' => $this->email]);
 
         if($user){
-            return Yii::$app->mailer->compose('change-status', ['user' => $user])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo($this->getEmail())
-                ->setSubject('Изменение Вашего статуса на сайте ' . Yii::$app->params['siteName'])
-                ->send();
+            return MailerService::send(
+                $this->getEmail(),
+                'Изменение Вашего статуса на сайте ' . Yii::$app->params['siteName'],
+                'change-status',
+                ['user' => $user]
+            );
         }
         return false;
     }
@@ -645,11 +647,12 @@ class User extends ActiveRecord implements IdentityInterface
 
             $admin = $user->mainAdmin;
 
-            return Yii::$app->mailer->compose('signup-admin', ['user' => $user])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo([$admin->getEmail()])
-                ->setSubject('Регистрация нового пользователя на сайте ' . Yii::$app->params['siteName'])
-                ->send();
+            return MailerService::send(
+                $admin->getEmail(),
+                'Регистрация нового пользователя на сайте ' . Yii::$app->params['siteName'],
+                'signup-admin',
+                ['user' => $user]
+            );
         }
         return false;
     }

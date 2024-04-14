@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\services\MailerService;
 use Yii;
 
 class SendingCommunicationsToEmail
@@ -21,19 +22,21 @@ class SendingCommunicationsToEmail
         $admin = $user->admin;
 
         if ($mainAdmin) {
-            Yii::$app->mailer->compose('communications__UserAllowExpertiseToProject', ['communication' => $communication, 'role' => $mainAdmin->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo($mainAdmin->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
-                ->send();
+            MailerService::send(
+                $mainAdmin->getEmail(),
+                'Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'],
+                'communications__UserAllowExpertiseToProject',
+                ['communication' => $communication, 'role' => $mainAdmin->getRole()]
+            );
         }
 
         if ($admin) {
-            Yii::$app->mailer->compose('communications__UserAllowExpertiseToProject', ['communication' => $communication, 'role' => $admin->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo($admin->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
-                ->send();
+            MailerService::send(
+                $admin->getEmail(),
+                'Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'],
+                'communications__UserAllowExpertiseToProject',
+                ['communication' => $communication, 'role' => $admin->getRole()]
+            );
         }
     }
 
@@ -53,19 +56,21 @@ class SendingCommunicationsToEmail
         $admin = $user->admin;
 
         if ($expert) {
-            Yii::$app->mailer->compose('communications__UserAllowExpertiseToStageProject', ['communication' => $communication, 'role' => $expert->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo($expert->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
-                ->send();
+            MailerService::send(
+                $expert->getEmail(),
+                'Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'],
+                'communications__UserAllowExpertiseToStageProject',
+                ['communication' => $communication, 'role' => $expert->getRole()]
+            );
         }
 
         if ($admin && $isSendTracker) {
-            Yii::$app->mailer->compose('communications__UserAllowExpertiseToStageProject', ['communication' => $communication, 'role' => $admin->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo($admin->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
-                ->send();
+            MailerService::send(
+                $admin->getEmail(),
+                'Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'],
+                'communications__UserAllowExpertiseToStageProject',
+                ['communication' => $communication, 'role' => $admin->getRole()]
+            );
         }
     }
 
@@ -85,19 +90,21 @@ class SendingCommunicationsToEmail
         $admin = $user->admin;
 
         if ($expert) {
-            Yii::$app->mailer->compose('communications__UserSoftDeleteStageProject', ['communication' => $communication, 'role' => $expert->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo($expert->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
-                ->send();
+            MailerService::send(
+                $expert->getEmail(),
+                'Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'],
+                'communications__UserSoftDeleteStageProject',
+                ['communication' => $communication, 'role' => $expert->getRole()]
+            );
         }
 
         if ($admin && $isSendTracker) {
-            Yii::$app->mailer->compose('communications__UserSoftDeleteStageProject', ['communication' => $communication, 'role' => $admin->getRole()])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo($admin->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
-                ->send();
+            MailerService::send(
+                $admin->getEmail(),
+                'Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'],
+                'communications__UserSoftDeleteStageProject',
+                ['communication' => $communication, 'role' => $admin->getRole()]
+            );
         }
     }
 }

@@ -11,6 +11,7 @@ use app\models\ProjectCommunications;
 use app\models\Projects;
 use app\models\User;
 use app\modules\expert\models\form\FormCreateCommunicationResponse;
+use app\services\MailerService;
 use Throwable;
 use Yii;
 use yii\db\StaleObjectException;
@@ -270,11 +271,12 @@ class CommunicationsController extends AppExpertController
         $admin = User::findOne($communication->getAdresseeId());
 
         if ($user) {
-            return Yii::$app->mailer->compose('communications__FromExpertToMainAdmin', ['user' => $user, 'communication' => $communication])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo($admin->email)
-                ->setSubject('Эксперт '.$user->username.' отправил Вам уведомление на сайте ' . Yii::$app->params['siteName'])
-                ->send();
+            return MailerService::send(
+                $admin->getEmail(),
+                'Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'],
+                'communications__FromExpertToMainAdmin',
+                ['user' => $user, 'communication' => $communication]
+            );
         }
 
         return false;

@@ -6,10 +6,10 @@ use app\models\StageExpertise;
 use app\models\User;
 use yii\helpers\Html;
 
-
 /**
  * @var ProjectCommunications $communication
  * @var int $role
+ * @var string $unsubscribeLink
 */
 
 $description = '';
@@ -74,3 +74,8 @@ if (in_array($role, [User::ROLE_ADMIN, User::ROLE_EXPERT], true)) {
 ?>
 
 <p><?= $description ?></p>
+
+<p style="color:slategray; font-size: 12px; margin-top: 30px">
+    Отписаться от рассылки можно по
+    <a style="color:slategray" href="<?= $unsubscribeLink ?>">этой ссылке</a>.
+</p>

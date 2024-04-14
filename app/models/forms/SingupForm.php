@@ -3,6 +3,7 @@
 
 namespace app\models\forms;
 
+use app\services\MailerService;
 use yii\base\Exception;
 use yii\base\Model;
 use app\models\User;
@@ -163,11 +164,12 @@ class SingupForm extends Model
      */
     public function sendActivationEmail(User $user): bool
     {
-        return Yii::$app->mailer->compose('activationEmail', ['user' => $user])
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-            ->setTo($this->getEmail())
-            ->setSubject('Регистрация на сайте ' . Yii::$app->params['siteName'])
-            ->send();
+        return MailerService::send(
+            $user->getEmail(),
+            'Регистрация на сайте ' . Yii::$app->params['siteName'],
+            'activationEmail',
+            ['user' => $user]
+        );
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\services\MailerService;
 use Yii;
 use yii\base\Model;
 
@@ -103,12 +104,12 @@ class LoginForm extends Model
      */
     public function sendActivationEmail(User $user): bool
     {
-        return Yii::$app->mailer->compose('activationEmail', ['user' => $user])
-            ->setFrom([Yii::$app->params['supportEmail'] => 'StartPool - Акселератор стартап-проектов'])
-            ->setTo($user->getEmail())
-            ->setSubject('Регистрация на сайте StartPool')
-            ->send();
-
+        return MailerService::send(
+            $user->getEmail(),
+            'Регистрация на сайте ' . Yii::$app->params['siteName'],
+            'activationEmail',
+            ['user' => $user]
+        );
     }
 
     /**

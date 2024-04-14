@@ -3,6 +3,7 @@
 
 namespace app\models\forms;
 
+use app\services\MailerService;
 use yii\base\Exception;
 use yii\base\Model;
 use app\models\User;
@@ -59,11 +60,12 @@ class SendEmailForm extends Model
 
             if($user->save()){
 
-                return Yii::$app->mailer->compose('resetPassword', ['user' => $user])
-                    ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                    ->setTo($this->getEmail())
-                    ->setSubject('Изменение пароля на сайте '. Yii::$app->params['siteName'] . ' для пользователя ' . $user->getUsername())
-                    ->send();
+                return MailerService::send(
+                    $this->getEmail(),
+                    'Изменение пароля на сайте '. Yii::$app->params['siteName'] . ' для пользователя ' . $user->getUsername(),
+                    'resetPassword',
+                    ['user' => $user]
+                );
             }
         }
 

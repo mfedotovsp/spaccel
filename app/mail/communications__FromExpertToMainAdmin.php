@@ -8,6 +8,7 @@ use app\modules\expert\models\form\FormCreateCommunicationResponse;
 /**
  * @var User $user
  * @var ProjectCommunications $communication
+ * @var string $unsubscribeLink
  */
 
 ?>
@@ -23,5 +24,10 @@ use app\modules\expert\models\form\FormCreateCommunicationResponse;
         <br>
         <b>Комментарий: </b> <?= $communication->communicationResponse->getComment() ?>
     <?php endif; ?>
+</p>
+
+<p style="color:slategray; font-size: 12px; margin-top: 30px">
+    Отписаться от рассылки можно по
+    <a style="color:slategray" href="<?= $unsubscribeLink ?>">этой ссылке</a>.
 </p>
 

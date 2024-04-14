@@ -6,5 +6,6 @@ return [
     'supportEmail' => getenv('SUPPORT_EMAIL'), // автоматическая отправка почты с данного емайл
     'secretKeyExpire' => 60 * 60,                    // время хранения секретного ключа
     'emailActivation' => true,                       // подтверждение нового пользователя по email
-    'siteName' => getenv('SITE_NAME')
+    'siteName' => getenv('SITE_NAME'),
+    'siteUrl' => getenv('SITE_URL')
 ];

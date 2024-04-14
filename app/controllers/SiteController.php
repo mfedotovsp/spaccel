@@ -13,6 +13,7 @@ use app\models\forms\FormClientAndRole;
 use app\models\forms\FormClientCodeRegistration;
 use app\models\forms\SingupContractorForm;
 use app\models\forms\SingupExpertForm;
+use app\services\MailerService;
 use Throwable;
 use Yii;
 use yii\base\Exception;
@@ -250,9 +251,9 @@ class SiteController extends AppUserPartController
                                     Yii::$app->response->format = Response::FORMAT_JSON;
                                     Yii::$app->response->data = $response;
                                     return $response;
-
                                 }
 
+                                $user->clientUser->delete();
                                 $user->delete();
 
                                 //Письмо с подтверждением не отправлено

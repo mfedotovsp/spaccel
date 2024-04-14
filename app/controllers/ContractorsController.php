@@ -12,6 +12,7 @@ use app\models\forms\SearchContractorsForm;
 use app\models\PatternHttpException;
 use app\models\Projects;
 use app\models\User;
+use app\services\MailerService;
 use Exception;
 use Throwable;
 use Yii;
@@ -182,11 +183,12 @@ class ContractorsController extends AppUserPartController
         $user = User::findOne($communication->getAdresseeId());
 
         if ($user) {
-            return Yii::$app->mailer->compose('communications__FromSimpleUserToContractor', ['user' => $user, 'communication' => $communication])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo($user->getEmail())
-                ->setSubject('Вам пришло новое уведомление на сайте '. Yii::$app->params['siteName'])
-                ->send();
+            return MailerService::send(
+                $user->getEmail(),
+                'Вам пришло новое уведомление на сайте '. Yii::$app->params['siteName'],
+                'communications__FromSimpleUserToContractor',
+                ['user' => $user, 'communication' => $communication]
+            );
         }
 
         return false;
@@ -273,7 +275,7 @@ class ContractorsController extends AppUserPartController
                         }
 
                         // Отправка письма на почту
-                        //$this->sendCommunicationToEmail($communication);
+                        $this->sendCommunicationToEmail($communication);
 
                         $result_SendCommunication = ['success' => true, 'type' => $type, 'project_id' => $project_id];
                         $response = array_merge($result_ReadCommunication, $result_SendCommunication);

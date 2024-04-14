@@ -15,6 +15,7 @@ use app\models\User;
 use app\models\UserAccessToProjects;
 use app\modules\admin\models\form\FormExpertTypes;
 use app\modules\admin\models\form\FormUpdateCommunicationPattern;
+use app\services\MailerService;
 use Throwable;
 use Yii;
 use yii\data\Pagination;
@@ -561,11 +562,12 @@ class CommunicationsController extends AppClientController
     public function sendCommunicationToEmail(ProjectCommunications $communication): bool
     {
         if ($user = User::findOne($communication->getAdresseeId())) {
-            return Yii::$app->mailer->compose('communications__FromMainAdminToExpert', ['user' => $user, 'communication' => $communication])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['siteName'] . ' - Акселератор стартап-проектов'])
-                ->setTo($user->email)
-                ->setSubject('Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'])
-                ->send();
+            return MailerService::send(
+                $user->getEmail(),
+                'Вам пришло новое уведомление на сайте ' . Yii::$app->params['siteName'],
+                'communications__FromMainAdminToExpert',
+                ['user' => $user, 'communication' => $communication]
+            );
         }
 
         return false;
