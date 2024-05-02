@@ -35,6 +35,9 @@ $config = [
             'migrationNamespaces' => ['app\migrations'],
             'migrationPath' => null,
         ],
+        'backup' => [
+            'class' => 'app\commands\BackupController',
+        ]
         /*'fixture' => [ // Fixture generation command line.
             'class' => 'yii\faker\FixtureController',
         ],*/
