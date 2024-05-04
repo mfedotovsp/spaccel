@@ -2,6 +2,7 @@
 
 namespace app\modules\contractor\controllers;
 
+use app\models\ClientSettings;
 use app\models\ContractorTasks;
 use app\models\PatternHttpException;
 use app\models\Projects;
@@ -21,6 +22,7 @@ class ProjectsController extends AppContractorController
     public function beforeAction($action): bool
     {
         $currentUser = User::findOne(Yii::$app->user->getId());
+        $currentClientUser = $currentUser->clientUser;
 
         if ($action->id === 'index') {
 
@@ -31,6 +33,19 @@ class ProjectsController extends AppContractorController
 
             if (User::isUserContractor($currentUser->getUsername()) && $contractor->getId() === $currentUser->getId()) {
                 return parent::beforeAction($action);
+            }
+
+            if (User::isUserMainAdmin($currentUser->getUsername()) || User::isUserDev($currentUser->getUsername()) || User::isUserAdminCompany($currentUser->getUsername())) {
+
+                $modelClientUser = $contractor->clientUser;
+
+                if ($currentClientUser->getClientId() === $modelClientUser->getClientId()) {
+                    return parent::beforeAction($action);
+                }
+
+                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE && !User::isUserAdminCompany($currentUser->getUsername())) {
+                    return parent::beforeAction($action);
+                }
             }
 
             PatternHttpException::noAccess();
@@ -68,15 +83,16 @@ class ProjectsController extends AppContractorController
     /**
      * Получение заданий по проекту
      *
+     * @param int $contractorId
      * @param int $projectId
      * @return array|false
      */
-    public function actionGetTasks(int $projectId)
+    public function actionGetTasks(int $contractorId, int $projectId)
     {
         if (Yii::$app->request->isAjax) {
 
             $contractorTasks = ContractorTasks::find()
-                ->andWhere(['contractor_id' => Yii::$app->user->getId(), 'project_id' => $projectId])
+                ->andWhere(['contractor_id' => $contractorId, 'project_id' => $projectId])
                 ->orderBy(['created_at' => SORT_DESC])
                 ->all();
 

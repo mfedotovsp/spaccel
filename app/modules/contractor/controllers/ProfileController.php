@@ -3,6 +3,7 @@
 
 namespace app\modules\contractor\controllers;
 
+use app\models\ClientSettings;
 use app\models\ContractorActivities;
 use app\models\ContractorUsers;
 use app\models\forms\AvatarForm;
@@ -34,6 +35,7 @@ class ProfileController extends AppContractorController
     public function beforeAction($action): bool
     {
         $currentUser = User::findOne(Yii::$app->user->getId());
+        $currentClientUser = $currentUser->clientUser;
 
         if ($action->id === 'index') {
 
@@ -48,6 +50,19 @@ class ProfileController extends AppContractorController
 
             if (ContractorUsers::findOne(['contractor_id' => $contractor->getId(), 'user_id' => $currentUser->getId()])) {
                 return parent::beforeAction($action);
+            }
+
+            if (User::isUserMainAdmin($currentUser->getUsername()) || User::isUserDev($currentUser->getUsername()) || User::isUserAdminCompany($currentUser->getUsername())) {
+
+                $modelClientUser = $contractor->clientUser;
+
+                if ($currentClientUser->getClientId() === $modelClientUser->getClientId()) {
+                    return parent::beforeAction($action);
+                }
+
+                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE && !User::isUserAdminCompany($currentUser->getUsername())) {
+                    return parent::beforeAction($action);
+                }
             }
 
             PatternHttpException::noAccess();

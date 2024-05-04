@@ -259,6 +259,42 @@ class UsersController extends AppClientController
 
 
     /**
+     * Список исполнителей организации
+     *
+     * @param int|null $id
+     * @return string
+     */
+    public function actionContractors(): string
+    {
+        $user = User::findOne(Yii::$app->user->getId());
+
+        /**
+         * @var ClientUser $clientUser
+         * @var Client $client
+         */
+        $clientUser = $user->clientUser;
+        $client = $clientUser->client;
+
+        $countUsersOnPage = 20;
+        $query = User::find()->with('clientUser')
+            ->leftJoin('client_user', '`client_user`.`user_id` = `user`.`id`')
+            ->andWhere(['role' => User::ROLE_CONTRACTOR, 'confirm' => User::CONFIRM])
+            ->andWhere(['client_user.client_id' => $client->getId()])
+            ->orderBy(['updated_at' => SORT_DESC]);
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => $countUsersOnPage]);
+        $pages->pageSizeParam = false; //убираем параметр $per-page
+        $users = $query->offset($pages->offset)->limit($countUsersOnPage)->all();
+        $clientId = (ClientUser::findOne(['user_id' => Yii::$app->user->getId()])->getClientId());
+
+        return $this->render('contractors',[
+            'users' => $users,
+            'pages' => $pages,
+            'clientId' => $clientId
+        ]);
+    }
+
+
+    /**
      * Изменение статуса пользователя
      *
      * @param int $id

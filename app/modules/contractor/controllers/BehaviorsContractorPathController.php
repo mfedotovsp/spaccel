@@ -23,6 +23,17 @@ class BehaviorsContractorPathController extends AppController
             $this->layout = '@app/views/layouts/main';
         }
 
+        // Подключение шаблона для техподдержки, админа Spaccel в пользовательской части
+        if (User::isUserDev($user->getUsername())
+            || User::isUserMainAdmin($user->getUsername())) {
+            $this->layout = '@app/modules/admin/views/layouts/main-user';
+        }
+
+        // Подключение шаблона админа организации в пользовательской части
+        if (User::isUserAdminCompany($user->getUsername())) {
+            $this->layout = '@app/modules/client/views/layouts/main-user';
+        }
+
         return parent::beforeAction($action);
     }
 
@@ -57,6 +68,26 @@ class BehaviorsContractorPathController extends AppController
                             $user = User::findOne(Yii::$app->user->id);
                             $isActiveClient = $user->clientUser->client->isActive();
                             return User::isUserSimple($user->getUsername()) && $isActiveClient;
+                        }
+                    ],
+
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            $user = User::findOne(Yii::$app->user->id);
+                            $isActiveClient = $user->clientUser->client->isActive();
+                            return User::isUserMainAdmin($user->getUsername()) && $isActiveClient;
+                        }
+                    ],
+
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            $user = User::findOne(Yii::$app->user->id);
+                            $isActiveClient = $user->clientUser->client->isActive();
+                            return User::isUserAdminCompany($user->getUsername()) && $isActiveClient;
                         }
                     ],
                 ]

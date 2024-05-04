@@ -349,6 +349,6 @@ use yii\widgets\ActiveForm;
 
 <?php else: ?>
 
-    <h4 class="text-center">Ценностные предложения отсутствуют ...</h4>
+    <h4 class="text-center">Продукты MVP отсутствуют ...</h4>
 
 <?php endif; ?>

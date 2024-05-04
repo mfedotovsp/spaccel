@@ -86,13 +86,13 @@ class ConfirmSegmentController extends AppUserPartController
                     return parent::beforeAction($action);
                 }
 
-                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE) {
+                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE && !User::isUserAdminCompany($currentUser->getUsername())) {
                     return parent::beforeAction($action);
                 }
 
                 PatternHttpException::noAccess();
-            } 
-            
+            }
+
             if (User::isUserExpert($currentUser->getUsername())) {
 
                 $expert = User::findOne(Yii::$app->user->getId());
@@ -137,7 +137,7 @@ class ConfirmSegmentController extends AppUserPartController
             $confirm = ConfirmSegment::findOne((int)Yii::$app->request->get('id'));
             $hypothesis = $confirm->hypothesis;
             $project = $hypothesis->project;
-            
+
             if ($project->getUserId() === $currentUser->getId()){
                 // ОТКЛЮЧАЕМ CSRF
                 $this->enableCsrfValidation = false;
@@ -153,7 +153,7 @@ class ConfirmSegmentController extends AppUserPartController
                 PatternHttpException::noData();
             }
             $project = $hypothesis->project;
-            
+
             if ($project->getUserId() === $currentUser->getId()) {
                 return parent::beforeAction($action);
             }
@@ -164,7 +164,7 @@ class ConfirmSegmentController extends AppUserPartController
 
             $hypothesis = Segments::findOne((int)Yii::$app->request->get('id'));
             $project = $hypothesis->project;
-            
+
             if ($project->getUserId() === $currentUser->getId()) {
                 // ОТКЛЮЧАЕМ CSRF
                 $this->enableCsrfValidation = false;
@@ -188,8 +188,8 @@ class ConfirmSegmentController extends AppUserPartController
 
             if (User::isUserAdmin($currentUser->getUsername()) && $project->user->getIdAdmin() === $currentUser->getId()) {
                 return parent::beforeAction($action);
-            } 
-            
+            }
+
             if (User::isUserMainAdmin($currentUser->getUsername()) || User::isUserDev($currentUser->getUsername()) || User::isUserAdminCompany($currentUser->getUsername())) {
 
                 $modelClientUser = $project->user->clientUser;
@@ -198,13 +198,13 @@ class ConfirmSegmentController extends AppUserPartController
                     return parent::beforeAction($action);
                 }
 
-                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE) {
+                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE && !User::isUserAdminCompany($currentUser->getUsername())) {
                     return parent::beforeAction($action);
                 }
 
                 PatternHttpException::noAccess();
-            } 
-            
+            }
+
             if (User::isUserExpert($currentUser->getUsername())) {
 
                 $expert = User::findOne(Yii::$app->user->getId());

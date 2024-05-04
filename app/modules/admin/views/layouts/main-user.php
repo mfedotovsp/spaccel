@@ -287,6 +287,18 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/imag
 
     <!--View Expertise end-->
 
+    <!--All-information Confirm begin-->
+
+    <?php // Модальное окно - Данные подтверждения гипотезы
+    Modal::begin([
+        'options' => ['id' => 'data_confirm_hypothesis_modal', 'class' => 'data_confirm_hypothesis_modal'],
+        'size' => 'modal-lg',
+    ]); ?>
+    <!--Контент добавляется через Ajax-->
+    <?php Modal::end(); ?>
+
+    <!--All-information Confirm end-->
+
 <?php $this->endBody() ?>
 </body>
 </html>

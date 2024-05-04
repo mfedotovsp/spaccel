@@ -299,25 +299,28 @@ class ContractorTasks extends ActiveRecord
      */
     public function getStageUrl(): string
     {
-        $isContractor = User::isUserContractor(Yii::$app->user->identity['username']);
+        $user = User::findOne(Yii::$app->user->getId());
+        $isContractor = $user->getRole() === User::ROLE_CONTRACTOR;
+        $isMainAdmin = $user->getRole() === User::ROLE_MAIN_ADMIN;
+        $isAdminCompany = $user->getRole() === User::ROLE_ADMIN_COMPANY;
 
         switch ($this->getType()) {
             case StageExpertise::SEGMENT:
-                return Url::to($isContractor ? ['/contractor/segments/task', 'id' => $this->getId()] : ['/segments/index', 'id' => $this->getHypothesisId()]);
+                return Url::to(($isContractor || $isMainAdmin || $isAdminCompany) ? ['/contractor/segments/task', 'id' => $this->getId()] : ['/segments/index', 'id' => $this->getHypothesisId()]);
             case StageExpertise::CONFIRM_SEGMENT:
-                return Url::to($isContractor ? ['/contractor/confirm-segment/task', 'id' => $this->getId()] : ['/confirm-segment/view', 'id' => $this->getHypothesisId()]);
+                return Url::to(($isContractor || $isMainAdmin || $isAdminCompany) ? ['/contractor/confirm-segment/task', 'id' => $this->getId()] : ['/confirm-segment/view', 'id' => $this->getHypothesisId()]);
             case StageExpertise::PROBLEM:
-                return Url::to($isContractor ? ['/contractor/problems/task', 'id' => $this->getId()] : ['/problems/index', 'id' => $this->getHypothesisId()]);
+                return Url::to(($isContractor || $isMainAdmin || $isAdminCompany) ? ['/contractor/problems/task', 'id' => $this->getId()] : ['/problems/index', 'id' => $this->getHypothesisId()]);
             case StageExpertise::CONFIRM_PROBLEM:
-                return Url::to($isContractor ? ['/contractor/confirm-problem/task', 'id' => $this->getId()] : ['/confirm-problem/view', 'id' => $this->getHypothesisId()]);
+                return Url::to(($isContractor || $isMainAdmin || $isAdminCompany) ? ['/contractor/confirm-problem/task', 'id' => $this->getId()] : ['/confirm-problem/view', 'id' => $this->getHypothesisId()]);
             case StageExpertise::GCP:
-                return Url::to($isContractor ? ['/contractor/gcps/task', 'id' => $this->getId()] : ['/gcps/index', 'id' => $this->getHypothesisId()]);
+                return Url::to(($isContractor || $isMainAdmin || $isAdminCompany) ? ['/contractor/gcps/task', 'id' => $this->getId()] : ['/gcps/index', 'id' => $this->getHypothesisId()]);
             case StageExpertise::CONFIRM_GCP:
-                return Url::to($isContractor ? ['/contractor/confirm-gcp/task', 'id' => $this->getId()] : ['/confirm-gcp/view', 'id' => $this->getHypothesisId()]);
+                return Url::to(($isContractor || $isMainAdmin || $isAdminCompany) ? ['/contractor/confirm-gcp/task', 'id' => $this->getId()] : ['/confirm-gcp/view', 'id' => $this->getHypothesisId()]);
             case StageExpertise::MVP:
-                return Url::to($isContractor ? ['/contractor/mvps/task', 'id' => $this->getId()] : ['/mvps/index', 'id' => $this->getHypothesisId()]);
+                return Url::to(($isContractor || $isMainAdmin || $isAdminCompany) ? ['/contractor/mvps/task', 'id' => $this->getId()] : ['/mvps/index', 'id' => $this->getHypothesisId()]);
             case StageExpertise::CONFIRM_MVP:
-                return Url::to($isContractor ? ['/contractor/confirm-mvp/task', 'id' => $this->getId()] : ['/confirm-mvp/view', 'id' => $this->getHypothesisId()]);
+                return Url::to(($isContractor || $isMainAdmin || $isAdminCompany) ? ['/contractor/confirm-mvp/task', 'id' => $this->getId()] : ['/confirm-mvp/view', 'id' => $this->getHypothesisId()]);
             default:
                 return '';
         }

@@ -55,7 +55,7 @@ class GcpsController extends AppUserPartController
 
             $model = Gcps::findOne((int)Yii::$app->request->get('id'));
             $project = Projects::findOne($model->getProjectId());
-            
+
             if ($project->getUserId() === $currentUser->getId()){
                 // ОТКЛЮЧАЕМ CSRF
                 $this->enableCsrfValidation = false;
@@ -69,7 +69,7 @@ class GcpsController extends AppUserPartController
             $confirmProblem = ConfirmProblem::findOne((int)Yii::$app->request->get('id'));
             $problem = Problems::findOne($confirmProblem->getProblemId());
             $project = Projects::findOne($problem->getProjectId());
-            
+
             if ($project->getUserId() === $currentUser->getId()){
                 return parent::beforeAction($action);
             }
@@ -96,15 +96,15 @@ class GcpsController extends AppUserPartController
             $project = Projects::find(false)
                 ->andWhere(['id' => $problem->getProjectId()])
                 ->one();
-            
+
             if (($project->getUserId() === $currentUser->getId())){
                 return parent::beforeAction($action);
-            } 
-            
+            }
+
             if (User::isUserAdmin($currentUser->getUsername()) && $project->user->getIdAdmin() === $currentUser->getId()) {
                 return parent::beforeAction($action);
-            } 
-            
+            }
+
             if (User::isUserMainAdmin($currentUser->getUsername()) || User::isUserDev($currentUser->getUsername()) || User::isUserAdminCompany($currentUser->getUsername())) {
 
                 $modelClientUser = $project->user->clientUser;
@@ -113,13 +113,13 @@ class GcpsController extends AppUserPartController
                     return parent::beforeAction($action);
                 }
 
-                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE) {
+                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE && !User::isUserAdminCompany($currentUser->getUsername())) {
                     return parent::beforeAction($action);
                 }
 
                 PatternHttpException::noAccess();
-            } 
-            
+            }
+
             if (User::isUserExpert($currentUser->getUsername())) {
 
                 $expert = User::findOne(Yii::$app->user->getId());

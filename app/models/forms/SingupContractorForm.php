@@ -99,7 +99,7 @@ class SingupContractorForm extends SingupForm
                 User::NOT_CONFIRM,
             ]],
 
-            ['status', 'default', 'value' => User::STATUS_ACTIVE],
+            ['status', 'default', 'value' => User::STATUS_NOT_ACTIVE],
             ['status', 'in', 'range' => [
                 User::STATUS_NOT_ACTIVE,
                 User::STATUS_ACTIVE,
@@ -149,7 +149,7 @@ class SingupContractorForm extends SingupForm
                 $user = new User();
                 $user->setUsername($this->getEmail());
                 $user->setEmail($this->getEmail());
-                $user->setStatus(User::STATUS_ACTIVE);
+                $user->setStatus($this->getStatus());
                 $user->setConfirm($this->getConfirm());
                 $user->setRole($this->getRole());
                 $user->setPassword($this->getPassword());

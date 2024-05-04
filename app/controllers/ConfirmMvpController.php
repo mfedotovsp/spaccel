@@ -93,7 +93,7 @@ class ConfirmMvpController extends AppUserPartController
                     return parent::beforeAction($action);
                 }
 
-                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE) {
+                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE && !User::isUserAdminCompany($currentUser->getUsername())) {
                     return parent::beforeAction($action);
                 }
 
@@ -205,7 +205,7 @@ class ConfirmMvpController extends AppUserPartController
                     return parent::beforeAction($action);
                 }
 
-                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE) {
+                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE && !User::isUserAdminCompany($currentUser->getUsername())) {
                     return parent::beforeAction($action);
                 }
 

@@ -1,17 +1,19 @@
 <?php
 
+use app\models\Projects;
 use yii\data\Pagination;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\User;
 use yii\widgets\LinkPager;
 
-$this->title = 'Эксперты';
+$this->title = 'Трекеры';
 $this->registerCssFile('@web/css/users-index-style.css');
 
 /**
  * @var User[] $users
  * @var Pagination $pages
+ * @var int $clientId
  */
 
 ?>
@@ -22,7 +24,7 @@ $this->registerCssFile('@web/css/users-index-style.css');
 
         <div class="switches-between-users-item">
 
-            <?= Html::a( 'Проектанты', Url::to(['/admin/users/index']), [
+            <?= Html::a( 'Проектанты', Url::to(['/client/users/index']), [
                 'style' => [
                     'display' => 'flex',
                     'align-items' => 'center',
@@ -36,7 +38,7 @@ $this->registerCssFile('@web/css/users-index-style.css');
                 'class' => 'btn btn-lg btn-default',
             ]) ?>
 
-            <?= Html::a( 'Трекеры', Url::to(['/admin/users/admins']),[
+            <?= Html::a( 'Трекеры', Url::to(['/client/users/admins']),[
                 'style' => [
                     'display' => 'flex',
                     'align-items' => 'center',
@@ -50,7 +52,21 @@ $this->registerCssFile('@web/css/users-index-style.css');
                 'class' => 'btn btn-lg btn-default',
             ]) ?>
 
-            <?= Html::button( 'Эксперты',[
+            <?= Html::a( 'Эксперты', Url::to(['/client/users/experts']),[
+                'style' => [
+                    'display' => 'flex',
+                    'align-items' => 'center',
+                    'justify-content' => 'center',
+                    'background' => '#E0E0E0',
+                    'width' => '180px',
+                    'height' => '40px',
+                    'font-size' => '24px',
+                    'border-radius' => '0',
+                ],
+                'class' => 'btn btn-lg btn-default',
+            ]) ?>
+
+            <?= Html::button( 'Исполнители',[
                 'style' => [
                     'display' => 'flex',
                     'align-items' => 'center',
@@ -59,44 +75,16 @@ $this->registerCssFile('@web/css/users-index-style.css');
                     'width' => '180px',
                     'height' => '40px',
                     'font-size' => '24px',
-                    'border-radius' => '0',
-                ],
-                'class' => 'btn btn-lg btn-success',
-            ]) ?>
-
-            <?= Html::a( 'Менеджеры', Url::to(['/admin/users/managers']),[
-                'style' => [
-                    'display' => 'flex',
-                    'align-items' => 'center',
-                    'justify-content' => 'center',
-                    'background' => '#E0E0E0',
-                    'width' => '180px',
-                    'height' => '40px',
-                    'font-size' => '24px',
-                    'border-radius' => '0',
-                ],
-                'class' => 'btn btn-lg btn-default',
-            ]) ?>
-
-            <?= Html::a( 'Исполнители', Url::to(['/admin/users/contractors']),[
-                'style' => [
-                    'display' => 'flex',
-                    'align-items' => 'center',
-                    'justify-content' => 'center',
-                    'background' => '#E0E0E0',
-                    'width' => '180px',
-                    'height' => '40px',
-                    'font-size' => '24px',
                     'border-radius' => '0 8px 8px 0',
                 ],
-                'class' => 'btn btn-lg btn-default',
+                'class' => 'btn btn-lg btn-success',
             ]) ?>
 
         </div>
 
         <div class="switches-between-users-item">
 
-            <?= Html::a( 'Настройки доступа', Url::to(['/admin/setting-codes/index']),[
+            <?= Html::a( 'Настройки доступа', Url::to(['/client/setting-codes/index']),[
                 'style' => [
                     'display' => 'flex',
                     'align-items' => 'center',
@@ -123,7 +111,7 @@ $this->registerCssFile('@web/css/users-index-style.css');
             </div>
 
             <div class="col-md-3 text-center">
-                Статистика, проекты
+                Проекты
             </div>
 
             <div class="col-md-2 text-center">
@@ -179,32 +167,23 @@ $this->registerCssFile('@web/css/users-index-style.css');
 
                     <div class="col-md-3 column-tracker">
 
-                        <?= Html::a( 'Статистика', Url::to(['#']), [
-                            'onclick' => 'return false;',
-                            'style' => [
-                                'display' => 'flex',
-                                'align-items' => 'center',
-                                'justify-content' => 'center',
-                                'background' => '#E0E0E0',
-                                'width' => '120px',
-                                'height' => '40px',
-                                'font-size' => '18px',
-                                'border-radius' => '8px 0 0 8px',
-                            ],
-                            'class' => 'btn btn-lg btn-default',
-                        ]) ?>
+                        <?php
+                        $countProjects = Projects::find(false)
+                            ->innerJoin('contractor_project', '`contractor_project`.`project_id` = `projects`.`id`')
+                            ->innerJoin('user', '`user`.`id` = `contractor_project`.`contractor_id`')
+                            ->andWhere(['user.id' => $user->getId()])->count();
+                        ?>
 
-                        <?= Html::a( 'Проекты - #', Url::to(['#']), [
-                            'onclick' => 'return false;',
+                        <?= Html::a( 'Проекты - '.$countProjects, Url::to(['/contractor/projects/index', 'id' => $user->getId()]), [
                             'style' => [
                                 'display' => 'flex',
                                 'align-items' => 'center',
                                 'justify-content' => 'center',
                                 'background' => '#E0E0E0',
-                                'width' => '120px',
+                                'width' => '160px',
                                 'height' => '40px',
                                 'font-size' => '18px',
-                                'border-radius' => '0 8px 8px 0',
+                                'border-radius' => '8px',
                             ],
                             'class' => 'btn btn-lg btn-default',
                         ]) ?>

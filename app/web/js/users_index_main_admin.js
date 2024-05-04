@@ -13,6 +13,7 @@ $(body).on('click', '.column-user-fio', function () {
     else if (page === 'admins') location.href = '/' + module + '/profile/index?id=' + id;
     else if (page === 'experts') location.href = '/expert/profile/index?id=' + id;
     else if (page === 'managers') location.href = '/admin/profile/index?id=' + id;
+    else if (page === 'contractors') location.href = '/contractor/profile/index?id=' + id;
 });
 
 

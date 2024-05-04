@@ -8,12 +8,13 @@ var body = $('body');
 // Показываем коммуникации
 $(body).on('click', '.container-one_project', function () {
 
+    var contractorId = window.location.href.split('id=')[1];
     var project_id = $(this).parent().attr('id').split('-')[1];
     var block_data = $(this).parent().find('.hereAddProjectData');
 
     if ($(block_data).is(':hidden')){
 
-        var url = '/contractor/projects/get-tasks?projectId=' + project_id;
+        var url = '/contractor/projects/get-tasks?contractorId=' + contractorId + '&projectId=' + project_id;
 
         $.ajax({
             url: url,

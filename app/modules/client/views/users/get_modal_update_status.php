@@ -441,4 +441,137 @@ use yii\helpers\Html;
 
     <?php endif; ?>
 
+<?php elseif ($model->getRole() === User::ROLE_CONTRACTOR) : ?>
+
+    <?php if ($model->getStatus() === User::STATUS_NOT_ACTIVE) : ?>
+
+        <?php $form = ActiveForm::begin([
+            'id' => 'formStatusUpdate',
+            'action' => Url::to(['/client/users/status-update', 'id' => $model->getId()]),
+            'options' => ['class' => 'g-py-15'],
+            'errorCssClass' => 'u-has-error-v1',
+            'successCssClass' => 'u-has-success-v1-1',
+        ]); ?>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'status', [
+                    'template' => '{input}',
+                ])->widget(Select2::class, [
+                    'data' => [User::STATUS_ACTIVE => 'Активировать исполнителя', User::STATUS_DELETED => 'Заблокировать исполнителя'],
+                    'options' => ['id' => 'selectStatusUpdate'],
+                    'disabled' => false,  //Сделать поле неактивным
+                    'hideSearch' => true, //Скрытие поиска
+                ]) ?>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+        <div class="row" style="display:flex; justify-content: center;">
+            <?= Html::submitButton('Сохранить', [
+                'style' => [
+                    'display' => 'flex',
+                    'align-items' => 'center',
+                    'justify-content' => 'center',
+                    'background' => '#52BE7F',
+                    'width' => '180px',
+                    'height' => '40px',
+                    'font-size' => '24px',
+                    'border-radius' => '8px',
+                ],
+                'class' => 'btn btn-lg btn-success',
+            ]) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+
+    <?php elseif ($model->getStatus() === User::STATUS_ACTIVE) : ?>
+
+        <?php $form = ActiveForm::begin([
+            'id' => 'formStatusUpdate',
+            'action' => Url::to(['/client/users/status-update', 'id' => $model->getId()]),
+            'options' => ['class' => 'g-py-15'],
+            'errorCssClass' => 'u-has-error-v1',
+            'successCssClass' => 'u-has-success-v1-1',
+        ]); ?>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'status', [
+                    'template' => '{input}',
+                ])->widget(Select2::class, [
+                    'data' => [User::STATUS_DELETED => 'Заблокировать исполнителя'],
+                    'options' => ['id' => 'selectStatusUpdate'],
+                    'disabled' => false,  //Сделать поле неактивным
+                    'hideSearch' => true, //Скрытие поиска
+                ]) ?>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+        <div class="row" style="display:flex; justify-content: center;">
+            <?= Html::submitButton('Сохранить', [
+                'style' => [
+                    'display' => 'flex',
+                    'align-items' => 'center',
+                    'justify-content' => 'center',
+                    'background' => '#52BE7F',
+                    'width' => '180px',
+                    'height' => '40px',
+                    'font-size' => '24px',
+                    'border-radius' => '8px',
+                ],
+                'class' => 'btn btn-lg btn-success',
+            ]) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+
+    <?php elseif ($model->getStatus() === User::STATUS_DELETED) : ?>
+
+        <?php $form = ActiveForm::begin([
+            'id' => 'formStatusUpdate',
+            'action' => Url::to(['/client/users/status-update', 'id' => $model->getId()]),
+            'options' => ['class' => 'g-py-15'],
+            'errorCssClass' => 'u-has-error-v1',
+            'successCssClass' => 'u-has-success-v1-1',
+        ]); ?>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'status', [
+                    'template' => '{input}',
+                ])->widget(Select2::class, [
+                    'data' => [User::STATUS_ACTIVE => 'Активировать исполнителя'],
+                    'options' => ['id' => 'selectStatusUpdate'],
+                    'disabled' => false,  //Сделать поле неактивным
+                    'hideSearch' => true, //Скрытие поиска
+                ]) ?>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+        <div class="row" style="display:flex; justify-content: center;">
+            <?= Html::submitButton('Сохранить', [
+                'style' => [
+                    'display' => 'flex',
+                    'align-items' => 'center',
+                    'justify-content' => 'center',
+                    'background' => '#52BE7F',
+                    'width' => '180px',
+                    'height' => '40px',
+                    'font-size' => '24px',
+                    'border-radius' => '8px',
+                ],
+                'class' => 'btn btn-lg btn-success',
+            ]) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+
+    <?php endif; ?>
+
 <?php endif; ?>

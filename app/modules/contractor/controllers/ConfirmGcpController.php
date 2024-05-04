@@ -2,6 +2,7 @@
 
 namespace app\modules\contractor\controllers;
 
+use app\models\ClientSettings;
 use app\models\ConfirmGcp;
 use app\models\ConfirmSegment;
 use app\models\ContractorTasks;
@@ -33,8 +34,44 @@ class ConfirmGcpController extends AppContractorController
     public function beforeAction($action): bool
     {
         $currentUser = User::findOne(Yii::$app->user->getId());
+        $currentClientUser = $currentUser->clientUser;
 
-        if (in_array($action->id, ['task', 'view-trash'], true)) {
+        if ($action->id === 'task') {
+
+            $task = ContractorTasks::findOne((int)Yii::$app->request->get('id'));
+            if (!$task || $task->getType() !== StageExpertise::CONFIRM_GCP) {
+                PatternHttpException::noData();
+            }
+
+            $contractor = User::findOne($task->getContractorId());
+            if (!$contractor) {
+                PatternHttpException::noData();
+            }
+
+            if (User::isUserContractor($currentUser->getUsername()) && $task->getContractorId() === $currentUser->getId()) {
+                return parent::beforeAction($action);
+            }
+
+            if (User::isUserSimple($currentUser->getUsername()) && $task->project->getUserId() === $currentUser->getId()) {
+                return parent::beforeAction($action);
+            }
+
+            if (User::isUserMainAdmin($currentUser->getUsername()) || User::isUserDev($currentUser->getUsername()) || User::isUserAdminCompany($currentUser->getUsername())) {
+
+                $modelClientUser = $contractor->clientUser;
+
+                if ($currentClientUser->getClientId() === $modelClientUser->getClientId()) {
+                    return parent::beforeAction($action);
+                }
+
+                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE && !User::isUserAdminCompany($currentUser->getUsername())) {
+                    return parent::beforeAction($action);
+                }
+            }
+
+            PatternHttpException::noAccess();
+
+        } elseif ($action->id === 'view-trash') {
 
             $task = ContractorTasks::findOne((int)Yii::$app->request->get('id'));
             if (!$task || $task->getType() !== StageExpertise::CONFIRM_GCP) {
@@ -50,6 +87,7 @@ class ConfirmGcpController extends AppContractorController
             }
 
             PatternHttpException::noAccess();
+
         } else{
             return parent::beforeAction($action);
         }

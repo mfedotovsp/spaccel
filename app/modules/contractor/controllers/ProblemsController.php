@@ -2,6 +2,7 @@
 
 namespace app\modules\contractor\controllers;
 
+use app\models\ClientSettings;
 use app\models\ConfirmSegment;
 use app\models\ContractorTasks;
 use app\models\forms\FormCreateProblem;
@@ -30,11 +31,17 @@ class ProblemsController extends AppContractorController
     public function beforeAction($action): bool
     {
         $currentUser = User::findOne(Yii::$app->user->getId());
+        $currentClientUser = $currentUser->clientUser;
 
         if ($action->id === 'task') {
 
             $task = ContractorTasks::findOne((int)Yii::$app->request->get('id'));
             if (!$task || $task->getType() !== StageExpertise::PROBLEM) {
+                PatternHttpException::noData();
+            }
+
+            $contractor = User::findOne($task->getContractorId());
+            if (!$contractor) {
                 PatternHttpException::noData();
             }
 
@@ -44,6 +51,19 @@ class ProblemsController extends AppContractorController
 
             if (User::isUserSimple($currentUser->getUsername()) && $task->project->getUserId() === $currentUser->getId()) {
                 return parent::beforeAction($action);
+            }
+
+            if (User::isUserMainAdmin($currentUser->getUsername()) || User::isUserDev($currentUser->getUsername()) || User::isUserAdminCompany($currentUser->getUsername())) {
+
+                $modelClientUser = $contractor->clientUser;
+
+                if ($currentClientUser->getClientId() === $modelClientUser->getClientId()) {
+                    return parent::beforeAction($action);
+                }
+
+                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE && !User::isUserAdminCompany($currentUser->getUsername())) {
+                    return parent::beforeAction($action);
+                }
             }
 
             PatternHttpException::noAccess();

@@ -105,8 +105,8 @@ class ProblemsController extends AppUserPartController
 
             if (User::isUserAdmin($currentUser->getUsername()) && $project->user->getIdAdmin() === $currentUser->getId()) {
                 return parent::beforeAction($action);
-            } 
-            
+            }
+
             if (User::isUserMainAdmin($currentUser->getUsername()) || User::isUserDev($currentUser->getUsername()) || User::isUserAdminCompany($currentUser->getUsername())) {
 
                 $modelClientUser = $project->user->clientUser;
@@ -115,13 +115,13 @@ class ProblemsController extends AppUserPartController
                     return parent::beforeAction($action);
                 }
 
-                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE) {
+                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE && !User::isUserAdminCompany($currentUser->getUsername())) {
                     return parent::beforeAction($action);
                 }
 
                 PatternHttpException::noAccess();
-            } 
-            
+            }
+
             if (User::isUserExpert($currentUser->getUsername())) {
 
                 $expert = User::findOne(Yii::$app->user->getId());
