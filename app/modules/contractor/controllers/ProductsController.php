@@ -2,6 +2,7 @@
 
 namespace app\modules\contractor\controllers;
 
+use app\models\ClientSettings;
 use app\models\ConfirmGcp;
 use app\models\ConfirmProblem;
 use app\models\ConfirmSegment;
@@ -10,17 +11,187 @@ use app\models\ContractorTasks;
 use app\models\ContractorTaskSimilarProductParams;
 use app\models\ContractorTaskSimilarProducts;
 use app\models\Gcps;
+use app\models\PatternHttpException;
 use app\models\Problems;
 use app\models\Segments;
 use app\models\StatusConfirmHypothesis;
 use app\models\User;
 use app\modules\contractor\models\form\ContractorTaskSimilarProductForm;
+use scotthuangzl\export2excel\DownloadAction;
+use scotthuangzl\export2excel\Export2ExcelBehavior;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\web\ErrorAction;
+use yii\web\HttpException;
 use yii\web\Response;
 
 class ProductsController extends AppContractorController
 {
+    /**
+     * @param $action
+     * @return bool
+     * @throws HttpException
+     */
+    public function beforeAction($action): bool
+    {
+        $currentUser = User::findOne(Yii::$app->user->getId());
+        $currentClientUser = $currentUser->clientUser;
+
+        if (in_array($action->id, ['export', 'export-similar-products'], true)) {
+
+            $task = ContractorTasks::findOne((int)Yii::$app->request->get('taskId'));
+            if (!$task) {
+                PatternHttpException::noData();
+            }
+
+            $contractor = User::findOne($task->getContractorId());
+            if (!$contractor) {
+                PatternHttpException::noData();
+            }
+
+            if (User::isUserContractor($currentUser->getUsername()) && $task->getContractorId() === $currentUser->getId()) {
+                return parent::beforeAction($action);
+            }
+
+            if (User::isUserSimple($currentUser->getUsername()) && $task->project->getUserId() === $currentUser->getId()) {
+                return parent::beforeAction($action);
+            }
+
+            if (User::isUserMainAdmin($currentUser->getUsername()) || User::isUserDev($currentUser->getUsername()) || User::isUserAdminCompany($currentUser->getUsername())) {
+
+                $modelClientUser = $contractor->clientUser;
+
+                if ($currentClientUser->getClientId() === $modelClientUser->getClientId()) {
+                    return parent::beforeAction($action);
+                }
+
+                if ($modelClientUser->client->settings->getAccessAdmin() === ClientSettings::ACCESS_ADMIN_TRUE && !User::isUserAdminCompany($currentUser->getUsername())) {
+                    return parent::beforeAction($action);
+                }
+            }
+
+            PatternHttpException::noAccess();
+
+        } else {
+            return parent::beforeAction($action);
+        }
+    }
+
+    public function actions(): array
+    {
+        return [
+            'error' => [
+                'class' => ErrorAction::class,
+            ],
+            'download' => [
+                'class' => DownloadAction::class,
+            ],
+        ];
+    }
+
+
+    /**
+     * Экспорт отчета по продуктам
+     * https://www.yiiframework.com/extension/yii2-export2excel
+     *
+     * @param int $taskId
+     * @return void
+     */
+    public function actionExport(int $taskId): void
+    {
+        $data = ContractorTaskProducts::find()
+            ->select(['name', 'price', 'satisfaction', 'flaws', 'advantages', 'suppliers'])
+            ->andWhere(['task_id' => $taskId])
+            ->asArray()
+            ->all();
+
+        foreach ($data as $i => $item) {
+            if ($item['satisfaction'] === (string)ContractorTaskProducts::SATISFACTION_LOW) {
+                $data[$i]['satisfaction'] = 'Низкая';
+            } elseif ($item['satisfaction'] === (string)ContractorTaskProducts::SATISFACTION_MIDDLE) {
+                $data[$i]['satisfaction'] = 'Средняя';
+            } elseif ($item['satisfaction'] === (string)ContractorTaskProducts::SATISFACTION_HIGH) {
+                $data[$i]['satisfaction'] = 'Высокая';
+            } else {
+                $data[$i]['satisfaction'] = '';
+            }
+        }
+
+        $excel_data = Export2ExcelBehavior::excelDataFormat($data);
+        $excel_title = ['Наименование', 'Цена продукта', 'Удовлетворенность продуктом', 'Недостатки продукта', 'Преимущества продукта', 'Ключевые поставщики'];
+        $excel_ceils = $excel_data['excel_ceils'];
+        $excel_content = array(
+            array(
+                'sheet_name' => 'Список',
+                'sheet_title' => $excel_title,
+                'ceils' => $excel_ceils,
+                'freezePane' => 'B2',
+                'headerColor' => Export2ExcelBehavior::getCssClass("header"),
+                'headerColumnCssClass' => array(
+                    'Status_Description' => Export2ExcelBehavior::getCssClass('grey'),
+                ),
+                'oddCssClass' => Export2ExcelBehavior::getCssClass("odd"),
+                'evenCssClass' => Export2ExcelBehavior::getCssClass("even"),
+            )
+        );
+        $excel_file = "ProductReport";
+        $this->export2excel($excel_content, $excel_file);
+    }
+
+
+    /**
+     * Экспорт отчета по продуктам аналогам
+     * https://www.yiiframework.com/extension/yii2-export2excel
+     *
+     * @param int $taskId
+     * @return void
+     */
+    public function actionExportSimilarProducts(int $taskId): void
+    {
+        /** @var ContractorTaskSimilarProducts[] $products */
+        $products = ContractorTaskSimilarProducts::find()
+            ->select(['name', 'ownership_cost', 'price', 'params'])
+            ->andWhere(['task_id' => $taskId])
+            ->all();
+
+        $productParams = ContractorTaskSimilarProductParams::findAll(['deleted_at' => null, 'task_id' => $taskId]);
+        $productParams = ArrayHelper::map($productParams, 'id', 'name');
+        $excel_title = ['Наименование', 'Стоимость владения продуктом', 'Цена продукта'];
+
+        foreach ($productParams as $param) {
+            $excel_title[] = $param;
+        }
+
+        $data = [];
+        foreach ($products as $i => $product) {
+            $data[$i]['name'] = $product->getName();
+            $data[$i]['ownership_cost'] = $product->getOwnershipCost();
+            $data[$i]['price'] = $product->getPrice();
+            foreach ($productParams as $keyParam => $param) {
+                $data[$i][$param] = $product->getParams()[$keyParam];
+            }
+        }
+
+        $excel_data = Export2ExcelBehavior::excelDataFormat($data);
+        $excel_ceils = $excel_data['excel_ceils'];
+        $excel_content = array(
+            array(
+                'sheet_name' => 'Список',
+                'sheet_title' => $excel_title,
+                'ceils' => $excel_ceils,
+                'freezePane' => 'B2',
+                'headerColor' => Export2ExcelBehavior::getCssClass("header"),
+                'headerColumnCssClass' => array(
+                    'Status_Description' => Export2ExcelBehavior::getCssClass('grey'),
+                ),
+                'oddCssClass' => Export2ExcelBehavior::getCssClass("odd"),
+                'evenCssClass' => Export2ExcelBehavior::getCssClass("even"),
+            )
+        );
+        $excel_file = "SimilarProductReport";
+        $this->export2excel($excel_content, $excel_file);
+    }
+
 
     /**
      * @return array|false

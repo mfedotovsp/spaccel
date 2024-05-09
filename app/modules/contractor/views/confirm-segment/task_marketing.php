@@ -224,6 +224,11 @@ $this->registerCssFile('@web/css/confirm-segment-task-marketing.css');
                         'class' => 'link_to_instruction_page open_modal_instruction_page_marketing',
                         'title' => 'Инструкция', 'onclick' => 'return false'
                     ]) ?>
+
+                    <?= Html::a('Экспорт', Url::to(['/contractor/products/export', 'taskId' => $task->getId()]),[
+                        'class' => 'btn btn-small btn-default',
+                        'style' => ['background' => '#E0E0E0', 'border-radius' => '8px', 'margin-left' => '10px']
+                    ]) ?>
                 </div>
 
                 <div class="col-md-3" style="padding: 0;">

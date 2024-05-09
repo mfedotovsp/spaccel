@@ -4,6 +4,7 @@ namespace app\modules\contractor\controllers;
 
 use app\controllers\AppController;
 use app\models\User;
+use scotthuangzl\export2excel\Export2ExcelBehavior;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
@@ -40,6 +41,9 @@ class BehaviorsContractorPathController extends AppController
     public function behaviors(): array
     {
         return [
+            'export2excel' => [
+                'class' => Export2ExcelBehavior::class,
+            ],
             'access' => [
 
                 'class' => AccessControl::class,

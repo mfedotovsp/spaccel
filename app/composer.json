@@ -28,7 +28,8 @@
         "kartik-v/yii2-widget-switchinput": "dev-master",
         "kartik-v/yii2-widget-datepicker": "dev-master",
         "ext-json": "*",
-        "omnilight/yii2-scheduling": "*"
+        "omnilight/yii2-scheduling": "*",
+        "scotthuangzl/yii2-export2excel": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
