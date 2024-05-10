@@ -462,11 +462,10 @@ $this->registerCssFile('@web/css/confirm-segment-task-marketing.css');
             </div>
             <div class="col-xs-4">
 
-                <?= Html::a(Html::img('@web/images/icons/icon_red_info.png'),
-                    Url::to('/confirm-segment/get-instruction-step-three'),[
-                        'class' => 'link_to_instruction_page_mobile open_modal_instruction_page pull-right',
-                        'title' => 'Инструкция', 'style' => ['margin-left' => '10px', 'margin-top' => '5px']
-                    ]) ?>
+                <?= Html::a('Экспорт', Url::to(['/contractor/products/export', 'taskId' => $task->getId()]),[
+                    'class' => 'btn btn-small btn-default pull-right',
+                    'style' => ['background' => '#E0E0E0', 'border-radius' => '8px', 'margin-left' => '10px', 'margin-top' => '5px']
+                ]) ?>
 
             </div>
         </div>

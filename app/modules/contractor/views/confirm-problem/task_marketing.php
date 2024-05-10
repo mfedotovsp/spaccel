@@ -496,23 +496,33 @@ $this->registerCssFile('@web/css/confirm-problem-task-marketing.css');
     <div class="confirm-stage-mobile confirm-stage-mobile-list-products">
 
         <div class="row row_header_data_generation_mobile mt-10 mb-10">
-            <div class="col-xs-8">
-                <?php if (User::isUserContractor(Yii::$app->user->identity['username']) && $problem->getExistConfirm() === StatusConfirmHypothesis::MISSING_OR_INCOMPLETE && in_array($task->getStatus(), [ContractorTasks::TASK_STATUS_NEW, ContractorTasks::TASK_STATUS_PROCESS, ContractorTasks::TASK_STATUS_RETURNED], true)) : ?>
+
+            <?php if (User::isUserContractor(Yii::$app->user->identity['username']) && $problem->getExistConfirm() === StatusConfirmHypothesis::MISSING_OR_INCOMPLETE && in_array($task->getStatus(), [ContractorTasks::TASK_STATUS_NEW, ContractorTasks::TASK_STATUS_PROCESS, ContractorTasks::TASK_STATUS_RETURNED], true)) : ?>
+
+                <div class="col-xs-8">
                     <?=  Html::a( '<div style="display:flex; align-items: center; padding: 5px 0;"><div>' . Html::img(['@web/images/icons/add_vector.png'], ['style' => ['width' => '35px']]) . '</div><div class="pl-20">Добавить продукт</div></div>', [
                         '/contractor/products/get-data-create-form', 'taskId' => $task->getId(), 'isMobile' => true],
                         ['id' => 'showProductCreateForm', 'class' => 'link_add_respond_text']
                     ) ?>
-                <?php endif; ?>
-            </div>
-            <div class="col-xs-4">
+                </div>
 
-                <?= Html::a(Html::img('@web/images/icons/icon_red_info.png'),
-                    Url::to('/confirm-segment/get-instruction-step-three'),[
-                        'class' => 'link_to_instruction_page_mobile open_modal_instruction_page pull-right',
-                        'title' => 'Инструкция', 'style' => ['margin-left' => '10px', 'margin-top' => '5px']
+                <div class="col-xs-4">
+                    <?= Html::a('Экспорт', Url::to(['/contractor/products/export', 'taskId' => $task->getId()]),[
+                        'class' => 'btn btn-small btn-default pull-right',
+                        'style' => ['background' => '#E0E0E0', 'border-radius' => '8px', 'margin-left' => '10px', 'margin-top' => '5px']
                     ]) ?>
+                </div>
 
-            </div>
+            <?php else: ?>
+
+                <div class="col-xs-12">
+                    <?= Html::a('Экспорт', Url::to(['/contractor/products/export', 'taskId' => $task->getId()]),[
+                        'class' => 'btn btn-small btn-default pull-right',
+                        'style' => ['background' => '#E0E0E0', 'border-radius' => '8px', 'margin-left' => '10px']
+                    ]) ?>
+                </div>
+
+            <?php endif; ?>
         </div>
 
         <!--renderAjax /contractor/products/get-product-list-->
@@ -526,23 +536,35 @@ $this->registerCssFile('@web/css/confirm-problem-task-marketing.css');
 
             <?php if (User::isUserContractor(Yii::$app->user->identity['username']) && $problem->getExistConfirm() === StatusConfirmHypothesis::MISSING_OR_INCOMPLETE && in_array($task->getStatus(), [ContractorTasks::TASK_STATUS_NEW, ContractorTasks::TASK_STATUS_PROCESS, ContractorTasks::TASK_STATUS_RETURNED], true)) : ?>
 
-                <div class="col-xs-6">
-                    <?=  Html::a( '<div style="display:flex; align-items: center; padding: 5px 0;"><div>' . Html::img(['@web/images/icons/add_vector.png'], ['style' => ['width' => '35px']]) . '</div><div style="padding-left: 20px;">Параметры сравнения</div></div>', [
+                <div class="col-xs-5">
+                    <?=  Html::a( '<div style="display:flex; align-items: center; padding: 5px 0;"><div>' . Html::img(['@web/images/icons/add_vector.png'], ['style' => ['width' => '35px']]) . '</div><div class="pl-5">Параметры сравнения</div></div>', [
                         '/contractor/products/get-similar-param-list', 'taskId' => $task->getId()],
                         ['id' => 'showSimilarParamList', 'class' => 'link_add_respond_text pull-right']
                     ) ?>
                 </div>
 
-                <div class="col-xs-6">
-                    <?=  Html::a( '<div style="display:flex; align-items: center; padding: 5px 0;"><div>' . Html::img(['@web/images/icons/add_vector.png'], ['style' => ['width' => '35px']]) . '</div><div style="padding-left: 20px;">Добавить аналог</div></div>', [
+                <div class="col-xs-5">
+                    <?=  Html::a( '<div style="display:flex; align-items: center; padding: 5px 0;"><div>' . Html::img(['@web/images/icons/add_vector.png'], ['style' => ['width' => '35px']]) . '</div><div class="pl-5">Добавить аналог</div></div>', [
                         '/contractor/products/get-data-create-similar-product-form', 'taskId' => $task->getId()],
                         ['id' => 'showSimilarProductCreateForm', 'class' => 'link_add_respond_text pull-right']
                     ) ?>
                 </div>
 
+                <div class="col-xs-2">
+                    <?= Html::a('Экспорт', Url::to(['/contractor/products/export-similar-products', 'taskId' => $task->getId()]),[
+                        'class' => 'btn btn-small btn-default pull-right',
+                        'style' => ['background' => '#E0E0E0', 'border-radius' => '8px', 'margin-left' => '10px', 'margin-top' => '15px']
+                    ]) ?>
+                </div>
+
             <?php else: ?>
 
-                <div class="col-md-12"></div>
+                <div class="col-md-12">
+                    <?= Html::a('Экспорт', Url::to(['/contractor/products/export-similar-products', 'taskId' => $task->getId()]),[
+                        'class' => 'btn btn-small btn-default pull-right',
+                        'style' => ['background' => '#E0E0E0', 'border-radius' => '8px', 'margin-left' => '10px']
+                    ]) ?>
+                </div>
 
             <?php endif; ?>
 
