@@ -414,6 +414,68 @@ $this->registerCssFile('@web/css/admin-message-view.css');
                                     </div>
                                 </div>
 
+                            <?php elseif (User::isUserContractor($oneConversation->user->getUsername())) : ?>
+
+                                <div class="container-user_messages" id="contractorConversation-<?= $oneConversation->getId() ?>">
+
+                                    <!--Проверка существования аватарки-->
+                                    <?php if ($oneConversation->user->getAvatarImage()) : ?>
+                                        <?= Html::img('@web/upload/user-'.$oneConversation->getUserId().'/avatar/'.$oneConversation->user->getAvatarImage(), ['class' => 'user_picture']) ?>
+                                    <?php else : ?>
+                                        <?= Html::img('/images/icons/button_user_menu.png', ['class' => 'user_picture_default']) ?>
+                                    <?php endif; ?>
+
+                                    <!--Кол-во непрочитанных сообщений от пользователя-->
+                                    <?php if ($oneConversation->user->countUnreadMessagesDevelopmentFromUser) : ?>
+                                        <div class="countUnreadMessagesSender active"><?= $oneConversation->user->countUnreadMessagesDevelopmentFromUser ?></div>
+                                    <?php else : ?>
+                                        <div class="countUnreadMessagesSender"></div>
+                                    <?php endif; ?>
+
+                                    <!--Проверка онлайн статуса-->
+                                    <?php if ($oneConversation->user->checkOnline === true) : ?>
+                                        <div class="checkStatusOnlineUser active"></div>
+                                    <?php else : ?>
+                                        <div class="checkStatusOnlineUser"></div>
+                                    <?php endif; ?>
+
+                                    <div class="container_user_messages_text_content">
+
+                                        <div class="row block_top">
+
+                                            <div class="col-xs-8"><?= $oneConversation->user->getUsername() ?></div>
+
+                                            <div class="col-xs-4 text-right">
+                                                <?php if ($oneConversation->lastMessage) : ?>
+                                                    <?= date('d.m.y H:i', $oneConversation->lastMessage->getCreatedAt()) ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+
+                                        <?php if ($oneConversation->lastMessage) : ?>
+                                            <div class="block_bottom_exist_message">
+
+                                                <?php if ($oneConversation->lastMessage->sender->getAvatarImage()) : ?>
+                                                    <?= Html::img('@web/upload/user-'.$oneConversation->lastMessage->getSenderId().'/avatar/'.$oneConversation->lastMessage->sender->getAvatarImage(), ['class' => 'icon_sender_last_message']) ?>
+                                                <?php else : ?>
+                                                    <?= Html::img('/images/icons/button_user_menu.png', ['class' => 'icon_sender_last_message_default']) ?>
+                                                <?php endif; ?>
+
+                                                <div>
+                                                    <?php if ($oneConversation->lastMessage->getDescription()) : ?>
+                                                        <?= $oneConversation->lastMessage->getDescription() ?>
+                                                    <?php else : ?>
+                                                        ...
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        <?php else : ?>
+                                            <div class="block_bottom_not_exist_message">Нет сообщений</div>
+                                        <?php endif; ?>
+
+                                    </div>
+                                </div>
+
                             <?php elseif (User::isUserAdminCompany($oneConversation->user->getUsername())) : ?>
 
                                 <div class="container-user_messages" id="clientAdminConversation-<?= $oneConversation->getId() ?>">

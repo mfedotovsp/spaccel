@@ -14,7 +14,10 @@ use app\models\ConversationAdmin;
 use app\modules\admin\models\ConversationMainAdmin;
 use app\modules\admin\models\form\SearchForm;
 use app\modules\admin\models\MessageMainAdmin;
+use app\modules\contractor\models\ConversationContractor;
+use app\modules\contractor\models\MessageContractor;
 use app\modules\expert\models\ConversationExpert;
+use app\modules\contractor\models\form\FormCreateMessageContractor;
 use app\modules\expert\models\form\FormCreateMessageExpert;
 use app\modules\expert\models\MessageExpert;
 use Yii;
@@ -50,7 +53,7 @@ class MessageController extends AppUserPartController
             if (!$conversation) {
                 PatternHttpException::noData();
             }
-            
+
             if (($conversation->user->getId() === Yii::$app->user->getId()) || ($conversation->admin->getId() === Yii::$app->user->getId())){
                 // ОТКЛЮЧАЕМ CSRF
                 $this->enableCsrfValidation = false;
@@ -65,7 +68,7 @@ class MessageController extends AppUserPartController
             if (!$conversation) {
                 PatternHttpException::noData();
             }
-            
+
             if (($conversation->user->getId() === Yii::$app->user->getId()) || ($conversation->development->getId() === Yii::$app->user->getId())){
                 // ОТКЛЮЧАЕМ CSRF
                 $this->enableCsrfValidation = false;
@@ -80,8 +83,23 @@ class MessageController extends AppUserPartController
             if (!$conversation) {
                 PatternHttpException::noData();
             }
-            
+
             if (($conversation->user->getId() === Yii::$app->user->getId()) || ($conversation->expert->getId() === Yii::$app->user->getId())){
+                // ОТКЛЮЧАЕМ CSRF
+                $this->enableCsrfValidation = false;
+                return parent::beforeAction($action);
+            }
+
+            PatternHttpException::noAccess();
+        }
+        elseif ($action->id === 'contractor'){
+
+            $conversation = ConversationContractor::findOne((int)Yii::$app->request->get('id'));
+            if (!$conversation) {
+                PatternHttpException::noData();
+            }
+
+            if (($conversation->user->getId() === Yii::$app->user->getId()) || ($conversation->contractor->getId() === Yii::$app->user->getId())){
                 // ОТКЛЮЧАЕМ CSRF
                 $this->enableCsrfValidation = false;
                 return parent::beforeAction($action);
@@ -95,7 +113,7 @@ class MessageController extends AppUserPartController
             if (!$user) {
                 PatternHttpException::noData();
             }
-            
+
             if (($user->getId() === Yii::$app->user->getId())){
                 // ОТКЛЮЧАЕМ CSRF
                 $this->enableCsrfValidation = false;
@@ -124,6 +142,8 @@ class MessageController extends AppUserPartController
         $conversation_development = ConversationDevelopment::findOne(['user_id' => $id]);
         $conversationsExpert = ConversationExpert::find()->andWhere(['user_id' => $id])
             ->orderBy(['updated_at' => SORT_DESC])->all();
+        $conversationsContractor = ConversationContractor::find()->andWhere(['user_id' => $id])
+            ->orderBy(['updated_at' => SORT_DESC])->all();
 
         return $this->render('index', [
             'user' => $user,
@@ -131,7 +151,8 @@ class MessageController extends AppUserPartController
             'conversation_admin' => $conversation_admin,
             'development' => $development,
             'conversation_development' => $conversation_development,
-            'conversationsExpert' => $conversationsExpert
+            'conversationsExpert' => $conversationsExpert,
+            'conversationsContractor' => $conversationsContractor
         ]);
     }
 
@@ -180,6 +201,15 @@ class MessageController extends AppUserPartController
                     $conversation_admin = ConversationAdmin::findOne(['user_id' => $user->getId()]);
                     $admin = $conversation_admin->admin;
 
+                } elseif ($pathname === 'contractor') {
+
+                    $conversation = ConversationContractor::findOne($id);
+                    $user = $conversation->user;
+                    $development = $user->development;
+                    $conversation_development = ConversationDevelopment::findOne(['user_id' => $user->getId()]);
+                    $conversation_admin = ConversationAdmin::findOne(['user_id' => $user->getId()]);
+                    $admin = $conversation_admin->admin;
+
                 } else {
                     return false;
                 }
@@ -195,6 +225,10 @@ class MessageController extends AppUserPartController
                     'blockConversationDevelopment' => '#conversationTechnicalSupport-' . $conversation_development->getId(),
                     'conversationsExpertForUser' => $this->renderAjax('update_conversations_expert_for_user',[
                         'conversationsExpert' => ConversationExpert::find()->andWhere(['user_id' => $user->getId()])
+                            ->orderBy(['updated_at' => SORT_DESC])->all(), 'user' => $user,
+                    ]),
+                    'conversationsContractorForUser' => $this->renderAjax('update_conversations_contractor_for_user',[
+                        'conversationsContractor' => ConversationContractor::find()->andWhere(['user_id' => $user->getId()])
                             ->orderBy(['updated_at' => SORT_DESC])->all(), 'user' => $user,
                     ]),
                 ];
@@ -291,6 +325,36 @@ class MessageController extends AppUserPartController
                         ]),
                         'conversationsUserForExpertAjax' => $this->renderAjax('update_conversations_user_for_expert', [
                             'userConversations' => $userConversations, 'expert' => $expert,
+                        ]),
+                    ];
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    Yii::$app->response->data = $response;
+                    return $response;
+                }
+            }
+
+            if (User::isUserContractor(Yii::$app->user->identity['username'])) {
+
+                if ($pathname === 'contractor') {
+
+                    $conversation = ConversationContractor::findOne($id);
+                    $contractor = $conversation->contractor;
+                    // Беседа исполнителя с техподдержкой
+                    $conversation_development = ConversationDevelopment::findOne(['user_id' => $contractor->getId()]);
+                    // Беседы исполнителя и проектантов
+                    $userConversations = ConversationContractor::find()
+                        ->andWhere(['contractor_id' => $contractor->getId(), 'role' => User::ROLE_USER])
+                        ->orderBy(['updated_at' => SORT_DESC])
+                        ->all();
+
+
+                    $response = [
+                        'blockConversationDevelopment' => '#conversationTechnicalSupport-' . $conversation_development->getId(),
+                        'conversationDevelopmentForContractorAjax' => $this->renderAjax('update_conversation_development_for_contractor', [
+                            'conversation_development' => $conversation_development, 'contractor' => $contractor,
+                        ]),
+                        'conversationsUserForContractorAjax' => $this->renderAjax('update_conversations_user_for_contractor', [
+                            'userConversations' => $userConversations, 'contractor' => $contractor,
                         ]),
                     ];
                     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -464,6 +528,12 @@ class MessageController extends AppUserPartController
                 ->orderBy(['updated_at' => SORT_DESC])
                 ->all();
 
+            // Все беседы проектанта с исполнителями
+            $contractorConversations = ConversationContractor::find()
+                ->andWhere(['user_id' => $user->getId()])
+                ->orderBy(['updated_at' => SORT_DESC])
+                ->all();
+
             // Если есть кэш, добавляем его в форму сообщения
             $cache->cachePath = '../runtime/cache/forms/user-'.$user->getId().'/messages/category_admin/conversation-'.$conversation->getId().'/';
             $cache_form_message = $cache->get('formCreateMessageAdminCache');
@@ -481,6 +551,7 @@ class MessageController extends AppUserPartController
                 'pagesMessages' => $pagesMessages,
                 'development' => $development,
                 'expertConversations' => $expertConversations,
+                'contractorConversations' => $contractorConversations,
                 'conversation_development' => $conversation_development,
             ]);
         }
@@ -753,6 +824,11 @@ class MessageController extends AppUserPartController
                 ->orderBy(['updated_at' => SORT_DESC])
                 ->all();
 
+            $contractorConversations = ConversationContractor::find()
+                ->andWhere(['user_id' => $user->getId()])
+                ->orderBy(['updated_at' => SORT_DESC])
+                ->all();
+
             // Если есть кэш, добавляем его в форму сообщения
             $cache->cachePath = '../runtime/cache/forms/user-'.$user->getId().'/messages/category_technical_support/conversation-'.$conversation->getId().'/';
             $cache_form_message = $cache->get('formCreateMessageDevelopmentCache');
@@ -771,6 +847,7 @@ class MessageController extends AppUserPartController
                 'development' => $development,
                 'conversation_admin' => $conversation_admin,
                 'expertConversations' => $expertConversations,
+                'contractorConversations' => $contractorConversations,
             ]);
         }
 
@@ -1075,6 +1152,365 @@ class MessageController extends AppUserPartController
      * @param int $id
      * @return bool|string
      */
+    public function actionContractor(int $id)
+    {
+        $conversation = ConversationContractor::findOne($id);
+        $formMessage = new FormCreateMessageContractor();
+        $contractor = $conversation->contractor;
+        $user = $conversation->user;
+        $searchForm = new SearchForm(); // Форма поиска
+        $cache = Yii::$app->cache; //Обращаемся к кэшу приложения
+        // Вывод сообщений через пагинацию
+        $query = MessageContractor::find()->andWhere(['conversation_id' => $id])->orderBy(['id' => SORT_DESC]);
+        $pagesMessages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 20]);
+        $messages = $query->offset($pagesMessages->offset)->limit($pagesMessages->pageSize)->all();
+        $messages = array_reverse($messages);
+        $countMessages = MessageContractor::find()->andWhere(['conversation_id' => $id])->count();
+
+        if (User::isUserContractor(Yii::$app->user->identity['username'])) {
+
+            // Беседа исполнителя с техподдержкой
+            $conversation_development = ConversationDevelopment::findOne(['user_id' => $contractor->getId()]);
+            // Все беседы исполнителя с проектантами
+            $userConversations = ConversationContractor::find()
+                ->andWhere(['contractor_id' => $contractor->getId()])
+                ->andWhere(['role' => User::ROLE_USER])
+                ->orderBy(['updated_at' => SORT_DESC])
+                ->all();
+
+            // Если есть кэш, добавляем его в форму сообщения
+            $cache->cachePath = '../runtime/cache/forms/user-'.$contractor->getId().'/messages/category_contractor/conversation-'.$conversation->getId().'/';
+            $cache_form_message = $cache->get('formCreateMessageContractorCache');
+            if ($cache_form_message) {
+                $formMessage->setDescription($cache_form_message['FormCreateMessageContractor']['description']);
+            }
+
+            return $this->render('contractor-message-contractor', [
+                'conversation' => $conversation,
+                'formMessage' => $formMessage,
+                'contractor' => $contractor,
+                'user' => $user,
+                'searchForm' => $searchForm,
+                'messages' => $messages,
+                'countMessages' => $countMessages,
+                'pagesMessages' => $pagesMessages,
+                'conversation_development' => $conversation_development,
+                'userConversations' => $userConversations,
+            ]);
+        }
+
+        if (User::isUserSimple(Yii::$app->user->identity['username'])) {
+
+            $adminConversation = ConversationAdmin::findOne(['user_id' => $user->getId()]);
+            $admin = $adminConversation->admin;
+            $development = $user->development;
+            $conversation_development = ConversationDevelopment::findOne(['user_id' => $user->getId()]);
+            // Все беседы проектанта с экспертами
+            $expertConversations = ConversationExpert::find()
+                ->andWhere(['user_id' => $user->getId()])
+                ->orderBy(['updated_at' => SORT_DESC])
+                ->all();
+
+            // Все беседы проектанта с исполнителями
+            $contractorConversations = ConversationContractor::find()
+                ->andWhere(['user_id' => $user->getId()])
+                ->orderBy(['updated_at' => SORT_DESC])
+                ->all();
+
+            // Если есть кэш, добавляем его в форму сообщения
+            $cache->cachePath = '../runtime/cache/forms/user-'.$user->getId().'/messages/category_contractor/conversation-'.$conversation->getId().'/';
+            $cache_form_message = $cache->get('formCreateMessageContractorCache');
+            if ($cache_form_message) {
+                $formMessage->setDescription($cache_form_message['FormCreateMessageContractor']['description']);
+            }
+
+            return $this->render('contractor-message-user', [
+                'conversation' => $conversation,
+                'adminConversation' => $adminConversation,
+                'admin' => $admin,
+                'formMessage' => $formMessage,
+                'user' => $user,
+                'contractor' => $contractor,
+                'messages' => $messages,
+                'countMessages' => $countMessages,
+                'pagesMessages' => $pagesMessages,
+                'development' => $development,
+                'expertConversations' => $expertConversations,
+                'contractorConversations' => $contractorConversations,
+                'conversation_development' => $conversation_development,
+            ]);
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param int $id
+     * @return array|bool
+     */
+    public function actionReadMessageContractor(int $id)
+    {
+        if (Yii::$app->request->isAjax){
+            $model = MessageContractor::findOne($id);
+            $model->setStatus(MessageContractor::READ_MESSAGE);
+            if ($model->save()) {
+
+                $user = User::findOne($model->getAdresseeId());
+                $countUnreadMessagesForConversation = MessageContractor::find()->andWhere(['adressee_id' => $model->getAdresseeId(), 'sender_id' => $model->getSenderId(), 'status' => MessageContractor::NO_READ_MESSAGE])->count();
+                // Передаем id блока беседы
+                $blockConversation = '';
+                if (User::isUserSimple($user->getUsername())) {
+                    $blockConversation = '#contractorConversation-' . $model->getConversationId();
+                }
+                elseif (User::isUserContractor($user->getUsername())) {
+                    $blockConversation = '#conversation-' . $model->getConversationId();
+                }
+
+                $response = [
+                    'success' => true,
+                    'message' => $model,
+                    'countUnreadMessages' => $user->countUnreadMessages,
+                    'blockConversation' => $blockConversation,
+                    'countUnreadMessagesForConversation' => $countUnreadMessagesForConversation,
+                ];
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                Yii::$app->response->data = $response;
+                return $response;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * @param int $id
+     * @return array|bool
+     */
+    public function actionCheckingUnreadMessageContractor(int $id)
+    {
+        $message = MessageContractor::findOne($id);
+
+        if(Yii::$app->request->isAjax) {
+
+            if ($message->getStatus() === MessageContractor::READ_MESSAGE) {
+
+                $response = ['checkRead' => true];
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                Yii::$app->response->data = $response;
+                return $response;
+
+            }
+
+            $response = ['checkRead' => false];
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            Yii::$app->response->data = $response;
+            return $response;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param int $id
+     * @param int $idLastMessageOnPage
+     * @return array|bool
+     * @throws ErrorException
+     * @throws Exception
+     * @throws NotFoundHttpException
+     */
+    public function actionSendMessageContractor(int $id, int $idLastMessageOnPage)
+    {
+        $conversation = ConversationContractor::findOne($id);
+        $user = $conversation->user;
+        $contractor = $conversation->contractor;
+        $formMessage = new FormCreateMessageContractor();
+        $lastMessageOnPage = MessageContractor::findOne($idLastMessageOnPage);
+
+        if ($formMessage->load(Yii::$app->request->post())) {
+
+            if (Yii::$app->request->isAjax){
+
+                if (User::isUserSimple(Yii::$app->user->identity['username'])) {
+
+                    $formMessage->setConversationId($id);
+                    $formMessage->setSenderId($user->getId());
+                    $formMessage->setAdresseeId($contractor->getId());
+                    if ($formMessage->create()) {
+
+                        //Удаление кэша формы создания сообщения
+                        $cachePathDelete = '../runtime/cache/forms/user-'.$user->getId().'/messages/category_contractor/conversation-'.$conversation->getId();
+                        if (file_exists($cachePathDelete)) {
+                            FileHelper::removeDirectory($cachePathDelete);
+                        }
+
+                        // Сообщения, которых ещё нет на странице
+                        $messages = MessageContractor::find()->andWhere(['conversation_id' => $id])->andWhere(['>', 'id', $idLastMessageOnPage])->all();
+
+                        $response =  [
+                            'sender' => 'user',
+                            'countUnreadMessages' => $user->countUnreadMessages,
+                            'conversationsContractorForUser' => $this->renderAjax('update_conversations_contractor_for_user',[
+                                'conversationsContractor' => ConversationContractor::find()->andWhere(['user_id' => $user->getId()])
+                                    ->orderBy(['updated_at' => SORT_DESC])->all(), 'user' => $user,
+                            ]),
+                            'addNewMessagesAjax' => $this->renderAjax('check_new_messages_contractor', [
+                                'messages' => $messages, 'user' => $user, 'contractor' => $contractor, 'lastMessageOnPage' => $lastMessageOnPage,
+                            ]),
+                        ];
+
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        Yii::$app->response->data = $response;
+                        return $response;
+                    }
+
+                } elseif (User::isUserContractor(Yii::$app->user->identity['username'])) {
+
+                    $formMessage->setConversationId($id);
+                    $formMessage->setSenderId($contractor->getId());
+                    $formMessage->setAdresseeId($user->getId());
+                    if ($formMessage->create()) {
+
+                        //Удаление кэша формы создания сообщения
+                        $cachePathDelete = '../runtime/cache/forms/user-'.$contractor->getId().'/messages/category_contractor/conversation-'.$conversation->getId().'/';
+                        if (file_exists($cachePathDelete)) FileHelper::removeDirectory($cachePathDelete);
+
+                        // Сообщения, которых ещё нет на странице
+                        $messages = MessageContractor::find()->andWhere(['conversation_id' => $id])->andWhere(['>', 'id', $idLastMessageOnPage])->all();
+
+                        $response =  [
+                            'sender' => 'contractor',
+                            'countUnreadMessages' => $contractor->countUnreadMessages,
+                            'conversationsUserForContractorAjax' => $this->renderAjax('update_conversations_user_for_contractor', [
+                                'userConversations' => ConversationContractor::find()->andWhere(['contractor_id' => $contractor->getId(), 'role' => User::ROLE_USER])
+                                    ->orderBy(['updated_at' => SORT_DESC])->all(), 'contractor' => $contractor,
+                            ]),
+                            'addNewMessagesAjax' => $this->renderAjax('check_new_messages_contractor', [
+                                'messages' => $messages, 'user' => $user, 'contractor' => $contractor, 'lastMessageOnPage' => $lastMessageOnPage,
+                            ]),
+                        ];
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        Yii::$app->response->data = $response;
+                        return $response;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function actionSaveCacheMessageContractorForm(int $id): bool
+    {
+        $cache = Yii::$app->cache; //Обращаемся к кэшу приложения
+        $data = $_POST; //Массив, который будем записывать в кэш
+        $conversation = ConversationContractor::findOne($id);
+        $user = User::findOne(Yii::$app->user->getId());
+
+        if(Yii::$app->request->isAjax) {
+
+            if ($conversation->user->getId() === $user->getId() || $conversation->contractor->getId() === $user->getId()) {
+
+                $cache->cachePath = '../runtime/cache/forms/user-'.$user->getId().'/messages/category_contractor/conversation-'.$conversation->getId().'/';
+                $key = 'formCreateMessageContractorCache'; //Формируем ключ
+                $cache->set($key, $data, 3600*24*30); //Создаем файл кэша на 30дней
+            }
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param int $id
+     * @param int $page
+     * @param int $final
+     * @return array|bool
+     */
+    public function actionGetPageMessageContractor(int $id, int $page, int $final)
+    {
+        $conversation = ConversationContractor::findOne($id);
+        $user = $conversation->user;
+        $contractor = $conversation->contractor;
+        $query = MessageContractor::find()->andWhere(['conversation_id' => $id])->andWhere(['<', 'id', $final])->orderBy(['id' => SORT_DESC]);
+        $pagesMessages = new Pagination(['totalCount' => $query->count(), 'page' => ($page - 1), 'pageSize' => 20]);
+        $messages = $query->offset($pagesMessages->offset)->limit($pagesMessages->pageSize)->all();
+        $messages = array_reverse($messages);
+
+        // Проверяем является ли страница последней
+        $lastPage = false;
+        /** @var MessageContractor $lastMessage */
+        $lastMessage = MessageContractor::find()->andWhere(['conversation_id' => $id])->orderBy(['id' => SORT_ASC])->one();
+        /** @var MessageContractor[] $messages */
+        foreach ($messages as $message) {
+            if ($message->getId() === $lastMessage->getId()) {
+                $lastPage = true;
+            }
+        }
+
+        if(Yii::$app->request->isAjax) {
+
+            $response = ['nextPageMessageAjax' => $this->renderAjax('message_contractor_pagination_ajax', [
+                'messages' => $messages, 'pagesMessages' => $pagesMessages,
+                'user' => $user, 'contractor' => $contractor,
+            ]), 'lastPage' => $lastPage];
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            Yii::$app->response->data = $response;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * @param int $id
+     * @param int $idLastMessageOnPage
+     * @return array|bool
+     */
+    public function actionCheckNewMessagesContractor(int $id, int $idLastMessageOnPage)
+    {
+        $conversation = ConversationContractor::findOne($id);
+        $user = $conversation->user;
+        $contractor = $conversation->contractor;
+        $lastMessageOnPage = MessageContractor::findOne($idLastMessageOnPage);
+        $messages = MessageContractor::find()->andWhere(['conversation_id' => $conversation->getId()])->andWhere(['>', 'id', $idLastMessageOnPage])->all();
+
+        if(Yii::$app->request->isAjax) {
+
+            if ($messages) {
+
+                $response = [
+                    'checkNewMessages' => true,
+                    'addNewMessagesAjax' => $this->renderAjax('check_new_messages_contractor', [
+                        'messages' => $messages, 'user' => $user, 'contractor' => $contractor, 'lastMessageOnPage' => $lastMessageOnPage,
+                    ]),
+                ];
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                Yii::$app->response->data = $response;
+                return $response;
+
+            }
+
+            $response = ['checkNewMessages' => false];
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            Yii::$app->response->data = $response;
+            return $response;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param int $id
+     * @return bool|string
+     */
     public function actionExpert(int $id)
     {
         $conversation = ConversationExpert::findOne($id);
@@ -1144,6 +1580,12 @@ class MessageController extends AppUserPartController
                 ->orderBy(['updated_at' => SORT_DESC])
                 ->all();
 
+            // Все беседы проектанта с исполнителями
+            $contractorConversations = ConversationContractor::find()
+                ->andWhere(['user_id' => $user->getId()])
+                ->orderBy(['updated_at' => SORT_DESC])
+                ->all();
+
             // Если есть кэш, добавляем его в форму сообщения
             $cache->cachePath = '../runtime/cache/forms/user-'.$user->getId().'/messages/category_expert/conversation-'.$conversation->getId().'/';
             $cache_form_message = $cache->get('formCreateMessageExpertCache');
@@ -1163,6 +1605,7 @@ class MessageController extends AppUserPartController
                 'pagesMessages' => $pagesMessages,
                 'development' => $development,
                 'expertConversations' => $expertConversations,
+                'contractorConversations' => $contractorConversations,
                 'conversation_development' => $conversation_development,
             ]);
         }

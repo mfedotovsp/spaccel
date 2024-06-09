@@ -140,6 +140,9 @@ $(body).on('click', '.conversation-link', function () {
     else if (($(this).attr('id').split('-')[0] === 'expertConversation')) {
         window.location.href = '/expert/message/technical-support?id='+id;
     }
+    else if (($(this).attr('id').split('-')[0] === 'contractorConversation')) {
+        window.location.href = '/contractor/message/technical-support?id='+id;
+    }
     else if (($(this).attr('id').split('-')[0] === 'conversation')) {
         window.location.href = '/message/technical-support?id='+id;
     }
@@ -157,6 +160,9 @@ $(body).on('click', '.container-user_messages', function () {
     }
     else if (($(this).attr('id').split('-')[0] === 'expertConversation')) {
         window.location.href = '/expert/message/technical-support?id='+id;
+    }
+    else if (($(this).attr('id').split('-')[0] === 'contractorConversation')) {
+        window.location.href = '/contractor/message/technical-support?id='+id;
     }
     else if (($(this).attr('id').split('-')[0] === 'conversation')) {
         window.location.href = '/message/technical-support?id='+id;

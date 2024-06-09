@@ -59,6 +59,9 @@ $(body).on('click', '.container-user_messages', function () {
     else if ($(this).attr('id').split('-')[0] === 'expertConversation') {
         window.location.href = '/message/expert?id='+id;
     }
+    else if ($(this).attr('id').split('-')[0] === 'contractorConversation') {
+        window.location.href = '/message/contractor?id='+id;
+    }
 });
 
 
@@ -235,6 +238,7 @@ setInterval(function(){
             $(conversation_list_menu).find(response.blockConversationAdmin).html(response.conversationAdminForUserAjax);
             $(conversation_list_menu).find(response.blockConversationDevelopment).html(response.conversationDevelopmentForUserAjax);
             $(conversation_list_menu).find('.containerExpertConversations').html(response.conversationsExpertForUser);
+            $(conversation_list_menu).find('.containerContractorConversations').html(response.conversationsContractorForUser);
             if (!$(conversation_list_menu).find(conversation_id).hasClass('active-message')) $(conversation_list_menu).find(conversation_id).addClass('active-message');
         }
     });

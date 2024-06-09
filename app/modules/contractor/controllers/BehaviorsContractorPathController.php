@@ -94,6 +94,14 @@ class BehaviorsContractorPathController extends AppController
                             return User::isUserAdminCompany($user->getUsername()) && $isActiveClient;
                         }
                     ],
+
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isUserDev(Yii::$app->user->identity['username']);
+                        }
+                    ],
                 ]
             ]
         ];

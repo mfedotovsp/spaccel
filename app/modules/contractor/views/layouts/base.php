@@ -70,6 +70,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/imag
                         ],
                     ],
 
+                    ['label' => $user->countUnreadMessages ? '<div class="countUnreadMessages active">' . $user->countUnreadMessages . '</div>' . Html::img('/images/icons/icon_messager_animation.svg', ['class' => 'icon_messager', 'title' => 'Сообщения'])
+                    : '<div class="countUnreadMessages"></div>' . Html::img('/images/icons/icon_messager_animation.svg', ['class' => 'icon_messager', 'title' => 'Сообщения']), 'url' => ['/contractor/message/index', 'id' => $user->getId()]],
+
                     ['label' => Html::img('/images/icons/icon_light_bulb.png', ['class' => 'icon_messager', 'title' => 'Методическое руководство']), 'url' => ['/site/methodological-guide']],
                 ],
                 'encodeLabels' => false,
@@ -108,6 +111,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/imag
                     ],
 
                     ['label' => '<div class="link_nav_bar_menu_mobile">Проекты</div>', 'url' => ['/contractor/projects/index', 'id' => $user->getId()]],
+                    ['label' => $user->countUnreadMessages ? '<div class="link_nav_bar_menu_mobile">Сообщения</div><div class="countUnreadMessages active">' . $user->countUnreadMessages . '</div>'
+                        : '<div class="link_nav_bar_menu_mobile">Сообщения</div><div class="countUnreadMessages"></div>', 'url' => ['/contractor/message/index', 'id' => $user->getId()]],
+
                     ['label' => '<div class="link_nav_bar_menu_mobile">Методическое руководство</div>', 'url' => ['/site/methodological-guide']],
                     ['label' => '<div class="link_nav_bar_menu_mobile">О сервисе</div>', 'url' => ['/about']],
                     ['label' => '<div class="link_nav_bar_menu_mobile">Мой профиль</div>', 'url' => Url::to(['/contractor/profile/index', 'id' => $user->getId()])],

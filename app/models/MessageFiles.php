@@ -25,6 +25,7 @@ class MessageFiles extends ActiveRecord
     public const CATEGORY_TECHNICAL_SUPPORT = 3;
     public const CATEGORY_EXPERT = 4;
     public const CATEGORY_MANAGER = 5;
+    public const CATEGORY_CONTRACTOR = 6;
 
 
     /**

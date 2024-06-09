@@ -45,6 +45,19 @@ use app\models\User;
                 <?= $conversation->user->getUsername() ?>
             </div>
 
+        <?php elseif (User::isUserContractor($conversation->user->getUsername())) : ?>
+
+            <div class="conversation-link" id="contractorConversation-<?= $conversation->getId() ?>">
+
+                <?php if ($conversation->user->getAvatarImage()) : ?>
+                    <?= Html::img('@web/upload/user-'.$conversation->getUserId().'/avatar/'.$conversation->user->getAvatarImage(), ['class' => 'user_picture_search']) ?>
+                <?php else : ?>
+                    <?= Html::img('/images/icons/button_user_menu.png', ['class' => 'user_picture_search_default']) ?>
+                <?php endif; ?>
+
+                <?= $conversation->user->getUsername() ?>
+            </div>
+
         <?php elseif (User::isUserMainAdmin($conversation->user->getUsername()) || User::isUserManager($conversation->user->getUsername())) : ?>
 
             <div class="conversation-link" id="adminConversation-<?= $conversation->getId() ?>">

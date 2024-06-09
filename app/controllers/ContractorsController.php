@@ -254,6 +254,10 @@ class ContractorsController extends AppUserPartController
                     $accessToProject->setParams($adressee_id, $project_id, $communication);
                     if ($accessToProject->save() && ContractorUsers::getInstance($adressee_id, Yii::$app->user->getId())) {
 
+                        if ($type === ContractorCommunicationTypes::SIMPLE_USER_ASKS_ABOUT_READINESS_TO_JOIN_PROJECT) {
+                            User::createConversationContractor($communication->user, $communication->contractor);
+                        }
+
                         if ($type === ContractorCommunicationTypes::SIMPLE_USER_APPOINTS_CONTRACTOR_PROJECT) {
                             $contractorProject = new ContractorProject();
                             $contractorProject->setContractorId($adressee_id);

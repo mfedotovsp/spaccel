@@ -3,6 +3,7 @@
 use app\models\ConversationAdmin;
 use app\models\ConversationDevelopment;
 use app\models\User;
+use app\modules\contractor\models\ConversationContractor;
 use app\modules\expert\models\ConversationExpert;
 use app\modules\expert\models\form\FormCreateMessageExpert;
 use yii\data\Pagination;
@@ -27,6 +28,7 @@ $this->registerCssFile('@web/css/message-view.css');
  * @var Pagination $pagesMessages
  * @var User $development
  * @var ConversationExpert[] $expertConversations
+ * @var ConversationContractor[] $contractorConversations
  * @var ConversationDevelopment $conversation_development
  */
 
@@ -374,6 +376,87 @@ $this->registerCssFile('@web/css/message-view.css');
                     <?php endif; ?>
 
                 </div>
+
+                <!--Блок бесед с исполнителями-->
+                <div class="containerContractorConversations">
+
+                    <div class="title_block_conversation">
+                        <div class="title">Исполнители</div>
+                    </div>
+
+                    <?php if ($contractorConversations) : ?>
+
+                        <?php foreach ($contractorConversations as $contractorConversation) : ?>
+
+                            <div class="container-user_messages" id="contractorConversation-<?= $contractorConversation->getId() ?>">
+
+                                <!--Проверка существования аватарки-->
+                                <?php if ($contractorConversation->contractor->getAvatarImage()) : ?>
+                                    <?= Html::img('@web/upload/user-'.$contractorConversation->getContractorId().'/avatar/'.$contractorConversation->contractor->getAvatarImage(), ['class' => 'user_picture']) ?>
+                                <?php else : ?>
+                                    <?= Html::img('/images/icons/button_user_menu.png', ['class' => 'user_picture_default']) ?>
+                                <?php endif; ?>
+
+                                <!--Кол-во непрочитанных сообщений от исполнителя-->
+                                <?php if ($user->getCountUnreadMessagesContractorFromUser($contractorConversation->getContractorId())) : ?>
+                                    <div class="countUnreadMessagesSender active"><?= $user->getCountUnreadMessagesContractorFromUser($contractorConversation->getContractorId()) ?></div>
+                                <?php else : ?>
+                                    <div class="countUnreadMessagesSender"></div>
+                                <?php endif; ?>
+
+                                <!--Проверка онлайн статуса-->
+                                <?php if ($contractorConversation->contractor->checkOnline === true) : ?>
+                                    <div class="checkStatusOnlineUser active"></div>
+                                <?php else : ?>
+                                    <div class="checkStatusOnlineUser"></div>
+                                <?php endif; ?>
+
+                                <div class="container_user_messages_text_content">
+
+                                    <div class="row block_top">
+
+                                        <div class="col-xs-8"><?= $contractorConversation->contractor->getUsername() ?></div>
+
+                                        <div class="col-xs-4 text-right">
+                                            <?php if ($contractorConversation->lastMessage) : ?>
+                                                <?= date('d.m.y H:i', $contractorConversation->lastMessage->getCreatedAt()) ?>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+
+                                    <?php if ($contractorConversation->lastMessage) : ?>
+                                        <div class="block_bottom_exist_message">
+
+                                            <?php if ($contractorConversation->lastMessage->sender->getAvatarImage()) : ?>
+                                                <?= Html::img('@web/upload/user-'.$contractorConversation->lastMessage->getSenderId().'/avatar/'.$contractorConversation->lastMessage->sender->getAvatarImage(), ['class' => 'icon_sender_last_message']) ?>
+                                            <?php else : ?>
+                                                <?= Html::img('/images/icons/button_user_menu.png', ['class' => 'icon_sender_last_message_default']) ?>
+                                            <?php endif; ?>
+
+                                            <div>
+                                                <?php if ($contractorConversation->lastMessage->getDescription()) : ?>
+                                                    <?= $contractorConversation->lastMessage->getDescription() ?>
+                                                <?php else : ?>
+                                                    ...
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    <?php else : ?>
+                                        <div class="block_bottom_not_exist_message">Нет сообщений</div>
+                                    <?php endif; ?>
+
+                                </div>
+                            </div>
+
+                        <?php endforeach; ?>
+
+                    <?php else : ?>
+
+                        <div class="text-center block_not_conversations">Нет исполнителей</div>
+
+                    <?php endif; ?>
+
+                </div>
             </div>
         </div>
 
@@ -689,4 +772,3 @@ $this->registerCssFile('@web/css/message-view.css');
 <!--Подключение скриптов-->
 <?php $this->registerJsFile('@web/js/expert_message_user_expert.js'); ?>
 <?php $this->registerJsFile('@web/js/form_message_expert_user.js'); ?>
-<?php //php $this->registerJsFile('@web/js/form_message_admin.js'); ?>

@@ -41,6 +41,9 @@ $(body).on('click', '.container-user_messages', function () {
     else if ($(this).attr('id').split('-')[0] === 'expertConversation') {
         window.location.href = '/message/expert?id='+id;
     }
+    else if ($(this).attr('id').split('-')[0] === 'contractorConversation') {
+        window.location.href = '/message/contractor?id='+id;
+    }
 });
 
 // Открытие и закрытие меню профиля на малых экранах
@@ -63,10 +66,12 @@ setInterval(function(){
             var blockConversationAdmin = $(body).find('#conversation-list-menu').find(response.blockConversationAdmin);
             var blockConversationDevelopment = $(body).find('#conversation-list-menu').find(response.blockConversationDevelopment);
             var blockExpertConversations = $(body).find('.containerExpertConversations');
+            var blockContractorConversations = $(body).find('.containerContractorConversations');
 
             $(blockConversationAdmin).html(response.conversationAdminForUserAjax);
             $(blockConversationDevelopment).html(response.conversationDevelopmentForUserAjax);
             $(blockExpertConversations).html(response.conversationsExpertForUser);
+            $(blockContractorConversations).html(response.conversationsContractorForUser);
         }
     });
 
