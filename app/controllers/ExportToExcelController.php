@@ -31,7 +31,7 @@ class ExportToExcelController extends AppUserPartController
 
             /** @var $project Projects */
             $project = Projects::find(false)
-                ->andWhere((int)Yii::$app->request->get('id'))
+                ->andWhere(['id' => (int)Yii::$app->request->get('id')])
                 ->one();
 
             if (!$project) {
