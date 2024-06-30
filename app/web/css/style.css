@@ -811,7 +811,8 @@ a.button_next_page_masseges:focus {
     display: flex;
     justify-content: center;
 }
-.project-result-export {
+.project-result-export,
+.project-result-export-to-excel {
     color: #373737;
     font-weight: normal;
     font-size: 14px;

@@ -88,7 +88,7 @@ $project = $confirmGcp->hypothesis->project;
                             'border-radius' => '0',
                             'border' => '1px solid #ffffff',
                             'font-size' => '18px',
-                            'margin' => '10px 1% 10px 2%',
+                            'margin' => '10px 1% 0 2%',
                         ],
                     ]) ?>
 
@@ -105,11 +105,33 @@ $project = $confirmGcp->hypothesis->project;
                             'border-radius' => '0',
                             'border' => '1px solid #ffffff',
                             'font-size' => '18px',
-                            'margin' => '10px 2% 10px 1%',
+                            'margin' => '10px 2% 0 1%',
                         ],
                     ]) ?>
 
                 </div>
+
+                <div class="project_buttons_mobile">
+
+                    <?= Html::a('Экспорт в Excel', ['/export-to-excel/project', 'id' => $project->getId()], [
+                        'class' => 'btn btn-default',
+                        'style' => [
+                            'display' => 'flex',
+                            'width' => '47%',
+                            'height' => '36px',
+                            'background' => '#7F9FC5',
+                            'color' => '#FFFFFF',
+                            'align-items' => 'center',
+                            'justify-content' => 'center',
+                            'border-radius' => '0',
+                            'border' => '1px solid #ffffff',
+                            'font-size' => '18px',
+                            'margin' => '10px 1% 10px 2%',
+                        ],
+                    ]) ?>
+
+                </div>
+
             </div>
 
             <div class="arrow_stages_project_mobile">
