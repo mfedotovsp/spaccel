@@ -424,22 +424,46 @@ use yii\helpers\Url;
 
                     <?php elseif ($model->getEnableExpertise() === EnableExpertise::ON) : ?>
 
-                        <?= Html::a('Работать далее', Url::to(['/confirm-problem/create', 'id' => $model->getId()]), [
-                            'class' => 'btn btn-default',
-                            'style' => [
-                                'display' => 'flex',
-                                'width' => '47%',
-                                'height' => '36px',
-                                'background' => '#52BE7F',
-                                'color' => '#FFFFFF',
-                                'align-items' => 'center',
-                                'justify-content' => 'center',
-                                'border-radius' => '0',
-                                'border' => '1px solid #ffffff',
-                                'font-size' => '18px',
-                                'margin' => '10px 2% 2% 1%',
-                            ]
-                        ]) ?>
+                        <?php if ($model->confirm): ?>
+
+                            <?= Html::a('Работать далее', Url::to(['/confirm-problem/view', 'id' => $model->confirm->getId()]), [
+                                'class' => 'btn btn-default',
+                                'style' => [
+                                    'display' => 'flex',
+                                    'width' => '47%',
+                                    'height' => '36px',
+                                    'background' => '#52BE7F',
+                                    'color' => '#FFFFFF',
+                                    'align-items' => 'center',
+                                    'justify-content' => 'center',
+                                    'border-radius' => '0',
+                                    'border' => '1px solid #ffffff',
+                                    'font-size' => '18px',
+                                    'margin' => '10px 2% 2% 1%',
+                                ]
+                            ]) ?>
+
+                        <?php else: ?>
+
+                            <?= Html::a('Работать далее', ['#'], [
+                                'id' => 'choosing_confirmation_option-problem-' . $model->getId(),
+                                'class' => 'btn btn-default display_choosing_confirmation_option_modal',
+                                'style' => [
+                                    'display' => 'flex',
+                                    'width' => '47%',
+                                    'height' => '36px',
+                                    'background' => '#52BE7F',
+                                    'color' => '#FFFFFF',
+                                    'align-items' => 'center',
+                                    'justify-content' => 'center',
+                                    'border-radius' => '0',
+                                    'border' => '1px solid #ffffff',
+                                    'font-size' => '18px',
+                                    'margin' => '10px 2% 2% 1%',
+                                ]
+                            ]) ?>
+
+                        <?php endif; ?>
 
                     <?php endif; ?>
 

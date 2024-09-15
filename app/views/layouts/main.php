@@ -375,7 +375,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/imag
             <div class="modal-buttons">
                 <?= Html::a('Подтверждение в наличии', ['#'],[
                     'id' => 'hypothesis_existing_confirmation',
-                    'class' => 'btn btn-success mr-10',
+                    'class' => 'btn btn-success',
                 ]).
 
                 Html::a('Требуются исследования', ['#'],[

@@ -3385,6 +3385,19 @@ body .choosing_confirmation_option_modal .modal-main-content .modal-buttons {
     justify-content: center;
     margin-top: 20px;
 }
+body .choosing_confirmation_option_modal #hypothesis_existing_confirmation {
+    margin-right: 10px;
+}
+@media screen and (max-width: 768px) {
+    body .choosing_confirmation_option_modal .modal-main-content .modal-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    body .choosing_confirmation_option_modal #hypothesis_existing_confirmation {
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+}
 body .choosing_confirmation_option_modal #hypothesis_existing_confirmation,
 body .choosing_confirmation_option_modal #confirmation_research_require {
     width: 200px;
