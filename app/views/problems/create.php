@@ -37,67 +37,86 @@ use app\models\Problems;
 
     <div class="form-problem">
 
-        <div class="table_responds_to_confirm_segment_desktop">
-            <div class="row" style="color: #4F4F4F; margin-top: 20px; margin-bottom: 15px;">
+        <?php if (!$confirmSegment->isExistDesc()): ?>
+            <div class="table_responds_to_confirm_segment_desktop">
+                <div class="row" style="color: #4F4F4F; margin-top: 20px; margin-bottom: 15px;">
 
-                <div class="col-md-12">
-                    <div class="pull-left" style="padding: 0 10px; border-bottom: 1px solid;">Варианты проблем, полученные от респондентов (представителей сегмента)</div>
-                </div>
-
-            </div>
-
-            <div class="row" style="color: #4F4F4F; padding-left: 10px; margin-bottom: 5px; font-weight: 700;">
-
-                <div class="col-md-4">
-                    Респонденты
-                </div>
-
-                <div class="col-md-8">
-                    Варианты проблем
-                </div>
-
-            </div>
-
-
-            <!--Список респондентов(представителей сегмента) и их вариантов проблем-->
-            <div class="all_responds_problems row container-fluid" style="margin: 0;">
-
-                <?php foreach ($responds as $respond) : ?>
-
-                    <div class="block_respond_problem row">
-
-                        <div class="col-md-4 block_respond_problem_column">
-
-                            <?php
-                            $respond_name = $respond->getName();
-                            if (mb_strlen($respond_name) > 30) {
-                                $respond_name = mb_substr($respond_name, 0, 30) . '...';
-                            }
-                            ?>
-                            <?= Html::a('<div title="'.$respond->getName().'">' . $respond_name . '</div>', ['/problems/get-interview-respond', 'id' => $respond->getId()], [
-                                'class' => 'get_interview_respond',
-                            ]) ?>
-
-                        </div>
-
-                        <div class="col-md-8 block_respond_problem_column">
-
-                            <?php
-                            $interview_result = $respond->interview->getResult();
-                            if (mb_strlen($interview_result) > 70) {
-                                $interview_result = mb_substr($interview_result, 0, 70) . '...';
-                            }
-                            ?>
-                            <?= '<div title="'.$respond->interview->getResult().'">' . $interview_result . '</div>' ?>
-
-                        </div>
-
+                    <div class="col-md-12">
+                        <div class="pull-left" style="padding: 0 10px; border-bottom: 1px solid;">Варианты проблем, полученные от респондентов (представителей сегмента)</div>
                     </div>
 
-                <?php endforeach; ?>
+                </div>
 
+                <div class="row" style="color: #4F4F4F; padding-left: 10px; margin-bottom: 5px; font-weight: 700;">
+
+                    <div class="col-md-4">
+                        Респонденты
+                    </div>
+
+                    <div class="col-md-8">
+                        Варианты проблем
+                    </div>
+
+                </div>
+
+
+                <!--Список респондентов(представителей сегмента) и их вариантов проблем-->
+                <div class="all_responds_problems row container-fluid" style="margin: 0;">
+
+                    <?php foreach ($responds as $respond) : ?>
+
+                        <div class="block_respond_problem row">
+
+                            <div class="col-md-4 block_respond_problem_column">
+
+                                <?php
+                                $respond_name = $respond->getName();
+                                if (mb_strlen($respond_name) > 30) {
+                                    $respond_name = mb_substr($respond_name, 0, 30) . '...';
+                                }
+                                ?>
+                                <?= Html::a('<div title="'.$respond->getName().'">' . $respond_name . '</div>', ['/problems/get-interview-respond', 'id' => $respond->getId()], [
+                                    'class' => 'get_interview_respond',
+                                ]) ?>
+
+                            </div>
+
+                            <div class="col-md-8 block_respond_problem_column">
+
+                                <?php
+                                $interview_result = $respond->interview->getResult();
+                                if (mb_strlen($interview_result) > 70) {
+                                    $interview_result = mb_substr($interview_result, 0, 70) . '...';
+                                }
+                                ?>
+                                <?= '<div title="'.$respond->interview->getResult().'">' . $interview_result . '</div>' ?>
+
+                            </div>
+
+                        </div>
+
+                    <?php endforeach; ?>
+
+                </div>
             </div>
-        </div>
+
+        <?php else: ?>
+
+            <div class="row mt-30 mb-15">
+                <div class="col-md-12">
+                    <div class="bolder">Проблемы, выявленные на этапе подтв. сегмента</div>
+                </div>
+
+                <div class="col-md-12 mt-15">
+                    <ul>
+                        <?php foreach ($confirmSegment->confirmDescription->problemVariants as $problemVariant): ?>
+                            <li><?= $problemVariant->getDescription() ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+
+        <?php endif; ?>
 
         <div class="generation-problem-form" style="margin-top: 20px;">
 

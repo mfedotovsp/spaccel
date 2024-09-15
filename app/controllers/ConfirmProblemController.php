@@ -9,9 +9,11 @@ use app\models\ConfirmSegment;
 use app\models\ContractorTasks;
 use app\models\EnableExpertise;
 use app\models\forms\CacheForm;
+use app\models\forms\FormCreateConfirmDescription;
 use app\models\forms\FormCreateConfirmProblem;
 use app\models\forms\FormCreateGcp;
 use app\models\forms\FormCreateQuestion;
+use app\models\forms\FormUpdateConfirmDescription;
 use app\models\forms\FormUpdateConfirmProblem;
 use app\models\forms\SearchForm;
 use app\models\PatternHttpException;
@@ -262,12 +264,18 @@ class ConfirmProblemController extends AppUserPartController
 
     /**
      * @param int $id
+     * @param bool $existDesc
      */
-    public function actionSaveCacheCreationForm(int $id): void
+    public function actionSaveCacheCreationForm(int $id, bool $existDesc = false): void
     {
         $problem = Problems::findOne($id);
-        $cachePath = FormCreateConfirmProblem::getCachePath($problem);
-        $cacheName = 'formCreateConfirmCache';
+        if (!$existDesc) {
+            $cachePath = FormCreateConfirmProblem::getCachePath($problem);
+            $cacheName = 'formCreateConfirmCache';
+        } else {
+            $cachePath = FormCreateConfirmDescription::getCachePath($problem);
+            $cacheName = 'formCreateConfirmDCache';
+        }
 
         if(Yii::$app->request->isAjax) {
 
@@ -279,14 +287,38 @@ class ConfirmProblemController extends AppUserPartController
 
     /**
      * @param int $id
+     * @param bool $existDesc
      * @return string|Response
      */
-    public function actionCreate(int $id)
+    public function actionCreate(int $id, bool $existDesc = false)
     {
         $problem = Problems::findOne($id);
         $confirmSegment = ConfirmSegment::findOne($problem->getConfirmSegmentId());
         $segment = Segments::findOne($confirmSegment->getSegmentId());
         $project = Projects::findOne($segment->getProjectId());
+
+        if ($problem->getEnableExpertise() === EnableExpertise::OFF) {
+            return $this->redirect(['/problems/index', 'id' => $confirmSegment->getId()]);
+        }
+
+        if ($problem->confirm){ //Если у проблемы создана программа подтверждения, то перейти на страницу подтверждения
+            return $this->redirect(['view', 'id' => $problem->confirm->getId()]);
+        }
+
+        if ($existDesc) {
+            $confirm = new ConfirmProblem();
+            $confirm->setProblemId($problem->getId());
+            $model = new FormCreateConfirmDescription($confirm, StageExpertise::CONFIRM_PROBLEM);
+
+            return $this->render('create_for_exist', [
+                'model' => $model,
+                'problem' => $problem,
+                'confirmSegment' => $confirmSegment,
+                'segment' => $segment,
+                'project' => $project,
+            ]);
+        }
+
         $model = new FormCreateConfirmProblem($problem);
 
         //кол-во представителей сегмента
@@ -298,14 +330,6 @@ class ConfirmProblemController extends AppUserPartController
 
         $model->setCountRespond($count_represent_segment);
         $model->setAddCountRespond(0);
-
-        if ($problem->getEnableExpertise() === EnableExpertise::OFF) {
-            return $this->redirect(['/problems/index', 'id' => $confirmSegment->getId()]);
-        }
-
-        if ($problem->confirm){ //Если у проблемы создана программа подтверждения, то перейти на страницу подтверждения
-            return $this->redirect(['view', 'id' => $problem->confirm->getId()]);
-        }
 
         return $this->render('create', [
             'model' => $model,
@@ -319,25 +343,60 @@ class ConfirmProblemController extends AppUserPartController
 
     /**
      * @param int $id
+     * @param bool $existDesc
      * @return array|bool
      * @throws ErrorException
      * @throws NotFoundHttpException
      */
-    public function actionSaveConfirm(int $id)
+    public function actionSaveConfirm(int $id, bool $existDesc = false)
     {
         if(Yii::$app->request->isAjax) {
             $problem = Problems::findOne($id);
-            $model = new FormCreateConfirmProblem($problem);
-            $model->setHypothesisId($id);
 
-            if ($model->load(Yii::$app->request->post())) {
-                if ($model = $model->create()){
-                    $response =  ['success' => true, 'id' => $model->getId()];
+            if (!$existDesc) {
+                $model = new FormCreateConfirmProblem($problem);
+                $model->setHypothesisId($id);
+
+                if ($model->load(Yii::$app->request->post())) {
+                    if ($model = $model->create()) {
+                        $response = ['success' => true, 'id' => $model->getId()];
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        Yii::$app->response->data = $response;
+                        return $response;
+                    }
+                }
+
+                return false;
+            }
+
+            $confirm = new ConfirmProblem();
+            $confirm->setProblemId($problem->getId());
+            $model = new FormCreateConfirmDescription($confirm, StageExpertise::CONFIRM_PROBLEM);
+
+            if ($model->setParams(Yii::$app->request->post())) {
+                if (!$model->validate()) {
+                    $errors = [];
+                    foreach ($model->errors as $param) {
+                        foreach ($param as $error) {
+                            $errors[] = $error;
+                        }
+                    }
+
+                    $response =  ['success' => false, 'errors' => $errors];
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    Yii::$app->response->data = $response;
+                    return $response;
+                }
+
+                if (Yii::$app->request->isAjax && $result = $model->create()) {
+                    $response =  ['success' => true, 'id' => $result->confirm->getId()];
                     Yii::$app->response->format = Response::FORMAT_JSON;
                     Yii::$app->response->data = $response;
                     return $response;
                 }
             }
+            return false;
+
         }
         return false;
     }
@@ -384,32 +443,62 @@ class ConfirmProblemController extends AppUserPartController
 
     /**
      * @param int $id
+     * @param bool $existDesc
      * @return array|false
      * @throws ErrorException
      * @throws NotFoundHttpException
      */
-    public function actionUpdate (int $id)
+    public function actionUpdate (int $id, bool $existDesc = false)
     {
-        if(Yii::$app->request->isAjax) {
+        if (Yii::$app->request->isAjax) {
 
-            $model = new FormUpdateConfirmProblem($id);
             $confirm = ConfirmProblem::findOne($id);
-            $problem = $confirm->problem;
-            $countContractorResponds = (int)RespondsProblem::find()
-                ->andWhere(['not', ['contractor_id' => null]])
-                ->andWhere(['confirm_id' => $id])
-                ->count();
 
-            if ($model->load(Yii::$app->request->post())) {
-                if ($confirm = $model->update()){
+            if (!$existDesc) {
+                $model = new FormUpdateConfirmProblem($id);
+                $problem = $confirm->problem;
+                $countContractorResponds = (int)RespondsProblem::find()
+                    ->andWhere(['not', ['contractor_id' => null]])
+                    ->andWhere(['confirm_id' => $id])
+                    ->count();
 
-                    $response = [
-                        'success' => true,
-                        'ajax_data_confirm' => $this->renderAjax('ajax_data_confirm', [
-                            'formUpdateConfirmProblem' => new FormUpdateConfirmProblem($id),
-                            'model' => $confirm, 'problem' => $problem, 'countContractorResponds' => $countContractorResponds
-                        ]),
-                    ];
+                if ($model->load(Yii::$app->request->post())) {
+                    if ($confirm = $model->update()) {
+
+                        $response = [
+                            'success' => true,
+                            'ajax_data_confirm' => $this->renderAjax('ajax_data_confirm', [
+                                'formUpdateConfirmProblem' => new FormUpdateConfirmProblem($id),
+                                'model' => $confirm, 'problem' => $problem, 'countContractorResponds' => $countContractorResponds
+                            ]),
+                        ];
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        Yii::$app->response->data = $response;
+                        return $response;
+                    }
+                }
+
+                return false;
+            }
+
+            $model = new FormUpdateConfirmDescription($confirm, StageExpertise::CONFIRM_PROBLEM);
+            if ($model->setParams(Yii::$app->request->post())) {
+                if (!$model->validate()) {
+                    $errors = [];
+                    foreach ($model->errors as $param) {
+                        foreach ($param as $error) {
+                            $errors[] = $error;
+                        }
+                    }
+
+                    $response =  ['success' => false, 'errors' => $errors];
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    Yii::$app->response->data = $response;
+                    return $response;
+                }
+
+                if (Yii::$app->request->isAjax && $result = $model->update()) {
+                    $response =  ['success' => true, 'id' => $result->confirm->getId()];
                     Yii::$app->response->format = Response::FORMAT_JSON;
                     Yii::$app->response->data = $response;
                     return $response;
@@ -431,11 +520,25 @@ class ConfirmProblemController extends AppUserPartController
         if ($model->getDeletedAt()) {
             return $this->redirect(['/confirm-problem/view-trash', 'id' => $id]);
         }
-        $formUpdateConfirmProblem = new FormUpdateConfirmProblem($id);
+
         $problem = Problems::findOne($model->getProblemId());
         $confirmSegment = ConfirmSegment::findOne($problem->getConfirmSegmentId());
         $segment = Segments::findOne($confirmSegment->getSegmentId());
         $project = Projects::findOne($segment->getProjectId());
+
+        if ($model->isExistDesc()) {
+            $formUpdate = new FormUpdateConfirmDescription($model, StageExpertise::CONFIRM_PROBLEM);
+            return $this->render('view_for_exist', [
+                'model' => $model,
+                'formUpdate' => $formUpdate,
+                'problem' => $problem,
+                'confirmSegment' => $confirmSegment,
+                'segment' => $segment,
+                'project' => $project,
+            ]);
+        }
+
+        $formUpdateConfirmProblem = new FormUpdateConfirmProblem($id);
         $questions = QuestionsConfirmProblem::findAll(['confirm_id' => $id]);
         $newQuestion = new FormCreateQuestion();
         $countContractorResponds = (int)RespondsProblem::find()
@@ -495,6 +598,16 @@ class ConfirmProblemController extends AppUserPartController
         $project = Projects::find(false)
             ->andWhere(['id' => $segment->getProjectId()])
             ->one();
+
+        if ($model->isExistDesc()) {
+            return $this->render('view_for_exist', [
+                'model' => $model,
+                'problem' => $problem,
+                'confirmSegment' => $confirmSegment,
+                'segment' => $segment,
+                'project' => $project,
+            ]);
+        }
 
         $questions = QuestionsConfirmProblem::find(false)
             ->andWhere(['confirm_id' => $id])
@@ -585,7 +698,21 @@ class ConfirmProblemController extends AppUserPartController
 
         if (Yii::$app->request->isAjax) {
 
-            if (($model->gcps  && $model->getCountPositive() <= $count_positive && $model->problem->getExistConfirm() === StatusConfirmHypothesis::COMPLETED) || (count($model->responds) === $count_descInterview && $model->getCountPositive() <= $count_positive && $model->problem->getExistConfirm() === StatusConfirmHypothesis::COMPLETED)) {
+            if ($model->isExistDesc()) {
+
+                $response =  [
+                    'success' => true,
+                    'renderAjax' => $this->renderAjax('/gcps/create', [
+                        'confirmProblem' => $model,
+                        'model' => $formCreateGcp,
+                        'segment' => $model->problem->segment,
+                    ]),
+                ];
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                Yii::$app->response->data = $response;
+                return $response;
+
+            } elseif (($model->gcps  && $model->getCountPositive() <= $count_positive && $model->problem->getExistConfirm() === StatusConfirmHypothesis::COMPLETED) || (count($model->responds) === $count_descInterview && $model->getCountPositive() <= $count_positive && $model->problem->getExistConfirm() === StatusConfirmHypothesis::COMPLETED)) {
 
                 $response =  [
                     'success' => true,

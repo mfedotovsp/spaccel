@@ -12,8 +12,10 @@ use app\models\ContractorTasks;
 use app\models\EnableExpertise;
 use app\models\forms\CacheForm;
 use app\models\forms\FormCreateBusinessModel;
+use app\models\forms\FormCreateConfirmDescription;
 use app\models\forms\FormCreateConfirmMvp;
 use app\models\forms\FormCreateQuestion;
+use app\models\forms\FormUpdateConfirmDescription;
 use app\models\forms\FormUpdateConfirmMvp;
 use app\models\forms\SearchForm;
 use app\models\Gcps;
@@ -259,13 +261,19 @@ class ConfirmMvpController extends AppUserPartController
 
     /**
      * @param int $id
+     * @param bool $existDesc
      * @return void
      */
-    public function actionSaveCacheCreationForm(int $id): void
+    public function actionSaveCacheCreationForm(int $id, bool $existDesc = false): void
     {
         $mvp = Mvps::findOne($id);
-        $cachePath = FormCreateConfirmMvp::getCachePath($mvp);
-        $cacheName = 'formCreateConfirmCache';
+        if (!$existDesc) {
+            $cachePath = FormCreateConfirmMvp::getCachePath($mvp);
+            $cacheName = 'formCreateConfirmCache';
+        } else {
+            $cachePath = FormCreateConfirmDescription::getCachePath($mvp);
+            $cacheName = 'formCreateConfirmDCache';
+        }
 
         if(Yii::$app->request->isAjax) {
 
@@ -277,9 +285,10 @@ class ConfirmMvpController extends AppUserPartController
 
     /**
      * @param int $id
+     * @param bool $existDesc
      * @return string|Response
      */
-    public function actionCreate(int $id)
+    public function actionCreate(int $id, bool $existDesc = false)
     {
         $mvp = Mvps::findOne($id);
         $confirmGcp = ConfirmGcp::findOne($mvp->getConfirmGcpId());
@@ -289,6 +298,34 @@ class ConfirmMvpController extends AppUserPartController
         $confirmSegment = ConfirmSegment::findOne($problem->getConfirmSegmentId());
         $segment = Segments::findOne($confirmSegment->getSegmentId());
         $project = Projects::findOne($segment->getProjectId());
+
+        if ($mvp->getEnableExpertise() === EnableExpertise::OFF) {
+            return $this->redirect(['/mvps/index', 'id' => $confirmGcp->getId()]);
+        }
+
+        if ($mvp->confirm){
+            //Если у MVP создана программа подтверждения, то перейти на страницу подтверждения
+            return $this->redirect(['view', 'id' => $mvp->confirm->getId()]);
+        }
+
+        if ($existDesc) {
+            $confirm = new ConfirmMvp();
+            $confirm->setMvpId($mvp->getId());
+            $model = new FormCreateConfirmDescription($confirm, StageExpertise::CONFIRM_MVP);
+
+            return $this->render('create_for_exist', [
+                'model' => $model,
+                'mvp' => $mvp,
+                'confirmGcp' => $confirmGcp,
+                'gcp' => $gcp,
+                'confirmProblem' => $confirmProblem,
+                'problem' => $problem,
+                'confirmSegment' => $confirmSegment,
+                'segment' => $segment,
+                'project' => $project,
+            ]);
+        }
+
         $model = new FormCreateConfirmMvp($mvp);
 
         //кол-во респондентов, подтвердивших текущую проблему
@@ -300,15 +337,6 @@ class ConfirmMvpController extends AppUserPartController
 
         $model->setCountRespond($count_represent_gcp);
         $model->setAddCountRespond(0);
-
-        if ($mvp->getEnableExpertise() === EnableExpertise::OFF) {
-            return $this->redirect(['/mvps/index', 'id' => $confirmGcp->getId()]);
-        }
-
-        if ($mvp->confirm){
-            //Если у MVP создана программа подтверждения, то перейти на страницу подтверждения
-            return $this->redirect(['view', 'id' => $mvp->confirm->getId()]);
-        }
 
         return $this->render('create', [
             'model' => $model,
@@ -330,23 +358,54 @@ class ConfirmMvpController extends AppUserPartController
      * @throws NotFoundHttpException
      * @throws ErrorException
      */
-    public function actionSaveConfirm(int $id)
+    public function actionSaveConfirm(int $id, bool $existDesc = false)
     {
         if(Yii::$app->request->isAjax) {
-
             $mvp = Mvps::findOne($id);
-            $model = new FormCreateConfirmMvp($mvp);
-            $model->setHypothesisId($id);
 
-            if ($model->load(Yii::$app->request->post())) {
-                if ($model = $model->create()) {
+            if (!$existDesc) {
+                $model = new FormCreateConfirmMvp($mvp);
+                $model->setHypothesisId($id);
 
-                    $response =  ['success' => true, 'id' => $model->getId()];
+                if ($model->load(Yii::$app->request->post())) {
+                    if ($model = $model->create()) {
+
+                        $response = ['success' => true, 'id' => $model->getId()];
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        Yii::$app->response->data = $response;
+                        return $response;
+                    }
+                }
+                return false;
+            }
+
+            $confirm = new ConfirmMvp();
+            $confirm->setMvpId($mvp->getId());
+            $model = new FormCreateConfirmDescription($confirm, StageExpertise::CONFIRM_MVP);
+
+            if ($model->setParams(Yii::$app->request->post())) {
+                if (!$model->validate()) {
+                    $errors = [];
+                    foreach ($model->errors as $param) {
+                        foreach ($param as $error) {
+                            $errors[] = $error;
+                        }
+                    }
+
+                    $response =  ['success' => false, 'errors' => $errors];
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    Yii::$app->response->data = $response;
+                    return $response;
+                }
+
+                if (Yii::$app->request->isAjax && $result = $model->create()) {
+                    $response =  ['success' => true, 'id' => $result->confirm->getId()];
                     Yii::$app->response->format = Response::FORMAT_JSON;
                     Yii::$app->response->data = $response;
                     return $response;
                 }
             }
+            return false;
         }
         return false;
     }
@@ -402,32 +461,60 @@ class ConfirmMvpController extends AppUserPartController
 
     /**
      * @param int $id
+     * @param bool $existDesc
      * @return array|false
      * @throws ErrorException
      * @throws NotFoundHttpException
      */
-    public function actionUpdate(int $id)
+    public function actionUpdate(int $id, bool $existDesc = false)
     {
         if(Yii::$app->request->isAjax) {
-
-            $model = new FormUpdateConfirmMvp($id);
             $confirm = ConfirmMvp::findOne($id);
-            $mvp = $confirm->mvp;
-            $countContractorResponds = (int)RespondsMvp::find()
-                ->andWhere(['not', ['contractor_id' => null]])
-                ->andWhere(['confirm_id' => $id])
-                ->count();
 
-            if ($model->load(Yii::$app->request->post())) {
-                if ($model = $model->update()){
+            if (!$existDesc) {
+                $model = new FormUpdateConfirmMvp($id);
+                $mvp = $confirm->mvp;
+                $countContractorResponds = (int)RespondsMvp::find()
+                    ->andWhere(['not', ['contractor_id' => null]])
+                    ->andWhere(['confirm_id' => $id])
+                    ->count();
 
-                    $response = [
-                        'success' => true,
-                        'ajax_data_confirm' => $this->renderAjax('ajax_data_confirm', [
-                            'formUpdateConfirmMvp' => new FormUpdateConfirmMvp($id),
-                            'model' => $model, 'mvp' => $mvp, 'countContractorResponds' => $countContractorResponds
-                        ]),
-                    ];
+                if ($model->load(Yii::$app->request->post())) {
+                    if ($model = $model->update()) {
+
+                        $response = [
+                            'success' => true,
+                            'ajax_data_confirm' => $this->renderAjax('ajax_data_confirm', [
+                                'formUpdateConfirmMvp' => new FormUpdateConfirmMvp($id),
+                                'model' => $model, 'mvp' => $mvp, 'countContractorResponds' => $countContractorResponds
+                            ]),
+                        ];
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        Yii::$app->response->data = $response;
+                        return $response;
+                    }
+                }
+                return false;
+            }
+
+            $model = new FormUpdateConfirmDescription($confirm, StageExpertise::CONFIRM_MVP);
+            if ($model->setParams(Yii::$app->request->post())) {
+                if (!$model->validate()) {
+                    $errors = [];
+                    foreach ($model->errors as $param) {
+                        foreach ($param as $error) {
+                            $errors[] = $error;
+                        }
+                    }
+
+                    $response =  ['success' => false, 'errors' => $errors];
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    Yii::$app->response->data = $response;
+                    return $response;
+                }
+
+                if (Yii::$app->request->isAjax && $result = $model->update()) {
+                    $response =  ['success' => true, 'id' => $result->confirm->getId()];
                     Yii::$app->response->format = Response::FORMAT_JSON;
                     Yii::$app->response->data = $response;
                     return $response;
@@ -449,6 +536,7 @@ class ConfirmMvpController extends AppUserPartController
         if ($model->getDeletedAt()) {
             return $this->redirect(['/confirm-mvp/view-trash', 'id' => $id]);
         }
+
         $formUpdateConfirmMvp = new FormUpdateConfirmMvp($id);
         $mvp = Mvps::findOne($model->getMvpId());
         $confirmGcp = ConfirmGcp::findOne($mvp->getConfirmGcpId());
@@ -458,6 +546,23 @@ class ConfirmMvpController extends AppUserPartController
         $confirmSegment = ConfirmSegment::findOne($problem->getConfirmSegmentId());
         $segment = Segments::findOne($confirmSegment->getSegmentId());
         $project = Projects::findOne($segment->getProjectId());
+
+        if ($model->isExistDesc()) {
+            $formUpdate = new FormUpdateConfirmDescription($model, StageExpertise::CONFIRM_MVP);
+            return $this->render('view_for_exist', [
+                'model' => $model,
+                'formUpdate' => $formUpdate,
+                'mvp' => $mvp,
+                'confirmGcp' => $confirmGcp,
+                'gcp' => $gcp,
+                'confirmProblem' => $confirmProblem,
+                'problem' => $problem,
+                'confirmSegment' => $confirmSegment,
+                'segment' => $segment,
+                'project' => $project,
+            ]);
+        }
+
         $questions = QuestionsConfirmMvp::findAll(['confirm_id' => $id]);
         $newQuestion = new FormCreateQuestion();
         $countContractorResponds = (int)RespondsMvp::find()
@@ -540,6 +645,20 @@ class ConfirmMvpController extends AppUserPartController
         $project = Projects::find(false)
             ->andWhere(['id' => $segment->getProjectId()])
             ->one();
+
+        if ($model->isExistDesc()) {
+            return $this->render('view_for_exist', [
+                'model' => $model,
+                'mvp' => $mvp,
+                'confirmGcp' => $confirmGcp,
+                'gcp' => $gcp,
+                'confirmProblem' => $confirmProblem,
+                'problem' => $problem,
+                'confirmSegment' => $confirmSegment,
+                'segment' => $segment,
+                'project' => $project,
+            ]);
+        }
 
         $questions = QuestionsConfirmMvp::find(false)
             ->andWhere(['confirm_id' => $id])
@@ -632,7 +751,19 @@ class ConfirmMvpController extends AppUserPartController
             ->andWhere(['confirm_id' => $id, 'interview_confirm_mvp.status' => '1'])->count();
 
         if(Yii::$app->request->isAjax) {
-            if ($model->getCountPositive() <= $count_positive && $model->mvp->getExistConfirm() === StatusConfirmHypothesis::COMPLETED && ($model->business || (count($model->responds) === $count_descInterview && $model->mvp->getExistConfirm() === StatusConfirmHypothesis::COMPLETED))) {
+            if ($model->isExistDesc()) {
+                $response =  [
+                    'success' => true,
+                    'renderAjax' => $this->renderAjax('/business-model/create', [
+                        'confirmMvp' => $model,
+                        'model' => $formCreateBusinessModel,
+                    ]),
+                ];
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                Yii::$app->response->data = $response;
+                return $response;
+            }
+            elseif ($model->getCountPositive() <= $count_positive && $model->mvp->getExistConfirm() === StatusConfirmHypothesis::COMPLETED && ($model->business || (count($model->responds) === $count_descInterview && $model->mvp->getExistConfirm() === StatusConfirmHypothesis::COMPLETED))) {
 
                 $response =  [
                     'success' => true,

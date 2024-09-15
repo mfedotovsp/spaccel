@@ -123,8 +123,9 @@ use yii\helpers\Url;
 
                                 <?php elseif ($model->getEnableExpertise() === EnableExpertise::ON) : ?>
 
-                                    <?= Html::a('Подтвердить', ['/confirm-gcp/create', 'id' => $model->getId()], [
-                                        'class' => 'btn btn-default',
+                                    <?= Html::a('Подтвердить', ['#'], [
+                                        'id' => 'choosing_confirmation_option-gcp-' . $model->getId(),
+                                        'class' => 'btn btn-default display_choosing_confirmation_option_modal',
                                         'style' => [
                                             'display' => 'flex',
                                             'align-items' => 'center',

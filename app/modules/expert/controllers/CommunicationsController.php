@@ -73,7 +73,6 @@ class CommunicationsController extends AppExpertController
         $user = User::findOne($id);
         // Проекты, по которым у эксперта есть коммуникации
         $projects = Projects::find(false)
-            ->distinct()
             ->leftJoin('project_communications', '`project_communications`.`project_id` = `projects`.`id`')
             ->andWhere(['or', ['project_communications.sender_id' => $id], ['project_communications.adressee_id' => $id]])
             ->orderBy('project_communications.id DESC')

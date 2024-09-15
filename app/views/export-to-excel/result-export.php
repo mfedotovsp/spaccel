@@ -75,6 +75,9 @@ $this->title = 'Экспорт в Excel';
             'groupOddCssClass' => 'kv',
             'groupEvenCssClass' => 'kv',
             'value' => static function (BusinessModel $model) {
+                if ($model->segment->confirm && $model->segment->confirm->isExistDesc()) {
+                    return 1;
+                }
                 if (in_array($model->segment->getExistConfirm(), [
                     StatusConfirmHypothesis::COMPLETED,
                     StatusConfirmHypothesis::NOT_COMPLETED
@@ -93,6 +96,9 @@ $this->title = 'Экспорт в Excel';
             'groupOddCssClass' => 'kv',
             'groupEvenCssClass' => 'kv',
             'value' => static function (BusinessModel $model) {
+                if ($model->segment->confirm && $model->segment->confirm->isExistDesc()) {
+                    return 1;
+                }
                 if (in_array($model->segment->getExistConfirm(), [
                     StatusConfirmHypothesis::COMPLETED,
                     StatusConfirmHypothesis::NOT_COMPLETED
@@ -162,6 +168,9 @@ $this->title = 'Экспорт в Excel';
             'groupOddCssClass' => 'kv',
             'groupEvenCssClass' => 'kv',
             'value' => static function (BusinessModel $model) {
+                if ($model->problem->confirm && $model->problem->confirm->isExistDesc()) {
+                    return 1;
+                }
                 if ($model->problem->description && $model->problem->confirm && in_array($model->problem->getExistConfirm(), [
                         StatusConfirmHypothesis::COMPLETED,
                         StatusConfirmHypothesis::NOT_COMPLETED
@@ -180,6 +189,9 @@ $this->title = 'Экспорт в Excel';
             'groupOddCssClass' => 'kv',
             'groupEvenCssClass' => 'kv',
             'value' => static function (BusinessModel $model) {
+                if ($model->problem->confirm && $model->problem->confirm->isExistDesc()) {
+                    return 1;
+                }
                 if ($model->problem->description && $model->problem->confirm && in_array($model->problem->getExistConfirm(), [
                         StatusConfirmHypothesis::COMPLETED,
                         StatusConfirmHypothesis::NOT_COMPLETED
@@ -249,6 +261,9 @@ $this->title = 'Экспорт в Excel';
             'groupOddCssClass' => 'kv',
             'groupEvenCssClass' => 'kv',
             'value' => static function (BusinessModel $model) {
+                if ($model->gcp->confirm && $model->gcp->confirm->isExistDesc()) {
+                    return 1;
+                }
                 if ($model->gcp->description && $model->gcp->confirm && in_array($model->gcp->getExistConfirm(), [
                         StatusConfirmHypothesis::COMPLETED,
                         StatusConfirmHypothesis::NOT_COMPLETED
@@ -267,6 +282,9 @@ $this->title = 'Экспорт в Excel';
             'groupOddCssClass' => 'kv',
             'groupEvenCssClass' => 'kv',
             'value' => static function (BusinessModel $model) {
+                if ($model->gcp->confirm && $model->gcp->confirm->isExistDesc()) {
+                    return 1;
+                }
                 if ($model->gcp->description && $model->gcp->confirm && in_array($model->gcp->getExistConfirm(), [
                         StatusConfirmHypothesis::COMPLETED,
                         StatusConfirmHypothesis::NOT_COMPLETED
@@ -336,6 +354,9 @@ $this->title = 'Экспорт в Excel';
             'groupOddCssClass' => 'kv',
             'groupEvenCssClass' => 'kv',
             'value' => static function (BusinessModel $model) {
+                if ($model->mvp->confirm && $model->mvp->confirm->isExistDesc()) {
+                    return 1;
+                }
                 if ($model->mvp->description && $model->mvp->confirm && in_array($model->mvp->getExistConfirm(), [
                         StatusConfirmHypothesis::COMPLETED,
                         StatusConfirmHypothesis::NOT_COMPLETED
@@ -354,6 +375,9 @@ $this->title = 'Экспорт в Excel';
             'groupOddCssClass' => 'kv',
             'groupEvenCssClass' => 'kv',
             'value' => static function (BusinessModel $model) {
+                if ($model->mvp->confirm && $model->mvp->confirm->isExistDesc()) {
+                    return 1;
+                }
                 if ($model->mvp->description && $model->mvp->confirm && in_array($model->mvp->getExistConfirm(), [
                         StatusConfirmHypothesis::COMPLETED,
                         StatusConfirmHypothesis::NOT_COMPLETED

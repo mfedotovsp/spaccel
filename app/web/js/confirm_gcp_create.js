@@ -6,30 +6,44 @@ var body = $('body'),
     id_page = window.location.search.split('=')[1],
     confirm_count_respond = $(body).find('input#confirm_count_respond'),
     confirm_add_count_respond = $(body).find('input#confirm_add_count_respond'),
-    confirm_count_positive = $(body).find('input#confirm_count_positive');
+    confirm_count_positive = $(body).find('input#confirm_count_positive'),
+    exist_desc = window.location.search.split('=')[2] ? window.location.search.split('=')[2] : false,
+    selectedSourceOptions = $('.select-confirm-source').val();
 
 
 //Форма создания модели подтверждения
 $('#new_confirm_gcp').on('beforeSubmit', function(e){
 
-    var data = $(this).serialize();
+    var form = $(this);
+    var formData = new FormData(form[0]);
     var url = $(this).attr('action');
 
     $.ajax({
 
         url: url,
         method: 'POST',
-        data: data,
+        data: formData,
+        processData: false,
+        contentType: false,
         cache: false,
         success: function(response){
 
             if (response.success) {
-
-                window.location.href = '/confirm-gcp/add-questions?id=' + response.id;
+                if (!exist_desc) {
+                    window.location.href = '/confirm-gcp/add-questions?id=' + response.id;
+                } else {
+                    $.ajax({
+                        url: '/confirm-gcp/exist-confirm?id=' + response.id,
+                        method: 'POST',
+                    });
+                }
+            } else {
+                var errStr = 'Обратите внимание!<br/>';
+                response.errors.forEach((val, index) => {
+                    errStr += (index+1) + '. ' + val + ' <br/>';
+                });
+                $(body).find('.errors').html(errStr);
             }
-        },
-        error: function(){
-            alert('Ошибка');
         }
     });
 
@@ -136,7 +150,7 @@ $(body).on('click', '.open_modal_instruction_page', function (e) {
 //Отслеживаем изменения в форме создания подтверждения и записываем их в кэш
 $(body).on('change', 'form#new_confirm_gcp', function(){
 
-    var url = '/confirm-gcp/save-cache-creation-form?id=' + id_page;
+    var url = '/confirm-gcp/save-cache-creation-form?id=' + id_page + '&existDesc=' + exist_desc;
     var data = $(this).serialize();
     $.ajax({
         url: url,
@@ -160,4 +174,40 @@ $(body).on('click', '.show_modal_next_step_error', function (e) {
 
     e.preventDefault();
     return false;
+});
+
+
+//Добавление файлов
+$(body).on('change', 'input[type=file]',function() {
+
+    for (var i = 0; i < this.files.length; i++) {
+        console.log(this.files[i].name);
+    }
+
+    //Количество добавленных файлов
+    var add_count = this.files.length;
+
+    if(add_count > 5) {
+        //Сделать кнопку отправки формы не активной
+        $(body).find('#save_create_form').attr('disabled', true);
+        $(body).find('.error_files_count').show();
+    }else {
+        //Сделать кнопку отправки формы активной
+        $(body).find('#save_create_form').attr('disabled', false);
+        $(body).find('.error_files_count').hide();
+    }
+});
+
+
+// Отслеживаем выбор источников информации для описания подтверждения
+$(body).on('change', '.select-confirm-source', function () {
+    var action = 'add';
+    var diff, values;
+
+    values = Array.from(this.selectedOptions).map(({ value }) => value);
+    if (values.length < selectedSourceOptions.length) action = 'delete';
+    if (action === 'add') diff = values.filter(element => !selectedSourceOptions.includes(element));
+    else diff = selectedSourceOptions.filter(element => !values.includes(element));
+    diff.forEach(val => $('.select-confirm-source-option-' + val).toggle('display'));
+    selectedSourceOptions = values;
 });

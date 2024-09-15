@@ -23,12 +23,15 @@ use yii\db\StaleObjectException;
  * @property string $enable_expertise                   Параметр разрешения на экспертизу по даному этапу
  * @property int|null $enable_expertise_at              Дата разрешения на экспертизу по даному этапу
  * @property int|null $deleted_at                       Дата удаления
+ * @property boolean $exist_desc                        Флаг наличия описания подтверждения (учебный вариант)
  *
  * @property Problems $problem                          Проблема
  * @property RespondsProblem[] $responds                Респонденты, привязанные к подтверждению
  * @property Gcps[] $gcps                               Ценностные предложения
  * @property QuestionsConfirmProblem[] $questions       Вопросы, привязанные к подтверждению
  * @property Problems $hypothesis                       Гипотеза, к которой относится подтверждение
+ *
+ * @property ConfirmDescription|null $confirmDescription                   Описание подтверждения для учебного варианта
  */
 class ConfirmProblem extends ActiveRecord implements ConfirmationInterface
 {
@@ -124,12 +127,28 @@ class ConfirmProblem extends ActiveRecord implements ConfirmationInterface
 
 
     /**
+     * Получить описание подтверждения
+     * для учебного варианта
+     *
+     * @return ActiveRecord|null
+     */
+    public function getConfirmDescription(): ?ActiveRecord
+    {
+        return ConfirmDescription::find()
+            ->andWhere(['confirm_id' => $this->getId()])
+            ->andWhere(['type' => StageExpertise::CONFIRM_PROBLEM])
+            ->one() ?: null;
+    }
+
+
+    /**
      * {@inheritdoc}
      */
     public function rules(): array
     {
         return [
-            [['problem_id', 'count_respond', 'count_positive', 'need_consumer'], 'required'],
+            [['problem_id', 'count_respond', 'count_positive'], 'required'],
+            ['need_consumer', 'needConsumerValid'],
             [['problem_id'], 'integer'],
             ['need_consumer', 'trim'],
             ['need_consumer', 'string', 'max' => 255],
@@ -141,6 +160,8 @@ class ConfirmProblem extends ActiveRecord implements ConfirmationInterface
                 EnableExpertise::OFF,
                 EnableExpertise::ON,
             ]],
+            ['exist_desc', 'default', 'value' => false],
+            ['enable_expertise', 'boolean'],
         ];
     }
 
@@ -171,6 +192,17 @@ class ConfirmProblem extends ActiveRecord implements ConfirmationInterface
         });
 
         parent::init();
+    }
+
+
+    public function needConsumerValid()
+    {
+        if (!$this->exist_desc && empty(trim($this->need_consumer))) {
+            $this->addError(
+                'problemVariants',
+                'Заполните описание всех выявленных проблем'
+            );
+        }
     }
 
 
@@ -474,6 +506,22 @@ class ConfirmProblem extends ActiveRecord implements ConfirmationInterface
     public function setDeletedAt(int $deleted_at): void
     {
         $this->deleted_at = $deleted_at;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExistDesc(): bool
+    {
+        return $this->exist_desc;
+    }
+
+    /**
+     * @param bool $exist_desc
+     */
+    public function setExistDesc(bool $exist_desc): void
+    {
+        $this->exist_desc = $exist_desc;
     }
 
 }

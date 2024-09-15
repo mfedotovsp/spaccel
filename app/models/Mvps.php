@@ -759,4 +759,12 @@ class Mvps extends ActiveRecord
     {
         $this->task_id = $task_id;
     }
+
+    /**
+     * @return string
+     */
+    public function getNameOfClass(): string
+    {
+        return static::class;
+    }
 }

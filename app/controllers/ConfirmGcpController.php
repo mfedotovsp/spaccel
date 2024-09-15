@@ -10,9 +10,11 @@ use app\models\ConfirmSegment;
 use app\models\ContractorTasks;
 use app\models\EnableExpertise;
 use app\models\forms\CacheForm;
+use app\models\forms\FormCreateConfirmDescription;
 use app\models\forms\FormCreateConfirmGcp;
 use app\models\forms\FormCreateMvp;
 use app\models\forms\FormCreateQuestion;
+use app\models\forms\FormUpdateConfirmDescription;
 use app\models\forms\FormUpdateConfirmGcp;
 use app\models\forms\SearchForm;
 use app\models\Gcps;
@@ -258,12 +260,18 @@ class ConfirmGcpController extends AppUserPartController
 
     /**
      * @param int $id
+     * @param bool $existDesc
      */
-    public function actionSaveCacheCreationForm(int $id): void
+    public function actionSaveCacheCreationForm(int $id, bool $existDesc = false): void
     {
         $gcp = Gcps::findOne($id);
-        $cachePath = FormCreateConfirmGcp::getCachePath($gcp);
-        $cacheName = 'formCreateConfirmCache';
+        if (!$existDesc) {
+            $cachePath = FormCreateConfirmGcp::getCachePath($gcp);
+            $cacheName = 'formCreateConfirmCache';
+        } else {
+            $cachePath = FormCreateConfirmDescription::getCachePath($gcp);
+            $cacheName = 'formCreateConfirmDCache';
+        }
 
         if(Yii::$app->request->isAjax) {
 
@@ -275,9 +283,10 @@ class ConfirmGcpController extends AppUserPartController
 
     /**
      * @param int $id
+     * @param bool $existDesc
      * @return string|Response
      */
-    public function actionCreate(int $id)
+    public function actionCreate(int $id, bool $existDesc = false)
     {
         $gcp = Gcps::findOne($id);
         $confirmProblem = ConfirmProblem::findOne($gcp->getConfirmProblemId());
@@ -285,6 +294,32 @@ class ConfirmGcpController extends AppUserPartController
         $confirmSegment = ConfirmSegment::findOne($problem->getConfirmSegmentId());
         $segment = Segments::findOne($confirmSegment->getSegmentId());
         $project = Projects::findOne($segment->getProjectId());
+
+        if ($gcp->getEnableExpertise() === EnableExpertise::OFF) {
+            return $this->redirect(['/gcps/index', 'id' => $confirmProblem->getId()]);
+        }
+
+        if ($confirm = $gcp->confirm){
+            //Если у ГЦП создана программа подтверждения, то перейти на страницу подтверждения
+            return $this->redirect(['view', 'id' => $confirm->getId()]);
+        }
+
+        if ($existDesc) {
+            $confirm = new ConfirmGcp();
+            $confirm->setGcpId($gcp->getId());
+            $model = new FormCreateConfirmDescription($confirm, StageExpertise::CONFIRM_GCP);
+
+            return $this->render('create_for_exist', [
+                'model' => $model,
+                'gcp' => $gcp,
+                'confirmProblem' => $confirmProblem,
+                'problem' => $problem,
+                'confirmSegment' => $confirmSegment,
+                'segment' => $segment,
+                'project' => $project,
+            ]);
+        }
+
         $model = new FormCreateConfirmGcp($gcp);
 
         //кол-во респондентов, подтвердивших текущую проблему
@@ -297,14 +332,7 @@ class ConfirmGcpController extends AppUserPartController
         $model->setCountRespond($count_represent_problem);
         $model->setAddCountRespond(0);
 
-        if ($gcp->getEnableExpertise() === EnableExpertise::OFF) {
-            return $this->redirect(['/gcps/index', 'id' => $confirmProblem->getId()]);
-        }
 
-        if ($confirm = $gcp->confirm){
-            //Если у ГЦП создана программа подтверждения, то перейти на страницу подтверждения
-            return $this->redirect(['view', 'id' => $confirm->getId()]);
-        }
 
         return $this->render('create', [
             'model' => $model,
@@ -320,27 +348,60 @@ class ConfirmGcpController extends AppUserPartController
 
     /**
      * @param int $id
+     * @param bool $existDesc
      * @return array|bool
-     * @throws NotFoundHttpException
      * @throws ErrorException
+     * @throws NotFoundHttpException
      */
-    public function actionSaveConfirm(int $id)
+    public function actionSaveConfirm(int $id, bool $existDesc = false)
     {
         if(Yii::$app->request->isAjax) {
-
             $gcp = Gcps::findOne($id);
-            $model = new FormCreateConfirmGcp($gcp);
-            $model->setHypothesisId($id);
 
-            if ($model->load(Yii::$app->request->post())) {
-                if ($model = $model->create()) {
+            if (!$existDesc) {
+                $model = new FormCreateConfirmGcp($gcp);
+                $model->setHypothesisId($id);
 
-                    $response =  ['success' => true, 'id' => $model->getId()];
+                if ($model->load(Yii::$app->request->post())) {
+                    if ($model = $model->create()) {
+
+                        $response = ['success' => true, 'id' => $model->getId()];
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        Yii::$app->response->data = $response;
+                        return $response;
+                    }
+                }
+
+                return false;
+            }
+
+            $confirm = new ConfirmGcp();
+            $confirm->setGcpId($gcp->getId());
+            $model = new FormCreateConfirmDescription($confirm, StageExpertise::CONFIRM_GCP);
+
+            if ($model->setParams(Yii::$app->request->post())) {
+                if (!$model->validate()) {
+                    $errors = [];
+                    foreach ($model->errors as $param) {
+                        foreach ($param as $error) {
+                            $errors[] = $error;
+                        }
+                    }
+
+                    $response =  ['success' => false, 'errors' => $errors];
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    Yii::$app->response->data = $response;
+                    return $response;
+                }
+
+                if (Yii::$app->request->isAjax && $result = $model->create()) {
+                    $response =  ['success' => true, 'id' => $result->confirm->getId()];
                     Yii::$app->response->format = Response::FORMAT_JSON;
                     Yii::$app->response->data = $response;
                     return $response;
                 }
             }
+            return false;
         }
         return false;
     }
@@ -392,32 +453,61 @@ class ConfirmGcpController extends AppUserPartController
 
     /**
      * @param int $id
+     * @param bool $existDesc
      * @return array|false
      * @throws ErrorException
      * @throws NotFoundHttpException
      */
-    public function actionUpdate (int $id)
+    public function actionUpdate (int $id, bool $existDesc = false)
     {
-        if(Yii::$app->request->isAjax) {
-
-            $model = new FormUpdateConfirmGcp($id);
+        if (Yii::$app->request->isAjax) {
             $confirm = ConfirmGcp::findOne($id);
-            $gcp = Gcps::findOne($confirm->getGcpId());
-            $countContractorResponds = (int)RespondsGcp::find()
-                ->andWhere(['not', ['contractor_id' => null]])
-                ->andWhere(['confirm_id' => $id])
-                ->count();
 
-            if ($model->load(Yii::$app->request->post())) {
-                if ($model = $model->update()){
+            if (!$existDesc) {
+                $model = new FormUpdateConfirmGcp($id);
+                $gcp = Gcps::findOne($confirm->getGcpId());
+                $countContractorResponds = (int)RespondsGcp::find()
+                    ->andWhere(['not', ['contractor_id' => null]])
+                    ->andWhere(['confirm_id' => $id])
+                    ->count();
 
-                    $response = [
-                        'success' => true,
-                        'ajax_data_confirm' => $this->renderAjax('ajax_data_confirm', [
-                            'formUpdateConfirmGcp' => new FormUpdateConfirmGcp($id),
-                            'model' => $model,  'gcp' => $gcp, 'countContractorResponds' => $countContractorResponds
-                        ]),
-                    ];
+                if ($model->load(Yii::$app->request->post())) {
+                    if ($model = $model->update()){
+
+                        $response = [
+                            'success' => true,
+                            'ajax_data_confirm' => $this->renderAjax('ajax_data_confirm', [
+                                'formUpdateConfirmGcp' => new FormUpdateConfirmGcp($id),
+                                'model' => $model,  'gcp' => $gcp, 'countContractorResponds' => $countContractorResponds
+                            ]),
+                        ];
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        Yii::$app->response->data = $response;
+                        return $response;
+                    }
+                }
+
+                return false;
+            }
+
+            $model = new FormUpdateConfirmDescription($confirm, StageExpertise::CONFIRM_GCP);
+            if ($model->setParams(Yii::$app->request->post())) {
+                if (!$model->validate()) {
+                    $errors = [];
+                    foreach ($model->errors as $param) {
+                        foreach ($param as $error) {
+                            $errors[] = $error;
+                        }
+                    }
+
+                    $response =  ['success' => false, 'errors' => $errors];
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    Yii::$app->response->data = $response;
+                    return $response;
+                }
+
+                if (Yii::$app->request->isAjax && $result = $model->update()) {
+                    $response =  ['success' => true, 'id' => $result->confirm->getId()];
                     Yii::$app->response->format = Response::FORMAT_JSON;
                     Yii::$app->response->data = $response;
                     return $response;
@@ -439,13 +529,29 @@ class ConfirmGcpController extends AppUserPartController
         if ($model->getDeletedAt()) {
             return $this->redirect(['/confirm-gcp/view-trash', 'id' => $id]);
         }
-        $formUpdateConfirmGcp = new FormUpdateConfirmGcp($id);
+
         $gcp = Gcps::findOne($model->getGcpId());
         $confirmProblem = ConfirmProblem::findOne($gcp->getConfirmProblemId());
         $problem = Problems::findOne($confirmProblem->getProblemId());
         $confirmSegment = ConfirmSegment::findOne($problem->getConfirmSegmentId());
         $segment = Segments::findOne($confirmSegment->getSegmentId());
         $project = Projects::findOne($segment->getProjectId());
+
+        if ($model->isExistDesc()) {
+            $formUpdate = new FormUpdateConfirmDescription($model, StageExpertise::CONFIRM_GCP);
+            return $this->render('view_for_exist', [
+                'model' => $model,
+                'formUpdate' => $formUpdate,
+                'gcp' => $gcp,
+                'confirmProblem' => $confirmProblem,
+                'problem' => $problem,
+                'confirmSegment' => $confirmSegment,
+                'segment' => $segment,
+                'project' => $project,
+            ]);
+        }
+
+        $formUpdateConfirmGcp = new FormUpdateConfirmGcp($id);
         $questions = QuestionsConfirmGcp::findAll(['confirm_id' => $id]);
         $newQuestion = new FormCreateQuestion();
         $countContractorResponds = (int)RespondsGcp::find()
@@ -517,6 +623,18 @@ class ConfirmGcpController extends AppUserPartController
         $project = Projects::find(false)
             ->andWhere(['id' => $segment->getProjectId()])
             ->one();
+
+        if ($model->isExistDesc()) {
+            return $this->render('view_for_exist', [
+                'model' => $model,
+                'gcp' => $gcp,
+                'confirmProblem' => $confirmProblem,
+                'problem' => $problem,
+                'confirmSegment' => $confirmSegment,
+                'segment' => $segment,
+                'project' => $project,
+            ]);
+        }
 
         $questions = QuestionsConfirmGcp::find(false)
             ->andWhere(['confirm_id' => $id])
@@ -608,7 +726,19 @@ class ConfirmGcpController extends AppUserPartController
 
         if(Yii::$app->request->isAjax) {
 
-            if (($model->mvps && $model->getCountPositive() <= $count_positive && $model->gcp->getExistConfirm() === StatusConfirmHypothesis::COMPLETED) || (count($model->responds) === $count_descInterview && $model->getCountPositive() <= $count_positive && $model->gcp->getExistConfirm() === StatusConfirmHypothesis::COMPLETED)) {
+            if ($model->isExistDesc()) {
+                $response =  [
+                    'success' => true,
+                    'renderAjax' => $this->renderAjax('/mvps/create', [
+                        'confirmGcp' => $model,
+                        'model' => $formCreateMvp,
+                    ]),
+                ];
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                Yii::$app->response->data = $response;
+                return $response;
+
+            } elseif (($model->mvps && $model->getCountPositive() <= $count_positive && $model->gcp->getExistConfirm() === StatusConfirmHypothesis::COMPLETED) || (count($model->responds) === $count_descInterview && $model->getCountPositive() <= $count_positive && $model->gcp->getExistConfirm() === StatusConfirmHypothesis::COMPLETED)) {
 
                 $response =  [
                     'success' => true,

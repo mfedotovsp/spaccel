@@ -3377,6 +3377,32 @@ body .data_confirm_hypothesis_modal .modal-header {
     border-bottom: none;
 }
 
+body .choosing_confirmation_option_modal .modal-header {
+    border-bottom: none;
+}
+body .choosing_confirmation_option_modal .modal-main-content .modal-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+body .choosing_confirmation_option_modal #hypothesis_existing_confirmation,
+body .choosing_confirmation_option_modal #confirmation_research_require {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    justify-content: center;
+    background: #52BE7F;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    padding-top: 9px;
+}
+body .choosing_confirmation_option_modal .modal-footer {
+    display: none;
+}
+
 body #add_admin_modal .modal-header {
     border-bottom: none;
 }
@@ -4027,6 +4053,9 @@ a.link_cancel_search_field_mobile img {
     padding-bottom: 15px;
 }
 
+.mr-10 {
+    margin-right: 10px;
+}
 .mr-25 {
     margin-right: 25px;
 }

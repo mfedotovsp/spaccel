@@ -69,7 +69,7 @@ $(document).ready(function() {
     ];
     if (url_pathname !== '/') {
         array_search_results.forEach(function (elem) {
-            if(elem.indexOf(url_pathname) !== -1) {
+            if(elem.indexOf(url_pathname) !== -1 && document.querySelector('.tab')) {
                 document.getElementById("defaultOpen").click();
             }
         });
@@ -265,6 +265,26 @@ $(document).on('click', 'body .delete_hypothesis', function(e) {
 
     $(modal).find('#confirm_delete_hypothesis').attr('href', url);
     $(modal).modal('show');
+
+    e.preventDefault();
+    return false;
+});
+
+
+/*
+При вызове окна выбора типа подтверждения гипотезы
+*/
+$(document).on('click', 'body .display_choosing_confirmation_option_modal', function(e) {
+    var modal = $('#choosing_confirmation_option_modal');
+    var properties = $(this).attr('id').split('-');
+    var type = $(properties)[1];
+    var id = $(properties)[2];
+    var buttons = $(modal).find('.modal-buttons');
+    if (type === 'segment' || type === 'problem' || type === 'gcp' || type === 'mvp') {
+        $(buttons).find('#hypothesis_existing_confirmation').attr('href', '/confirm-' + type + '/create?id=' + id + '&existDesc=true');
+        $(buttons).find('#confirmation_research_require').attr('href', '/confirm-' + type + '/create?id=' + id);
+        $(modal).modal('show');
+    }
 
     e.preventDefault();
     return false;

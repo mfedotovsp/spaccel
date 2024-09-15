@@ -27,7 +27,7 @@ use yii\helpers\Html;
         <div class="left_part_header">Наименование этапа</div>
 
         <div class="right_part_header">
-            
+
             <div class="right_part_header_top">Результаты проведенных тестов</div>
 
             <div class="right_part_header_bottom">
@@ -94,7 +94,7 @@ use yii\helpers\Html;
 
             <div class="column_stage_confirm"><?= $confirmSegment->getCountPositive() ?></div>
 
-            <div class="column_stage_confirm"><?= $confirmSegment->getCountConfirmMembers() ?></div>
+            <div class="column_stage_confirm"><?= $confirmSegment->isExistDesc() ? 1 : $confirmSegment->getCountConfirmMembers() ?></div>
 
             <div class="column_stage_confirm"><?= ($confirmSegment->getCountDescInterviewsOfModel() - $confirmSegment->getCountConfirmMembers()) ?></div>
 
@@ -236,7 +236,7 @@ use yii\helpers\Html;
 
                 <div class="column_stage_confirm"><?= $confirmProblem->getCountPositive() ?></div>
 
-                <div class="column_stage_confirm"><?= $confirmProblem->getCountConfirmMembers() ?></div>
+                <div class="column_stage_confirm"><?= $confirmProblem->isExistDesc() ? 1 : $confirmProblem->getCountConfirmMembers() ?></div>
 
                 <div class="column_stage_confirm"><?= ($confirmProblem->getCountDescInterviewsOfModel() - $confirmProblem->getCountConfirmMembers()) ?></div>
 
@@ -389,7 +389,7 @@ use yii\helpers\Html;
 
                         <div class="column_stage_confirm"><?= $confirmGcp->getCountPositive() ?></div>
 
-                        <div class="column_stage_confirm"><?= $confirmGcp->getCountConfirmMembers() ?></div>
+                        <div class="column_stage_confirm"><?= $confirmGcp ->isExistDesc() ? 1 : $confirmGcp->getCountConfirmMembers() ?></div>
 
                         <div class="column_stage_confirm"><?= ($confirmGcp->getCountDescInterviewsOfModel() - $confirmGcp->getCountConfirmMembers()) ?></div>
 
@@ -541,7 +541,7 @@ use yii\helpers\Html;
 
                             <div class="column_stage_confirm"><?= $confirmMvp->getCountPositive() ?></div>
 
-                            <div class="column_stage_confirm"><?= $confirmMvp->getCountConfirmMembers() ?></div>
+                            <div class="column_stage_confirm"><?= $confirmMvp->isExistDesc() ? 1 : $confirmMvp->getCountConfirmMembers() ?></div>
 
                             <div class="column_stage_confirm"><?= ($confirmMvp->getCountDescInterviewsOfModel() - $confirmMvp->getCountConfirmMembers()) ?></div>
 

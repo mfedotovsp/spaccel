@@ -350,6 +350,45 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/imag
 
     <!--All-information Confirm end-->
 
+    <!--Choosing a confirmation option begin-->
+
+    <?php // Модальное окно - Выбор варианта подтверждения
+    Modal::begin([
+        'options' => [
+            'id' => 'choosing_confirmation_option_modal',
+            'class' => 'choosing_confirmation_option_modal'
+        ],
+        'size' => 'modal-lg',
+        'header' => '<h3 class="text-center">Выберите вариант подтверждения</h3>'
+    ]); ?>
+
+        <div class="modal-main-content">
+            <div class="modal-info-content">
+                <div class="bolder pt-10">Подтверждение в наличии</div>
+                <div>1. Используется для учебных целей - выполнение практических занятий, упрощенное подтверждение. Для учебных целей информация может быть задана.</div>
+                <div>2. Используется при наличии (заранее полученные маркетинговые знания от экспертов рынка) подтвержденных знаний
+                в виде файлов с аналитической информацией. Она может быть передана от предприятия или от эксперта.</div>
+                <div class="bolder pt-10">Требуются исследования</div>
+                <div>Применяется предпринимателями, когда информации о рынке мало и нет информации о подтвержденных целевых сегментах.</div>
+            </div>
+
+            <div class="modal-buttons">
+                <?= Html::a('Подтверждение в наличии', ['#'],[
+                    'id' => 'hypothesis_existing_confirmation',
+                    'class' => 'btn btn-success mr-10',
+                ]).
+
+                Html::a('Требуются исследования', ['#'],[
+                    'id' => 'confirmation_research_require',
+                    'class' => 'btn btn-success',
+                ]) ?>
+            </div>
+        </div>
+
+    <?php Modal::end(); ?>
+
+    <!--Choosing a confirmation option end-->
+
 
 <?php $this->endBody() ?>
 </body>

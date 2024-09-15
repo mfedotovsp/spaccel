@@ -185,7 +185,7 @@ class Segments extends ActiveRecord
     {
         return $this->getContractorId() ? User::findOne($this->getContractorId()) : null;
     }
-    
+
 
     /**
      * {@inheritdoc}
@@ -1000,5 +1000,13 @@ class Segments extends ActiveRecord
     public function setTaskId(int $task_id): void
     {
         $this->task_id = $task_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameOfClass(): string
+    {
+        return static::class;
     }
 }

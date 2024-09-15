@@ -22,12 +22,15 @@ use yii\db\StaleObjectException;
  * @property string $enable_expertise                   Параметр разрешения на экспертизу по даному этапу
  * @property int|null $enable_expertise_at              Дата разрешения на экспертизу по даному этапу
  * @property int|null $deleted_at                       Дата удаления
+ * @property boolean $exist_desc                        Флаг наличия описания подтверждения (учебный вариант)
  *
  * @property Mvps $mvp                                  Mvp-продукт
  * @property RespondsMvp[] $responds                    Респонденты, привязанные к подтверждению
  * @property BusinessModel $business                    Бизнес-модель
  * @property QuestionsConfirmMvp[] $questions           Вопросы, привязанные к подтверждению
  * @property Mvps $hypothesis                           Гипотеза, к которой относится подтверждение
+ *
+ * @property ConfirmDescription|null $confirmDescription                   Описание подтверждения для учебного варианта
  */
 class ConfirmMvp extends ActiveRecord implements ConfirmationInterface
 {
@@ -126,6 +129,21 @@ class ConfirmMvp extends ActiveRecord implements ConfirmationInterface
 
 
     /**
+     * Получить описание подтверждения
+     * для учебного варианта
+     *
+     * @return ActiveRecord|null
+     */
+    public function getConfirmDescription(): ?ActiveRecord
+    {
+        return ConfirmDescription::find()
+            ->andWhere(['confirm_id' => $this->getId()])
+            ->andWhere(['type' => StageExpertise::CONFIRM_MVP])
+            ->one() ?: null;
+    }
+
+
+    /**
      * {@inheritdoc}
      */
     public function rules(): array
@@ -141,6 +159,8 @@ class ConfirmMvp extends ActiveRecord implements ConfirmationInterface
                 EnableExpertise::OFF,
                 EnableExpertise::ON,
             ]],
+            ['exist_desc', 'default', 'value' => false],
+            ['enable_expertise', 'boolean'],
         ];
     }
 
@@ -458,5 +478,21 @@ class ConfirmMvp extends ActiveRecord implements ConfirmationInterface
     public function setDeletedAt(int $deleted_at): void
     {
         $this->deleted_at = $deleted_at;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExistDesc(): bool
+    {
+        return $this->exist_desc;
+    }
+
+    /**
+     * @param bool $exist_desc
+     */
+    public function setExistDesc(bool $exist_desc): void
+    {
+        $this->exist_desc = $exist_desc;
     }
 }

@@ -37,7 +37,7 @@ $this->title = 'Протокол проекта';
                 $confirmSegment = ConfirmSegment::find(false)
                     ->andWhere(['segment_id' => $segment->getId()])
                     ->one();
-                
+
                 if($confirmSegment) : ?>
 
                     <?php if ($segment->getExistConfirm() === StatusConfirmHypothesis::COMPLETED) : ?>
@@ -95,7 +95,7 @@ $this->title = 'Протокол проекта';
                         <div class="col-xs-12 report-mobile-value-columns">
                             <div><?= $confirmSegment->getCountRespond() ?></div>
                             <div><?= $confirmSegment->getCountPositive() ?></div>
-                            <div><?= $confirmSegment->getCountConfirmMembers() ?></div>
+                            <div><?= $confirmSegment->isExistDesc() ? 1 : $confirmSegment->getCountConfirmMembers() ?></div>
                             <div><?= ($confirmSegment->getCountDescInterviewsOfModel() - $confirmSegment->getCountConfirmMembers()) ?></div>
                             <div><?= ($confirmSegment->getCountRespond() - $confirmSegment->getCountDescInterviewsOfModel()) ?></div>
                         </div>
@@ -143,7 +143,7 @@ $this->title = 'Протокол проекта';
                 $problems = Problems::find(false)
                     ->andWhere(['segment_id' => $segment->getId()])
                     ->all();
-                
+
                 foreach ($problems as $problem) : ?>
 
                     <!--Если у проблемы существует подтверждение-->
@@ -152,7 +152,7 @@ $this->title = 'Протокол проекта';
                     $confirmProblem = ConfirmProblem::find(false)
                         ->andWhere(['problem_id' => $problem->getId()])
                         ->one();
-                    
+
                     if($confirmProblem) : ?>
 
                         <?php if ($problem->getExistConfirm() === StatusConfirmHypothesis::COMPLETED) : ?>
@@ -201,7 +201,7 @@ $this->title = 'Протокол проекта';
                             <div class="col-xs-12 report-mobile-value-columns">
                                 <div><?= $confirmProblem->getCountRespond() ?></div>
                                 <div><?= $confirmProblem->getCountPositive() ?></div>
-                                <div><?= $confirmProblem->getCountConfirmMembers() ?></div>
+                                <div><?= $confirmProblem->isExistDesc() ? 1 : $confirmProblem->getCountConfirmMembers() ?></div>
                                 <div><?= ($confirmProblem->getCountDescInterviewsOfModel() - $confirmProblem->getCountConfirmMembers()) ?></div>
                                 <div><?= ($confirmProblem->getCountRespond() - $confirmProblem->getCountDescInterviewsOfModel()) ?></div>
                             </div>
@@ -246,7 +246,7 @@ $this->title = 'Протокол проекта';
                     $gcps = Gcps::find(false)
                         ->andWhere(['problem_id' => $problem->getId()])
                         ->all();
-                    
+
                     foreach ($gcps as $gcp) : ?>
 
                         <!--Если у ЦП существует подтверждение-->
@@ -255,7 +255,7 @@ $this->title = 'Протокол проекта';
                         $confirmGcp = ConfirmGcp::find(false)
                             ->andWhere(['gcp_id' => $gcp->getId()])
                             ->one();
-                        
+
                         if($confirmGcp) : ?>
 
                             <?php if ($gcp->getExistConfirm() === StatusConfirmHypothesis::COMPLETED) : ?>
@@ -304,7 +304,7 @@ $this->title = 'Протокол проекта';
                                 <div class="col-xs-12 report-mobile-value-columns">
                                     <div><?= $confirmGcp->getCountRespond() ?></div>
                                     <div><?= $confirmGcp->getCountPositive() ?></div>
-                                    <div><?= $confirmGcp->getCountConfirmMembers() ?></div>
+                                    <div><?= $confirmGcp->isExistDesc() ? 1 : $confirmGcp->getCountConfirmMembers() ?></div>
                                     <div><?= ($confirmGcp->getCountDescInterviewsOfModel() - $confirmGcp->getCountConfirmMembers()) ?></div>
                                     <div><?= ($confirmGcp->getCountRespond() - $confirmGcp->getCountDescInterviewsOfModel()) ?></div>
                                 </div>
@@ -349,7 +349,7 @@ $this->title = 'Протокол проекта';
                         $mvps = Mvps::find(false)
                             ->andWhere(['gcp_id' => $gcp->getId()])
                             ->all();
-                        
+
                         foreach ($mvps as $mvp) : ?>
 
                             <!--Если у MVP существует подтверждение-->
@@ -358,7 +358,7 @@ $this->title = 'Протокол проекта';
                             $confirmMvp = ConfirmMvp::find(false)
                                 ->andWhere(['mvp_id' => $mvp->getId()])
                                 ->one();
-                            
+
                             if($confirmMvp) : ?>
 
                                 <?php if ($mvp->getExistConfirm() === StatusConfirmHypothesis::COMPLETED) : ?>
@@ -430,7 +430,7 @@ $this->title = 'Протокол проекта';
                                     <div class="col-xs-12 report-mobile-value-columns">
                                         <div><?= $confirmMvp->getCountRespond() ?></div>
                                         <div><?= $confirmMvp->getCountPositive() ?></div>
-                                        <div><?= $confirmMvp->getCountConfirmMembers() ?></div>
+                                        <div><?= $confirmMvp->isExistDesc() ? 1 : $confirmMvp->getCountConfirmMembers() ?></div>
                                         <div><?= ($confirmMvp->getCountDescInterviewsOfModel() - $confirmMvp->getCountConfirmMembers()) ?></div>
                                         <div><?= ($confirmMvp->getCountRespond() - $confirmMvp->getCountDescInterviewsOfModel()) ?></div>
                                     </div>

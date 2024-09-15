@@ -25,12 +25,16 @@ use yii\db\StaleObjectException;
  * @property string $enable_expertise               Параметр разрешения на экспертизу по даному этапу
  * @property int|null $enable_expertise_at          Дата разрешения на экспертизу по даному этапу
  * @property int|null $deleted_at                   Дата удаления
+ * @property boolean $exist_desc                    Флаг наличия описания подтверждения (учебный вариант)
  *
  * @property Segments $segment                      Сегмент
  * @property QuestionsConfirmSegment[] $questions   Вопросы, привязанные к подтверждению
  * @property RespondsSegment[] $responds            Респонденты, привязанные к подтверждению
  * @property Problems[] $problems                   Проблемы
  * @property Segments $hypothesis                   Гипотеза, к которой относится подтверждение
+ *
+ * @property ConfirmDescription|null $confirmDescription                    Описание подтверждения для учебного варианта
+ * @property ProblemVariant[] $problemVariants                              Возможные проблемы в описании подтверждения для учебного варианта
  */
 class ConfirmSegment extends ActiveRecord implements ConfirmationInterface
 {
@@ -136,6 +140,32 @@ class ConfirmSegment extends ActiveRecord implements ConfirmationInterface
         return $this->hasOne(Segments::class, ['id' => 'segment_id']);
     }
 
+    /**
+     * Получить описание подтверждения
+     * для учебного варианта
+     *
+     * @return ActiveRecord|null
+     */
+    public function getConfirmDescription(): ?ActiveRecord
+    {
+       return ConfirmDescription::find()
+            ->andWhere(['confirm_id' => $this->getId()])
+            ->andWhere(['type' => StageExpertise::CONFIRM_SEGMENT])
+            ->one() ?: null;
+    }
+
+
+    /**
+     * Получить возможные проблемы в описании
+     * подтверждения для учебного варианта
+     *
+     * @return ActiveQuery
+     */
+    public function getProblemVariants(): ActiveQuery
+    {
+        return $this->hasMany(ProblemVariant::class, ['confirm_id' => 'id']);
+    }
+
 
     /**
      * {@inheritdoc}
@@ -154,6 +184,8 @@ class ConfirmSegment extends ActiveRecord implements ConfirmationInterface
                 EnableExpertise::OFF,
                 EnableExpertise::ON,
             ]],
+            ['exist_desc', 'default', 'value' => false],
+            ['enable_expertise', 'boolean'],
         ];
     }
 
@@ -528,6 +560,22 @@ class ConfirmSegment extends ActiveRecord implements ConfirmationInterface
     public function setDeletedAt(int $deleted_at): void
     {
         $this->deleted_at = $deleted_at;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExistDesc(): bool
+    {
+        return $this->exist_desc;
+    }
+
+    /**
+     * @param bool $exist_desc
+     */
+    public function setExistDesc(bool $exist_desc): void
+    {
+        $this->exist_desc = $exist_desc;
     }
 
 }
