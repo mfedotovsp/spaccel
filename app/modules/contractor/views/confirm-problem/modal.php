@@ -226,7 +226,7 @@ Modal::begin([
 Modal::begin([
     'options' => ['id' => 'productCreate_modal'],
     'size' => 'modal-lg',
-    'header' => 'Добавить продукт',
+    'header' => 'Потребительские характеристики продукта-аналога',
     'headerOptions' => ['class' => 'header_hypothesis_modal']
 ]); ?>
 
