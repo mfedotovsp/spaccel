@@ -220,7 +220,7 @@ $this->registerCssFile('@web/css/confirm-segment-task-marketing.css');
             <div class="row row_products_header_data">
 
                 <div class="col-md-9" style="padding: 5px 0 0 0;">
-                    <?= Html::a('Отчет по продуктам' . Html::img('/images/icons/icon_report_next.png'), ['#'],[
+                    <?= Html::a('Отчет «Потребительские характеристики аналогов»' . Html::img('/images/icons/icon_report_next.png'), ['#'],[
                         'class' => 'link_to_instruction_page open_modal_instruction_page_marketing',
                         'title' => 'Инструкция', 'onclick' => 'return false'
                     ]) ?>
@@ -233,7 +233,7 @@ $this->registerCssFile('@web/css/confirm-segment-task-marketing.css');
 
                 <div class="col-md-3" style="padding: 0;">
                     <?php if (User::isUserContractor(Yii::$app->user->identity['username']) && $segment->getExistConfirm() === StatusConfirmHypothesis::MISSING_OR_INCOMPLETE && in_array($task->getStatus(), [ContractorTasks::TASK_STATUS_NEW, ContractorTasks::TASK_STATUS_PROCESS, ContractorTasks::TASK_STATUS_RETURNED], true)) : ?>
-                        <?=  Html::a( '<div style="display:flex; align-items: center; padding: 5px 0;"><div>' . Html::img(['@web/images/icons/add_vector.png'], ['style' => ['width' => '35px']]) . '</div><div style="padding-left: 20px;">Добавить продукт</div></div>', [
+                        <?=  Html::a( '<div style="display:flex; align-items: center; padding: 5px 0;"><div>' . Html::img(['@web/images/icons/add_vector.png'], ['style' => ['width' => '35px']]) . '</div><div style="padding-left: 20px;">Добавить аналог</div></div>', [
                             '/contractor/products/get-data-create-form', 'taskId' => $task->getId()],
                             ['id' => 'showProductCreateForm', 'class' => 'link_add_respond_text pull-right']
                         ) ?>
